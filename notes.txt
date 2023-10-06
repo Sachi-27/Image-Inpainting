@@ -14,3 +14,8 @@ Inpainted images have to be visually as well as semantically consistent
 1. U Net like Autoencoder
 Uses Max Pooling and Transpose layers in the encoder and decoder respectively
 https://towardsdatascience.com/understand-transposed-convolutions-and-build-your-own-transposed-convolution-layer-from-scratch-4f5d97b2967
+
+
+https://arxiv.org/abs/1801.07892 : Jiahui Yu : Contextual Attention
+https://github.com/JiahuiYu/generative_inpainting
+https://browse.arxiv.org/pdf/1806.03589.pdf : Gated Convolution
