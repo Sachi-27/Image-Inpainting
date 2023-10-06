@@ -9,7 +9,7 @@ import cv2
 # Inpainting using Telea's algorithm or the fast marching method
 if __name__ == "__main__":
     # GENERATING INPUT and MASK
-    orig_img = cv2.imread("images/dog.jpg")
+    orig_img = cv2.imread("datasets/masked_images/0a0b13d222.jpg")
     
     # Resize image to 256x256
     orig_img = cv2.resize(orig_img, (256, 256))
