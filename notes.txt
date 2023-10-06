@@ -1,0 +1,11 @@
+## Deep Learning for Image Inpainting
+
+Benchmark:
+https://learnopencv.com/image-inpainting-with-opencv-c-python/
+Classical Inpainting methods: NS method and TELEA method
+
+:: What metric to measure inpainting?
+
+Discussion on transition from Classical to DL methods for Image Inpainting:
+https://wandb.ai/ayush-thakur/image-impainting/reports/Introduction-to-Image-Inpainting-with-Deep-Learning--Vmlldzo3NDIwNA
+Inpainted images have to be visually as well as semantically consistent
