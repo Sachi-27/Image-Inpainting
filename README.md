@@ -1,2 +1,2 @@
-# S2ST
+# Image Inpainting
 AI-ML Group Project
