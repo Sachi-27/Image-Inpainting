@@ -5,7 +5,12 @@ https://learnopencv.com/image-inpainting-with-opencv-c-python/
 Classical Inpainting methods: NS method and TELEA method
 
 :: What metric to measure inpainting?
+Dice Score or IoU
 
 Discussion on transition from Classical to DL methods for Image Inpainting:
 https://wandb.ai/ayush-thakur/image-impainting/reports/Introduction-to-Image-Inpainting-with-Deep-Learning--Vmlldzo3NDIwNA
+https://github.com/ayulockin/deepimageinpainting/blob/master/Image_Inpainting_Autoencoder_decoder_approach.ipynb
 Inpainted images have to be visually as well as semantically consistent
+1. U Net like Autoencoder
+Uses Max Pooling and Transpose layers in the encoder and decoder respectively
+https://towardsdatascience.com/understand-transposed-convolutions-and-build-your-own-transposed-convolution-layer-from-scratch-4f5d97b2967
