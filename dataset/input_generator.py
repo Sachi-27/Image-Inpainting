@@ -1,7 +1,17 @@
 import os, cv2, random
+import pyttsx3
 
-def generate_input_image(img):
+# Generates input image which is a square bob at center of image with 1/4 size
+def generate_input_image1(ing):
+    img_size = img.shape[0]
+    x1=y1=int(img_size/4)
+    x2=y2=int(img_size*3/4)
+    img[x1:x2, y1:y2] = (255, 255, 255)
+    return img
 
+
+# Generates input image which is randomly generated lines and spots
+def generate_input_image2(img):
     # SIRF algorithm to detect key points in the image
     features = cv2.SIFT_create()
     keypoints = features.detect(img, None)
@@ -46,6 +56,7 @@ if __name__ == "__main__":
     image_dir = "../animals/animals"
     output_dir = "../animals/input_animals"
     # If output directory does not exist, create it
+    engine = pyttsx3.init()
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     for subdir in os.listdir(image_dir):
@@ -56,8 +67,12 @@ if __name__ == "__main__":
             img = cv2.imread(os.path.join(image_dir, subdir, image))
             shape = img.shape
             img = cv2.resize(img, (256, 256))
-            output = generate_input_image(img)
+            output = generate_input_image1(img)
             # reshape to original size
             output = cv2.resize(output, (shape[1], shape[0]))
             cv2.imwrite(os.path.join(output_dir, subdir, image), output)
         print("Done with", subdir)
+        # AUDIO MESSAGES
+        engine.say("Done with "+subdir)
+        engine.runAndWait()
+        
