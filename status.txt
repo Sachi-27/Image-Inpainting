@@ -1,5 +1,22 @@
 ## Deep Learning for Image Inpainting
 
+--------------------------------------------------------------------
+Model 1:
+> Simple Baseline based on Context Encoder
+Autoencoder - input NxN sized image - output NxN sized image - choose N = 64 or 128
+Training simply on reconstruction loss
+Input Images - Animal dataset - used will be randomly holed based on generate_image_2 in dataset/input_generator.py
+Code shall handle memory concerns
+
+Progress:
+
+---------------------------------------------------------------
+
+
+
+
+
+
 Benchmark:
 https://learnopencv.com/image-inpainting-with-opencv-c-python/
 Classical Inpainting methods: NS method and TELEA method
@@ -11,7 +28,7 @@ Discussion on transition from Classical to DL methods for Image Inpainting:
 https://wandb.ai/ayush-thakur/image-impainting/reports/Introduction-to-Image-Inpainting-with-Deep-Learning--Vmlldzo3NDIwNA
 https://github.com/ayulockin/deepimageinpainting/blob/master/Image_Inpainting_Autoencoder_decoder_approach.ipynb
 Inpainted images have to be visually as well as semantically consistent
-1. U Net like Autoencoder
+
 Uses Max Pooling and Transpose layers in the encoder and decoder respectively
 https://towardsdatascience.com/understand-transposed-convolutions-and-build-your-own-transposed-convolution-layer-from-scratch-4f5d97b2967
 
@@ -19,3 +36,4 @@ https://towardsdatascience.com/understand-transposed-convolutions-and-build-your
 https://arxiv.org/abs/1801.07892 : Jiahui Yu : Contextual Attention
 https://github.com/JiahuiYu/generative_inpainting
 https://browse.arxiv.org/pdf/1806.03589.pdf : Gated Convolution
+

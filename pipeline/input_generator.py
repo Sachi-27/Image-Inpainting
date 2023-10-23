@@ -13,6 +13,7 @@ def generate_input_image1(ing):
 # Generates input image which is randomly generated lines and spots
 def generate_input_image2(img):
     # SIRF algorithm to detect key points in the image
+    print(img.shape)
     features = cv2.SIFT_create()
     keypoints = features.detect(img, None)
     # Choose top 50 and bottom 50 keypoints
@@ -57,6 +58,12 @@ if __name__ == "__main__":
     output_dir = "../animals/input_animals"
     # If output directory does not exist, create it
     engine = pyttsx3.init()
+
+    # AUDIO MESSAGES
+    engine.say("Rom Rom Bhaaiyo")
+    engine.runAndWait()
+
+
     if not os.path.exists(output_dir):
         os.makedirs(output_dir)
     for subdir in os.listdir(image_dir):
@@ -67,12 +74,18 @@ if __name__ == "__main__":
             img = cv2.imread(os.path.join(image_dir, subdir, image))
             shape = img.shape
             img = cv2.resize(img, (256, 256))
-            output = generate_input_image1(img)
+            output = generate_input_image2(img)
             # reshape to original size
             output = cv2.resize(output, (shape[1], shape[0]))
             cv2.imwrite(os.path.join(output_dir, subdir, image), output)
         print("Done with", subdir)
         # AUDIO MESSAGES
         engine.say("Done with "+subdir)
+        engine.runAndWait()
+    
+    for i in range(3):
+        print("Jai Shree Raam")
+        # AUDIO MESSAGES
+        engine.say("Jai Shree Raam")
         engine.runAndWait()
         
