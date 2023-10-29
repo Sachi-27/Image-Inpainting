@@ -60,7 +60,7 @@ if __name__ == "__main__":
     engine = pyttsx3.init()
 
     # AUDIO MESSAGES
-    engine.say("Rom Rom Bhaaiyo")
+    engine.say("Generation starts")
     engine.runAndWait()
 
 
@@ -84,8 +84,8 @@ if __name__ == "__main__":
         engine.runAndWait()
     
     for i in range(3):
-        print("Jai Shree Raam")
+        print("Generation Completed")
         # AUDIO MESSAGES
-        engine.say("Jai Shree Raam")
+        engine.say("Generation Completed")
         engine.runAndWait()
         
