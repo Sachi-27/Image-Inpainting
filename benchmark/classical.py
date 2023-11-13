@@ -1,46 +1,102 @@
 # Inpainting using classical methods
 import numpy as np
 import cv2
+import os
+import torch
+import torch.nn as nn
+from utils.losses import psnr
 
 # Inpainting using Navier-Stokes algorithm
 # https://docs.opencv.org/3.4/df/d3d/tutorial_py_inpainting.html
 # https://docs.opencv.org/3.4/d7/d8b/group__photo__inpaint.html#gaedd30dfa0214fec4c88138b51d678085
 
+
+def get_masked(orig_img, img_sz=(256, 256)):
+    img = orig_img.copy()
+    img[img_sz[0]//4:3*img_sz[0]//4, img_sz[1]//4:3*img_sz[1]//4, :] = 0
+    
+    mask = np.zeros(img_sz, dtype=np.uint8)
+    mask[img_sz[0]//4:3*img_sz[0]//4, img_sz[1]//4:3*img_sz[1]//4] = 255
+    
+    return img, mask
+
+
+def get_scores(dataset_path, save_path, img_sz, loss_fns=[nn.MSELoss()], method="telea", save=False):
+    
+    # extentions of the images
+    extentions = ["png", "jpg", "jpeg", "bmp"]
+    # list of scores
+    scores = [[] for _ in range(len(loss_fns))]
+    # counter for number of images
+    counter = 0
+
+    for entry in os.listdir(dataset_path):
+        # Full path to the image
+        full = os.path.join(dataset_path, entry)
+        # Name of the image
+        last = entry.split(".")[0]
+        ext = entry.split(".")[-1]
+
+        # Check if the file is an image
+        if ext not in extentions:
+            continue
+        
+        try:
+            # Original image
+            orig_img = cv2.imread(full)
+            # Resize the image
+            orig_img = cv2.resize(orig_img, img_sz)
+        except:
+            print("Error in resizing image: ", full)
+            continue
+        
+        if save:
+            cv2.imwrite(save_path + "/" + last + ".png", orig_img)
+        
+        # Masked image and mask
+        img, mask = get_masked(orig_img, img_sz)
+        if save:
+            cv2.imwrite(save_path + "/" + last + "_input.png", img)
+            cv2.imwrite(save_path + "/" + last + "_mask.png", mask)
+
+        # Inpaint using Navier-Stokes algorithm
+        if method == "ns":
+            out = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
+            if save:
+                cv2.imwrite(save_path + "/" + last + "_ns.png", out)
+        # Inpaint using Telea's algorithm
+        else:
+            out = cv2.inpaint(img, mask, 3, cv2.INPAINT_TELEA)
+            if save:
+                cv2.imwrite(save_path + "/" + last + "_telea.png", out)
+
+        # Calculate the score
+        for i, loss_fn in enumerate(loss_fns):
+            score = loss_fn(torch.from_numpy(orig_img).float(), torch.from_numpy(out).float())
+            scores[i].append(score)
+
+        counter += 1
+        if counter % 100 == 0:
+            print("Done with ", counter, " images for method: ", method, " and loss: ", loss_fn.__class__.__name__)
+
+    return scores
+
+
 # Inpainting using Telea's algorithm or the fast marching method
 if __name__ == "__main__":
-    # GENERATING INPUT and MASK
-    orig_img = cv2.imread("datasets/masked_images/0a0b13d222.jpg")
-    
-    # Resize image to 256x256
-    orig_img = cv2.resize(orig_img, (256, 256))
-    # save the image
-    cv2.imwrite("images/dog.jpg", orig_img)
+    # path to dataset
+    dataset_path = "./animals"
+    # path to save the inpainted images
+    save_path = "./images"
 
-    # We shall now add a small rectangles in the image with a mask of 255
-    # This will be the region we shall inpaint
-    img = orig_img.copy()
-    img[50:70, 50:70, :] = 0
-    img[100:130, 100:130, :] = 0
-    img[150:170, 180:210, :] = 0
-    img[80:100, 150:180, :] = 0
-    cv2.imwrite("images/dog_input.jpg", img)
+    # get scores
+    scores_telea = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="telea")
+    scores_ns = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="ns")
 
-    # Also create the mask with same size 
-    mask = np.zeros((256, 256), dtype=np.uint8)
-    mask[50:70, 50:70] = 255
-    mask[100:130, 100:130] = 255
-    mask[150:170, 180:210] = 255
-    mask[80:100, 150:180] = 255
-    cv2.imwrite("images/dog_mask.jpg", mask)
-
-    # Inpaint
-    img = cv2.imread("images/dog_input.jpg")
-    mask = cv2.imread("images/dog_mask.jpg", 0)
-
-    # Inpaint using Navier-Stokes algorithm
-    out_ns = cv2.inpaint(img, mask, 3, cv2.INPAINT_NS)
-    cv2.imwrite("images/dog_ns.jpg", out_ns)
-
-    # Inpaint using Telea's algorithm
-    out_telea = cv2.inpaint(img, mask, 3, cv2.INPAINT_TELEA)
-    cv2.imwrite("images/dog_telea.jpg", out_telea)
+    # get the average score
+    print("Average MSE score for Telea's algorithm: ", np.mean(scores_telea[0]))
+    print("Average MSE score for Navier-Stokes algorithm: ", np.mean(scores_ns[0]))
+    print("Average L1 score for Telea's algorithm: ", np.mean(scores_telea[1]))
+    print("Average L1 score for Navier-Stokes algorithm: ", np.mean(scores_ns[1]))
+    print("Average PSNR score for Telea's algorithm: ", np.mean(scores_telea[2]))
+    print("Average PSNR score for Navier-Stokes algorithm: ", np.mean(scores_ns[2]))
