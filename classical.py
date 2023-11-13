@@ -4,7 +4,7 @@ import cv2
 import os
 import torch
 import torch.nn as nn
-from utils.losses import psnr
+from utils.losses import psnr, fid
 
 # Inpainting using Navier-Stokes algorithm
 # https://docs.opencv.org/3.4/df/d3d/tutorial_py_inpainting.html
@@ -85,18 +85,26 @@ def get_scores(dataset_path, save_path, img_sz, loss_fns=[nn.MSELoss()], method=
 # Inpainting using Telea's algorithm or the fast marching method
 if __name__ == "__main__":
     # path to dataset
-    dataset_path = "./animals"
+    dataset_path = "./benchmark/animals"
     # path to save the inpainted images
     save_path = "./images"
 
     # get scores
-    scores_telea = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="telea")
-    scores_ns = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="ns")
+    # scores_telea = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="telea")
+    # scores_ns = get_scores(dataset_path, save_path, (128, 128), loss_fns=[nn.MSELoss(), nn.L1Loss(), psnr], method="ns")
+
+    # # get the average score
+    # print("Average MSE score for Telea's algorithm: ", np.mean(scores_telea[0]))
+    # print("Average MSE score for Navier-Stokes algorithm: ", np.mean(scores_ns[0]))
+    # print("Average L1 score for Telea's algorithm: ", np.mean(scores_telea[1]))
+    # print("Average L1 score for Navier-Stokes algorithm: ", np.mean(scores_ns[1]))
+    # print("Average PSNR score for Telea's algorithm: ", np.mean(scores_telea[2]))
+    # print("Average PSNR score for Navier-Stokes algorithm: ", np.mean(scores_ns[2]))
+
+    scores_telea = get_scores(dataset_path, save_path, (128, 128), loss_fns=[fid], method="telea", save=True)
+    scores_ns = get_scores(dataset_path, save_path, (128, 128), loss_fns=[fid], method="ns", save=True)
 
     # get the average score
-    print("Average MSE score for Telea's algorithm: ", np.mean(scores_telea[0]))
-    print("Average MSE score for Navier-Stokes algorithm: ", np.mean(scores_ns[0]))
-    print("Average L1 score for Telea's algorithm: ", np.mean(scores_telea[1]))
-    print("Average L1 score for Navier-Stokes algorithm: ", np.mean(scores_ns[1]))
-    print("Average PSNR score for Telea's algorithm: ", np.mean(scores_telea[2]))
-    print("Average PSNR score for Navier-Stokes algorithm: ", np.mean(scores_ns[2]))
+    print("Average FID score for Telea's algorithm: ", np.mean(scores_telea[0]))
+    print("Average FID score for Navier-Stokes algorithm: ", np.mean(scores_ns[0]))
+
