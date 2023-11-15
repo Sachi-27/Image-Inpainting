@@ -9,6 +9,25 @@ from skimage.transform import resize
 from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
 from torchmetrics.image import TotalVariation
 
+#######################################################################
+# All the loss functions are defined here
+# Any loss function has the following signature:
+# Input:
+#   orig_imgs: list of original images (python list of numpy arrays)
+#   out_imgs: list of inpainted images (python list of numpy arrays)
+#   img_sz: size of the images (tuple of integers)
+# Output:
+#   score: score of the inpainted images (float)
+#
+# The following loss functions are defined:
+#   mse: Mean Squared Error
+#   l1: Mean Absolute Error
+#   psnr: Peak Signal to Noise Ratio
+#   fid: Fréchet Inception Distance
+#   lpips: Learned Perceptual Image Patch Similarity
+#   tv: Total Variation
+#######################################################################
+
 # Set seed for reproducibility
 def set_seed():
     torch.manual_seed(123)
