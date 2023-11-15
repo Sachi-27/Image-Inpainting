@@ -7,33 +7,68 @@ from keras.applications.inception_v3 import preprocess_input
 from keras.datasets.mnist import load_data
 from skimage.transform import resize
 from torchmetrics.image.lpip import LearnedPerceptualImagePatchSimilarity
+from torchmetrics.image import TotalVariation
 
+# Set seed for reproducibility
 def set_seed():
     torch.manual_seed(123)
-    np.radom.seed(42)
+    np.random.seed(42)
 
-
-def psnr(img1, img2):
+# Mean Squared Error
+def mse(orig_imgs, out_imgs, img_sz=(256, 256)):
     set_seed()
-    mse = nn.MSELoss()(img1, img2)
-    if mse == 0:
-        print("MSE is 0")
-        return 100
-    # max pixel value
-    PIXEL_MAX = np.max(img1.numpy())
-    return 20 * np.log10(PIXEL_MAX / np.sqrt(mse))
+    scores = []
+    for orig_img, out in zip(orig_imgs, out_imgs):
+        # Mean Squared Error
+        mse = nn.MSELoss()(torch.from_numpy(out).float(), torch.from_numpy(orig_img).float())
+        scores.append(mse.item())
+    return np.mean(scores)
+
+# Mean Absolute Error
+def l1(orig_imgs, out_imgs, img_sz=(256, 256)):
+    set_seed()
+    scores = []
+    for orig_img, out in zip(orig_imgs, out_imgs):
+        # Mean Squared Error
+        l1 = nn.L1Loss()(torch.from_numpy(out).float(), torch.from_numpy(orig_img).float())
+        scores.append(l1.item())
+    return np.mean(scores)
+
+# Peak Signal to Noise Ratio
+def psnr(orig_imgs, out_imgs, img_sz=(256, 256)):
+    set_seed()
+    scores = []
+    for orig_img, out in zip(orig_imgs, out_imgs):
+        # Mean Squared Error
+        mse = nn.MSELoss()(torch.from_numpy(out).float(), torch.from_numpy(orig_img).float())
+        if mse == 0:
+            print("MSE is 0")
+            scores.append(100)
+        # max pixel value
+        PIXEL_MAX = np.max(orig_img)
+        scores.append(20 * np.log10(PIXEL_MAX / np.sqrt(mse)))
+    return np.mean(scores)
 
 
-
-
-# scale an array of images to a new size
-def scale_images(images, new_shape):
+# resize an array of images to a new size
+def resize_images(images, new_shape):
     set_seed()
     images_list = list()
     for image in images:
-    # resize with nearest neighbor interpolation
+        # resize with nearest neighbor interpolation
         new_image = resize(image, new_shape, 0)
         # store
+        images_list.append(new_image)
+    return np.asarray(images_list)
+
+
+# scale images to [0,1]
+def scale_images(images):
+    set_seed()
+    images_list = list()
+    for image in images:
+        new_image = image.astype('float32')
+        new_image = new_image / 255.0
         images_list.append(new_image)
     return np.asarray(images_list)
 
@@ -43,23 +78,19 @@ def scale_images(images, new_shape):
 # The FID score compares the statistics of feature representations (specifically, the activations in one of the intermediate layers) 
 # of real and generated images.
 # Reference: https://machinelearningmastery.com/how-to-implement-the-frechet-inception-distance-fid-from-scratch/#:~:text=The%20Frechet%20Inception%20Distance%20score,for%20real%20and%20generated%20images.
-
-def fid(output_imgs, gt_imgs):
+def fid(orig_imgs, out_imgs, img_sz=(256, 256)):
     set_seed()
 
     # Ensure input images1 and images2 are of shape (n_images, height, width, 3)
     
-    # Convert tensor to numpy
-    images1 = output_imgs.numpy()
-    images2 = gt_imgs.numpy()
     # prepare the inception v3 model
     model = InceptionV3(include_top=False, pooling='avg', input_shape=(299,299,3))
-    # Convert integer to float
-    images1 = images1.astype('float32')
-    images2 = images2.astype('float32')
+    # # Convert integer to float
+    # images1 = orig_imgs.astype('float32')
+    # images2 = out_imgs.astype('float32')
     # resize images
-    images1 = scale_images(images1, (299,299,3))
-    images2 = scale_images(images2, (299,299,3))
+    images1 = resize_images(orig_imgs, (299,299,3))
+    images2 = resize_images(out_imgs, (299,299,3))
     # pre-process images
     images1 = preprocess_input(images1)
     images2 = preprocess_input(images2)
@@ -87,7 +118,24 @@ def fid(output_imgs, gt_imgs):
 # A low LPIPS score means that image patches are perceptual similar.
 # Both input image patches are expected to have shape (N, 3, H, W). 
 # The minimum size of H, W depends on the chosen backbone (see net_type arg).
-def lpips(output_imgs, gt_imgs):
-    lpips = LearnedPerceptualImagePatchSimilarity(net_type='squeeze', reduction='mean')
-    return lpips(output_imgs, gt_imgs).item()
- 
+def lpips(orig_imgs, out_imgs, img_sz=(256, 256)):
+    set_seed()
+    images1 = resize_images(orig_imgs, (3, 128, 128))
+    images2 = resize_images(out_imgs, (3, 128, 128))
+    images1 = scale_images(images1)
+    images2 = scale_images(images2)
+    images1 = torch.from_numpy(images1).float()
+    images2 = torch.from_numpy(images2).float()
+    lpips = LearnedPerceptualImagePatchSimilarity(net_type='alex', reduction='mean', normalize=True)
+    return lpips(images1, images2).item()
+
+def tv(orig_imgs, out_imgs, img_sz=(256, 256)):
+    set_seed()
+    tv = TotalVariation(reduction="mean")
+    images1 = np.asarray(orig_imgs)
+    images1 = torch.from_numpy(images1).float()
+    images2 = np.asarray(out_imgs)
+    images2 = torch.from_numpy(images2).float()
+    score = (tv(images1) - tv(images2)) / (img_sz[0]*img_sz[1])
+    return score.item()
+
