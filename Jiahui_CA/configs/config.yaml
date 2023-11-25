@@ -3,7 +3,7 @@ dataset_name: animals
 data_with_subfolder: False
 train_data_path: ../animals_train
 val_data_path: ../animals_test
-resume: 50000
+resume: 0
 batch_size: 64
 image_shape: [256, 256, 3]
 mask_shape: [128, 128]
@@ -13,13 +13,13 @@ margin: [0, 0]
 discounted_mask: True
 spatial_discounting_gamma: 0.9
 random_crop: False
-mask_type: hole    # hole | mosaic
+mask_type: hole_ns    # hole | mosaic | hole_telea | hole_ns
 mosaic_unit_size: 12
 
 # training parameters
 expname: benchmark
 cuda: True
-gpu_ids: [0,1,2,3,4]    # set the GPU ids to use, e.g. [0] or [1, 2]
+gpu_ids: [1,2,3]    # set the GPU ids to use, e.g. [0] or [1, 2]
 num_workers: 5
 lr: 0.0001
 beta1: 0.5

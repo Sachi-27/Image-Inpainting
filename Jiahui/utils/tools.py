@@ -6,6 +6,8 @@ from PIL import Image
 
 import torch.nn.functional as F
 
+import cv2
+
 
 def pil_loader(path):
     # open path as file to avoid ResourceWarning (https://github.com/python-pillow/Pillow/issues/835)
@@ -169,6 +171,24 @@ def mask_image(x, bboxes, config):
         downsampled_image = F.interpolate(x, scale_factor=1. / mosaic_unit_size, mode='nearest')
         upsampled_image = F.interpolate(downsampled_image, size=(height, width), mode='nearest')
         result = upsampled_image * mask + x * (1. - mask)
+    elif config['mask_type'] == 'hole_telea':
+        result = x * (1. - mask)
+        for i in range(result.shape[0]):
+            npimg = np.transpose(result[i].numpy(), (1, 2, 0))
+            npmask = ((np.transpose(mask[i].numpy(), (1, 2, 0)))*255).astype(np.uint8)
+            inpainted_result = npimg.copy()
+            for channel in range(3): 
+                inpainted_result[:, :, channel] = cv2.inpaint(npimg[:, :, channel], npmask, inpaintRadius=3, flags=cv2.INPAINT_TELEA)
+            result[i] = torch.tensor(np.transpose(inpainted_result, (2, 0, 1)))
+    elif config['mask_type'] == 'hole_ns':
+        result = x * (1. - mask)
+        for i in range(result.shape[0]):
+            npimg = np.transpose(result[i].numpy(), (1, 2, 0))
+            npmask = ((np.transpose(mask[i].numpy(), (1, 2, 0)))*255).astype(np.uint8)
+            inpainted_result = npimg.copy()
+            for channel in range(3): 
+                inpainted_result[:, :, channel] = cv2.inpaint(npimg[:, :, channel], npmask, inpaintRadius=3, flags=cv2.INPAINT_NS)
+            result[i] = torch.tensor(np.transpose(inpainted_result, (2, 0, 1)))
     else:
         raise NotImplementedError('Not implemented mask type.')
 
