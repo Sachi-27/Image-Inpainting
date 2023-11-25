@@ -13,7 +13,7 @@ margin: [0, 0]
 discounted_mask: True
 spatial_discounting_gamma: 0.9
 random_crop: True
-mask_type: hole     # hole | mosaic
+mask_type: hole     # hole | mosaic | hole_telea | hole_ns
 mosaic_unit_size: 12
 
 # training parameters

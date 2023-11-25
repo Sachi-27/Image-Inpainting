@@ -1,7 +1,7 @@
 # data parameters
-dataset_name: imagenet
-data_with_subfolder: True
-train_data_path: /media/ouc/4T_B/DuAngAng/datasets/ImageNet/ILSVRC2012_img_train/
+dataset_name: animals
+data_with_subfolder: False
+train_data_path: 
 val_data_path:
 resume:
 batch_size: 48
@@ -13,13 +13,13 @@ margin: [0, 0]
 discounted_mask: True
 spatial_discounting_gamma: 0.9
 random_crop: True
-mask_type: hole     # hole | mosaic
+mask_type: hole     # hole | mosaic | hole_telea | hole_ns
 mosaic_unit_size: 12
 
 # training parameters
 expname: benchmark
 cuda: True
-gpu_ids: [0, 1, 2]    # set the GPU ids to use, e.g. [0] or [1, 2]
+gpu_ids: [4]    # set the GPU ids to use, e.g. [0] or [1, 2]
 num_workers: 4
 lr: 0.0001
 beta1: 0.5
@@ -40,9 +40,23 @@ wgan_gp_lambda: 10
 
 # network parameters
 netG:
+<<<<<<< HEAD
   input_dim: 5
+=======
+  input_dim: 3
+>>>>>>> 4a8194a805acf8b7da3bae2240b2bc360b664f3c
   ngf: 32
 
 netD:
   input_dim: 3
   ndf: 64
+<<<<<<< HEAD
+=======
+
+# test losses
+compute_loss: True
+test_loss: ['mse', 'l1', 'psnr', 'fid', 'lpips', 'tv']
+test_in_dir: ../filhaal/
+test_img_save: True
+test_out_dir: test_out
+>>>>>>> 4a8194a805acf8b7da3bae2240b2bc360b664f3c
