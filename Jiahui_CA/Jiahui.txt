@@ -1,0 +1,777 @@
+2023-11-17 12:42:39,809 INFO Arguments: Namespace(config='configs/config.yaml', seed=None)
+2023-11-17 12:42:39,809 INFO Random seed: 4963
+2023-11-17 12:42:39,809 INFO Configuration: {'dataset_name': 'animals', 'data_with_subfolder': False, 'train_data_path': '../animals_train', 'val_data_path': '../animals_test', 'resume': None, 'batch_size': 64, 'image_shape': [256, 256, 3], 'mask_shape': [128, 128], 'mask_batch_same': True, 'max_delta_shape': [32, 32], 'margin': [0, 0], 'discounted_mask': True, 'spatial_discounting_gamma': 0.9, 'random_crop': False, 'mask_type': 'hole', 'mosaic_unit_size': 12, 'expname': 'benchmark', 'cuda': True, 'gpu_ids': [0, 1, 2, 3], 'num_workers': 4, 'lr': 0.0001, 'beta1': 0.5, 'beta2': 0.9, 'n_critic': 5, 'niter': 50000, 'print_iter': 100, 'viz_iter': 1000, 'viz_max_out': 16, 'snapshot_save_iter': 1000, 'coarse_l1_alpha': 1.2, 'l1_loss_alpha': 1.2, 'ae_loss_alpha': 1.2, 'global_wgan_loss_alpha': 1.0, 'gan_loss_alpha': 0.001, 'wgan_gp_lambda': 10, 'netG': {'input_dim': 3, 'ngf': 32}, 'netD': {'input_dim': 3, 'ndf': 64}}
+2023-11-17 12:42:39,809 INFO Training on dataset: animals
+###################################################
+###################################################
+2023-11-17 12:42:43,713 INFO 
+Generator(
+  (coarse_generator): CoarseGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (conv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (fine_generator): FineGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (pmconv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (pmconv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 32, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (pmconv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (pmconv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (pmconv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (pmconv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ReLU(inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (contextul_attention): ContextualAttention()
+    (pmconv9): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (pmconv10): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(256, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (allconv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+)
+2023-11-17 12:42:43,713 INFO 
+LocalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=16384, out_features=1, bias=True)
+)
+2023-11-17 12:42:43,713 INFO 
+GlobalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=65536, out_features=1, bias=True)
+)
+###################################################
+2023-11-17 12:47:30,293 INFO Iter: [100/50000] l1: 0.096722 ae: 0.555840 wgan_g: 557.583008 wgan_d: -159.015686 wgan_gp: 4.179967 g: 1.340657 d: -117.216011 speed: 0.35 batches/s 
+2023-11-17 12:51:55,689 INFO Iter: [200/50000] l1: 0.080297 ae: 0.486021 wgan_g: -141.384018 wgan_d: -110.987045 wgan_gp: 3.603245 g: 0.538197 d: -74.954590 speed: 0.38 batches/s 
+2023-11-17 12:56:13,438 INFO Iter: [300/50000] l1: 0.098344 ae: 0.487903 wgan_g: -209.677750 wgan_d: -232.196243 wgan_gp: 5.039777 g: 0.493819 d: -181.798462 speed: 0.39 batches/s 
+2023-11-17 12:59:06,674 INFO Iter: [400/50000] l1: 0.087544 ae: 0.463593 wgan_g: -324.820099 wgan_d: -128.313828 wgan_gp: 5.283484 g: 0.336545 d: -75.478989 speed: 0.58 batches/s 
+2023-11-17 13:01:57,537 INFO Iter: [500/50000] l1: 0.079836 ae: 0.447131 wgan_g: -238.308563 wgan_d: -62.923107 wgan_gp: 1.110563 g: 0.394052 d: -51.817482 speed: 0.59 batches/s 
+2023-11-17 13:04:47,069 INFO Iter: [600/50000] l1: 0.070803 ae: 0.424389 wgan_g: -228.783356 wgan_d: -83.314224 wgan_gp: 1.995131 g: 0.365448 d: -63.362915 speed: 0.59 batches/s 
+2023-11-17 13:07:37,594 INFO Iter: [700/50000] l1: 0.086894 ae: 0.415158 wgan_g: 92.207916 wgan_d: -84.620766 wgan_gp: 0.869311 g: 0.694670 d: -75.927658 speed: 0.59 batches/s 
+2023-11-17 13:10:28,454 INFO Iter: [800/50000] l1: 0.087208 ae: 0.412349 wgan_g: -24.377106 wgan_d: -52.660309 wgan_gp: 0.599709 g: 0.575091 d: -46.663219 speed: 0.59 batches/s 
+2023-11-17 13:13:17,708 INFO Iter: [900/50000] l1: 0.078370 ae: 0.373540 wgan_g: -178.277527 wgan_d: -44.995190 wgan_gp: 0.161026 g: 0.364015 d: -43.384926 speed: 0.59 batches/s 
+2023-11-17 13:16:09,983 INFO Iter: [1000/50000] l1: 0.082433 ae: 0.380717 wgan_g: 5.822009 wgan_d: -74.781914 wgan_gp: 0.319682 g: 0.561602 d: -71.585098 speed: 0.58 batches/s 
+2023-11-17 13:19:05,406 INFO Iter: [1100/50000] l1: 0.086734 ae: 0.359967 wgan_g: -26.907688 wgan_d: -73.092567 wgan_gp: 1.385891 g: 0.509133 d: -59.233658 speed: 0.57 batches/s 
+2023-11-17 13:21:58,469 INFO Iter: [1200/50000] l1: 0.090893 ae: 0.384944 wgan_g: -68.563698 wgan_d: -56.510509 wgan_gp: 1.377137 g: 0.502441 d: -42.739136 speed: 0.58 batches/s 
+2023-11-17 13:24:57,451 INFO Iter: [1300/50000] l1: 0.083824 ae: 0.322866 wgan_g: -354.079376 wgan_d: -123.222672 wgan_gp: 3.946796 g: 0.133949 d: -83.754715 speed: 0.56 batches/s 
+2023-11-17 13:27:58,963 INFO Iter: [1400/50000] l1: 0.081161 ae: 0.325377 wgan_g: -25.522070 wgan_d: -107.709274 wgan_gp: 3.231943 g: 0.462323 d: -75.389847 speed: 0.55 batches/s 
+2023-11-17 13:31:39,744 INFO Iter: [1500/50000] l1: 0.089221 ae: 0.307977 wgan_g: -186.968460 wgan_d: -119.026184 wgan_gp: 2.713277 g: 0.289669 d: -91.893410 speed: 0.45 batches/s 
+2023-11-17 13:35:44,566 INFO Iter: [1600/50000] l1: 0.075867 ae: 0.289693 wgan_g: -133.539612 wgan_d: -73.589241 wgan_gp: 1.214498 g: 0.305132 d: -61.444260 speed: 0.41 batches/s 
+2023-11-17 13:40:17,293 INFO Iter: [1700/50000] l1: 0.091954 ae: 0.311144 wgan_g: -312.204895 wgan_d: -239.710648 wgan_gp: 7.618812 g: 0.171512 d: -163.522522 speed: 0.37 batches/s 
+2023-11-17 13:45:01,832 INFO Iter: [1800/50000] l1: 0.083086 ae: 0.289374 wgan_g: -117.565308 wgan_d: -70.574425 wgan_gp: 1.744454 g: 0.329386 d: -53.129883 speed: 0.35 batches/s 
+2023-11-17 13:49:45,239 INFO Iter: [1900/50000] l1: 0.083329 ae: 0.271313 wgan_g: -300.062683 wgan_d: -141.047760 wgan_gp: 3.235210 g: 0.125509 d: -108.695663 speed: 0.35 batches/s 
+2023-11-17 13:54:26,833 INFO Iter: [2000/50000] l1: 0.077662 ae: 0.287627 wgan_g: 66.758621 wgan_d: -107.443268 wgan_gp: 1.280616 g: 0.505106 d: -94.637108 speed: 0.36 batches/s 
+2023-11-17 13:59:11,407 INFO Iter: [2100/50000] l1: 0.072894 ae: 0.285068 wgan_g: 58.929260 wgan_d: -113.776749 wgan_gp: 1.671958 g: 0.488483 d: -97.057175 speed: 0.35 batches/s 
+2023-11-17 14:03:55,510 INFO Iter: [2200/50000] l1: 0.072580 ae: 0.277693 wgan_g: -178.115265 wgan_d: -67.909424 wgan_gp: 1.413491 g: 0.242212 d: -53.774517 speed: 0.35 batches/s 
+2023-11-17 14:08:38,457 INFO Iter: [2300/50000] l1: 0.083408 ae: 0.272569 wgan_g: -217.743378 wgan_d: -66.220428 wgan_gp: 1.190213 g: 0.209429 d: -54.318302 speed: 0.35 batches/s 
+2023-11-17 14:13:21,199 INFO Iter: [2400/50000] l1: 0.085840 ae: 0.284007 wgan_g: -37.584095 wgan_d: -49.430069 wgan_gp: 1.175542 g: 0.406232 d: -37.674644 speed: 0.35 batches/s 
+2023-11-17 14:18:06,207 INFO Iter: [2500/50000] l1: 0.074227 ae: 0.250653 wgan_g: -202.769394 wgan_d: -61.560936 wgan_gp: 0.984039 g: 0.187087 d: -51.720547 speed: 0.35 batches/s 
+2023-11-17 14:22:48,065 INFO Iter: [2600/50000] l1: 0.077725 ae: 0.255323 wgan_g: -218.362411 wgan_d: -83.336914 wgan_gp: 1.942331 g: 0.181295 d: -63.913605 speed: 0.35 batches/s 
+2023-11-17 14:27:33,068 INFO Iter: [2700/50000] l1: 0.087218 ae: 0.249016 wgan_g: -253.031036 wgan_d: -78.957748 wgan_gp: 1.805201 g: 0.150449 d: -60.905739 speed: 0.35 batches/s 
+2023-11-17 14:32:12,782 INFO Iter: [2800/50000] l1: 0.081049 ae: 0.246620 wgan_g: -290.916656 wgan_d: -95.195358 wgan_gp: 2.224429 g: 0.102286 d: -72.951073 speed: 0.36 batches/s 
+2023-11-17 14:36:59,765 INFO Iter: [2900/50000] l1: 0.068268 ae: 0.247886 wgan_g: -203.254013 wgan_d: -50.571121 wgan_gp: 1.152804 g: 0.176131 d: -39.043083 speed: 0.35 batches/s 
+2023-11-17 14:41:44,233 INFO Iter: [3000/50000] l1: 0.074587 ae: 0.246256 wgan_g: -34.098072 wgan_d: -81.482506 wgan_gp: 1.470303 g: 0.350913 d: -66.779480 speed: 0.35 batches/s 
+2023-11-17 14:46:29,609 INFO Iter: [3100/50000] l1: 0.091785 ae: 0.249999 wgan_g: -299.867737 wgan_d: -71.343475 wgan_gp: 1.124155 g: 0.110273 d: -60.101921 speed: 0.35 batches/s 
+2023-11-17 14:49:56,273 INFO Iter: [3200/50000] l1: 0.076441 ae: 0.251552 wgan_g: -67.607941 wgan_d: -37.156715 wgan_gp: 1.263209 g: 0.325983 d: -24.524624 speed: 0.48 batches/s 
+2023-11-17 14:53:02,408 INFO Iter: [3300/50000] l1: 0.064419 ae: 0.227223 wgan_g: -260.670959 wgan_d: -46.557575 wgan_gp: 0.822847 g: 0.089299 d: -38.329105 speed: 0.54 batches/s 
+2023-11-17 14:56:09,882 INFO Iter: [3400/50000] l1: 0.080833 ae: 0.246248 wgan_g: -327.647339 wgan_d: -74.212364 wgan_gp: 1.761948 g: 0.064849 d: -56.592880 speed: 0.53 batches/s 
+2023-11-17 14:59:13,002 INFO Iter: [3500/50000] l1: 0.078761 ae: 0.232584 wgan_g: -249.692841 wgan_d: -23.530472 wgan_gp: 0.491577 g: 0.123921 d: -18.614700 speed: 0.55 batches/s 
+2023-11-17 15:02:22,350 INFO Iter: [3600/50000] l1: 0.077098 ae: 0.220625 wgan_g: -247.737549 wgan_d: -38.800659 wgan_gp: 0.895666 g: 0.109530 d: -29.844004 speed: 0.53 batches/s 
+2023-11-17 15:08:28,642 INFO Iter: [3700/50000] l1: 0.078631 ae: 0.246598 wgan_g: -110.967346 wgan_d: -39.384140 wgan_gp: 0.701582 g: 0.279307 d: -32.368320 speed: 0.27 batches/s 
+2023-11-17 15:17:30,920 INFO Iter: [3800/50000] l1: 0.077294 ae: 0.218618 wgan_g: -193.473831 wgan_d: -45.820850 wgan_gp: 0.515912 g: 0.161621 d: -40.661732 speed: 0.18 batches/s 
+2023-11-17 15:26:04,787 INFO Iter: [3900/50000] l1: 0.080331 ae: 0.240333 wgan_g: -280.944702 wgan_d: -13.220982 wgan_gp: 0.513320 g: 0.103852 d: -8.087786 speed: 0.19 batches/s 
+2023-11-17 15:34:47,996 INFO Iter: [4000/50000] l1: 0.074067 ae: 0.211773 wgan_g: -144.592255 wgan_d: -70.797020 wgan_gp: 1.284423 g: 0.198416 d: -57.952785 speed: 0.19 batches/s 
+2023-11-17 15:40:43,186 INFO Iter: [4100/50000] l1: 0.079017 ae: 0.221281 wgan_g: -121.425323 wgan_d: -51.829807 wgan_gp: 0.559230 g: 0.238932 d: -46.237507 speed: 0.28 batches/s 
+2023-11-17 15:46:19,719 INFO Iter: [4200/50000] l1: 0.067527 ae: 0.207574 wgan_g: -375.282532 wgan_d: -51.576286 wgan_gp: 1.385190 g: -0.045162 d: -37.724380 speed: 0.30 batches/s 
+2023-11-17 15:51:36,720 INFO Iter: [4300/50000] l1: 0.076700 ae: 0.220009 wgan_g: -157.499023 wgan_d: -52.581131 wgan_gp: 1.044912 g: 0.198551 d: -42.132015 speed: 0.32 batches/s 
+2023-11-17 15:56:24,231 INFO Iter: [4400/50000] l1: 0.068808 ae: 0.219799 wgan_g: -194.616821 wgan_d: -43.228249 wgan_gp: 0.422090 g: 0.151712 d: -39.007351 speed: 0.35 batches/s 
+2023-11-17 16:01:11,026 INFO Iter: [4500/50000] l1: 0.067425 ae: 0.202641 wgan_g: -92.903244 wgan_d: -32.573570 wgan_gp: 0.490168 g: 0.231176 d: -27.671886 speed: 0.35 batches/s 
+2023-11-17 16:05:57,726 INFO Iter: [4600/50000] l1: 0.066254 ae: 0.225510 wgan_g: -172.440308 wgan_d: -37.865967 wgan_gp: 0.629623 g: 0.177676 d: -31.569735 speed: 0.35 batches/s 
+2023-11-17 16:11:08,592 INFO Iter: [4700/50000] l1: 0.072514 ae: 0.200036 wgan_g: -159.446960 wgan_d: -38.473328 wgan_gp: 0.479510 g: 0.167612 d: -33.678226 speed: 0.32 batches/s 
+2023-11-17 16:16:40,175 INFO Iter: [4800/50000] l1: 0.062149 ae: 0.186359 wgan_g: -203.283600 wgan_d: -46.632057 wgan_gp: 0.623559 g: 0.094926 d: -40.396469 speed: 0.30 batches/s 
+2023-11-17 16:25:18,777 INFO Iter: [4900/50000] l1: 0.068041 ae: 0.203253 wgan_g: -58.062233 wgan_d: -31.562391 wgan_gp: 0.725545 g: 0.267490 d: -24.306940 speed: 0.19 batches/s 
+2023-11-17 16:32:06,471 INFO Iter: [5000/50000] l1: 0.066562 ae: 0.198730 wgan_g: -295.855255 wgan_d: -55.860020 wgan_gp: 1.272830 g: 0.022495 d: -43.131714 speed: 0.25 batches/s 
+2023-11-17 16:36:27,809 INFO Iter: [5100/50000] l1: 0.066521 ae: 0.205988 wgan_g: -230.177200 wgan_d: -39.907829 wgan_gp: 0.902681 g: 0.096833 d: -30.881018 speed: 0.38 batches/s 
+2023-11-17 16:41:07,361 INFO Iter: [5200/50000] l1: 0.063168 ae: 0.188546 wgan_g: -194.470200 wgan_d: -39.262360 wgan_gp: 0.879660 g: 0.107587 d: -30.465759 speed: 0.36 batches/s 
+2023-11-17 16:46:22,353 INFO Iter: [5300/50000] l1: 0.068810 ae: 0.176338 wgan_g: -289.513153 wgan_d: -76.407196 wgan_gp: 1.201329 g: 0.004665 d: -64.393906 speed: 0.32 batches/s 
+2023-11-17 16:52:35,055 INFO Iter: [5400/50000] l1: 0.063647 ae: 0.196026 wgan_g: -50.243450 wgan_d: -38.814049 wgan_gp: 1.213985 g: 0.261363 d: -26.674196 speed: 0.27 batches/s 
+2023-11-17 16:58:53,126 INFO Iter: [5500/50000] l1: 0.068961 ae: 0.183644 wgan_g: -215.809174 wgan_d: -39.952164 wgan_gp: 0.551798 g: 0.087317 d: -34.434185 speed: 0.26 batches/s 
+2023-11-17 17:03:26,904 INFO Iter: [5600/50000] l1: 0.072131 ae: 0.198493 wgan_g: -148.437958 wgan_d: -43.979279 wgan_gp: 0.581771 g: 0.176312 d: -38.161572 speed: 0.37 batches/s 
+2023-11-17 17:07:21,316 INFO Iter: [5700/50000] l1: 0.062224 ae: 0.187453 wgan_g: -148.533051 wgan_d: -34.548584 wgan_gp: 1.252499 g: 0.151079 d: -22.023598 speed: 0.43 batches/s 
+2023-11-17 17:11:23,699 INFO Iter: [5800/50000] l1: 0.064242 ae: 0.188955 wgan_g: -187.154541 wgan_d: -34.628395 wgan_gp: 0.602684 g: 0.116682 d: -28.601555 speed: 0.41 batches/s 
+2023-11-17 17:15:28,684 INFO Iter: [5900/50000] l1: 0.059917 ae: 0.186061 wgan_g: -134.098633 wgan_d: -26.776720 wgan_gp: 0.346561 g: 0.161075 d: -23.311111 speed: 0.41 batches/s 
+2023-11-17 17:19:32,910 INFO Iter: [6000/50000] l1: 0.056295 ae: 0.180469 wgan_g: -171.501892 wgan_d: -44.456848 wgan_gp: 0.957117 g: 0.112615 d: -34.885681 speed: 0.41 batches/s 
+2023-11-17 17:23:41,079 INFO Iter: [6100/50000] l1: 0.070392 ae: 0.201685 wgan_g: -156.018539 wgan_d: -37.562469 wgan_gp: 0.709648 g: 0.170475 d: -30.465988 speed: 0.40 batches/s 
+2023-11-17 17:28:11,329 INFO Iter: [6200/50000] l1: 0.070687 ae: 0.182083 wgan_g: -89.330757 wgan_d: -28.585070 wgan_gp: 0.457965 g: 0.213993 d: -24.005424 speed: 0.37 batches/s 
+2023-11-17 17:32:43,765 INFO Iter: [6300/50000] l1: 0.063265 ae: 0.182819 wgan_g: -198.007721 wgan_d: -21.852030 wgan_gp: 0.570458 g: 0.097293 d: -16.147448 speed: 0.37 batches/s 
+2023-11-17 17:37:25,391 INFO Iter: [6400/50000] l1: 0.057470 ae: 0.176982 wgan_g: -102.036583 wgan_d: -31.270088 wgan_gp: 0.528078 g: 0.179306 d: -25.989307 speed: 0.36 batches/s 
+2023-11-17 17:42:03,770 INFO Iter: [6500/50000] l1: 0.061500 ae: 0.154653 wgan_g: -122.560898 wgan_d: -46.518143 wgan_gp: 0.641322 g: 0.136823 d: -40.104923 speed: 0.36 batches/s 
+2023-11-17 17:46:37,821 INFO Iter: [6600/50000] l1: 0.058150 ae: 0.188455 wgan_g: -223.340057 wgan_d: -32.812889 wgan_gp: 0.561182 g: 0.072586 d: -27.201069 speed: 0.36 batches/s 
+2023-11-17 17:51:05,538 INFO Iter: [6700/50000] l1: 0.056259 ae: 0.172115 wgan_g: -160.580353 wgan_d: -45.460625 wgan_gp: 0.427029 g: 0.113469 d: -41.190334 speed: 0.37 batches/s 
+2023-11-17 17:55:45,022 INFO Iter: [6800/50000] l1: 0.060468 ae: 0.167841 wgan_g: -178.100128 wgan_d: -38.456039 wgan_gp: 0.387720 g: 0.095871 d: -34.578838 speed: 0.36 batches/s 
+2023-11-17 18:00:23,650 INFO Iter: [6900/50000] l1: 0.056396 ae: 0.175500 wgan_g: -98.637558 wgan_d: -37.994408 wgan_gp: 0.709764 g: 0.179638 d: -30.896769 speed: 0.36 batches/s 
+2023-11-17 18:05:00,495 INFO Iter: [7000/50000] l1: 0.066033 ae: 0.165210 wgan_g: -139.926666 wgan_d: -46.997578 wgan_gp: 0.907238 g: 0.137565 d: -37.925198 speed: 0.36 batches/s 
+2023-11-17 18:09:42,095 INFO Iter: [7100/50000] l1: 0.059659 ae: 0.166667 wgan_g: -181.210052 wgan_d: -34.146698 wgan_gp: 0.956701 g: 0.090382 d: -24.579693 speed: 0.36 batches/s 
+2023-11-17 18:14:20,658 INFO Iter: [7200/50000] l1: 0.060675 ae: 0.184741 wgan_g: -192.906586 wgan_d: -41.496338 wgan_gp: 1.046860 g: 0.101592 d: -31.027740 speed: 0.36 batches/s 
+2023-11-17 18:18:57,602 INFO Iter: [7300/50000] l1: 0.063922 ae: 0.168390 wgan_g: -114.141098 wgan_d: -39.258804 wgan_gp: 0.610198 g: 0.164633 d: -33.156826 speed: 0.36 batches/s 
+2023-11-17 18:23:35,302 INFO Iter: [7400/50000] l1: 0.071953 ae: 0.184620 wgan_g: -81.456314 wgan_d: -43.785622 wgan_gp: 0.614011 g: 0.226432 d: -37.645508 speed: 0.36 batches/s 
+2023-11-17 18:28:09,466 INFO Iter: [7500/50000] l1: 0.058177 ae: 0.191273 wgan_g: -193.703033 wgan_d: -33.228569 wgan_gp: 0.636488 g: 0.105636 d: -26.863691 speed: 0.36 batches/s 
+2023-11-17 18:32:41,094 INFO Iter: [7600/50000] l1: 0.059938 ae: 0.168658 wgan_g: -162.357910 wgan_d: -28.752077 wgan_gp: 0.386600 g: 0.111956 d: -24.886072 speed: 0.37 batches/s 
+2023-11-17 18:37:23,357 INFO Iter: [7700/50000] l1: 0.058684 ae: 0.187286 wgan_g: -197.927216 wgan_d: -28.725327 wgan_gp: 0.583236 g: 0.097237 d: -22.892967 speed: 0.35 batches/s 
+2023-11-17 18:41:20,041 INFO Iter: [7800/50000] l1: 0.056279 ae: 0.191512 wgan_g: -159.457733 wgan_d: -45.673477 wgan_gp: 0.741928 g: 0.137891 d: -38.254200 speed: 0.42 batches/s 
+2023-11-17 18:45:35,819 INFO Iter: [7900/50000] l1: 0.052879 ae: 0.174648 wgan_g: -203.137360 wgan_d: -35.866791 wgan_gp: 0.689374 g: 0.069895 d: -28.973053 speed: 0.39 batches/s 
+2023-11-17 18:50:41,042 INFO Iter: [8000/50000] l1: 0.051955 ae: 0.173036 wgan_g: -188.661499 wgan_d: -36.026966 wgan_gp: 0.647090 g: 0.081327 d: -29.556068 speed: 0.33 batches/s 
+2023-11-17 18:56:04,485 INFO Iter: [8100/50000] l1: 0.061779 ae: 0.173681 wgan_g: -186.816452 wgan_d: -55.059845 wgan_gp: 1.022277 g: 0.095736 d: -44.837070 speed: 0.31 batches/s 
+2023-11-17 19:01:42,420 INFO Iter: [8200/50000] l1: 0.061436 ae: 0.166561 wgan_g: -64.028236 wgan_d: -45.463154 wgan_gp: 1.078280 g: 0.209568 d: -34.680355 speed: 0.30 batches/s 
+2023-11-17 19:06:44,908 INFO Iter: [8300/50000] l1: 0.052228 ae: 0.175244 wgan_g: -110.556992 wgan_d: -30.659023 wgan_gp: 0.436918 g: 0.162409 d: -26.289841 speed: 0.33 batches/s 
+2023-11-17 19:11:47,846 INFO Iter: [8400/50000] l1: 0.062180 ae: 0.165194 wgan_g: -61.132587 wgan_d: -45.529079 wgan_gp: 0.951607 g: 0.211716 d: -36.013004 speed: 0.33 batches/s 
+2023-11-17 19:16:53,830 INFO Iter: [8500/50000] l1: 0.060708 ae: 0.159705 wgan_g: -117.145309 wgan_d: -43.136333 wgan_gp: 0.687063 g: 0.147350 d: -36.265697 speed: 0.33 batches/s 
+2023-11-17 19:22:00,994 INFO Iter: [8600/50000] l1: 0.054156 ae: 0.147987 wgan_g: -139.290955 wgan_d: -37.342888 wgan_gp: 0.653769 g: 0.103281 d: -30.805201 speed: 0.33 batches/s 
+2023-11-17 19:26:54,352 INFO Iter: [8700/50000] l1: 0.059044 ae: 0.165431 wgan_g: -148.521347 wgan_d: -26.752554 wgan_gp: 0.503957 g: 0.120848 d: -21.712986 speed: 0.34 batches/s 
+2023-11-17 19:31:57,357 INFO Iter: [8800/50000] l1: 0.058505 ae: 0.169575 wgan_g: -101.342384 wgan_d: -28.255480 wgan_gp: 0.590934 g: 0.172354 d: -22.346138 speed: 0.33 batches/s 
+2023-11-17 19:38:45,540 INFO Iter: [8900/50000] l1: 0.048386 ae: 0.170929 wgan_g: -134.626923 wgan_d: -25.371021 wgan_gp: 0.552547 g: 0.128552 d: -19.845547 speed: 0.24 batches/s 
+2023-11-17 19:46:18,068 INFO Iter: [9000/50000] l1: 0.053617 ae: 0.152155 wgan_g: -138.389694 wgan_d: -32.459206 wgan_gp: 0.582104 g: 0.108537 d: -26.638168 speed: 0.22 batches/s 
+2023-11-17 19:54:22,176 INFO Iter: [9100/50000] l1: 0.056759 ae: 0.171271 wgan_g: -112.741364 wgan_d: -30.030294 wgan_gp: 0.495147 g: 0.160894 d: -25.078821 speed: 0.21 batches/s 
+2023-11-17 20:02:26,272 INFO Iter: [9200/50000] l1: 0.051455 ae: 0.163029 wgan_g: -127.715546 wgan_d: -36.205280 wgan_gp: 0.686697 g: 0.129666 d: -29.338310 speed: 0.21 batches/s 
+2023-11-17 20:10:21,083 INFO Iter: [9300/50000] l1: 0.049076 ae: 0.150065 wgan_g: -126.116364 wgan_d: -27.664305 wgan_gp: 0.491868 g: 0.112853 d: -22.745625 speed: 0.21 batches/s 
+2023-11-17 20:18:07,305 INFO Iter: [9400/50000] l1: 0.056738 ae: 0.162065 wgan_g: -116.725670 wgan_d: -32.437103 wgan_gp: 0.612025 g: 0.145838 d: -26.316854 speed: 0.21 batches/s 
+2023-11-17 20:25:43,178 INFO Iter: [9500/50000] l1: 0.054247 ae: 0.163831 wgan_g: -152.013000 wgan_d: -32.865120 wgan_gp: 0.593566 g: 0.109681 d: -26.929459 speed: 0.22 batches/s 
+2023-11-17 20:33:24,032 INFO Iter: [9600/50000] l1: 0.057201 ae: 0.153020 wgan_g: -108.986618 wgan_d: -41.821121 wgan_gp: 0.654921 g: 0.143279 d: -35.271912 speed: 0.22 batches/s 
+2023-11-17 20:40:48,041 INFO Iter: [9700/50000] l1: 0.053135 ae: 0.164387 wgan_g: -122.617561 wgan_d: -31.823748 wgan_gp: 0.570854 g: 0.138409 d: -26.115208 speed: 0.23 batches/s 
+2023-11-17 20:48:40,701 INFO Iter: [9800/50000] l1: 0.060070 ae: 0.150451 wgan_g: -115.924194 wgan_d: -31.186142 wgan_gp: 0.468403 g: 0.136701 d: -26.502113 speed: 0.21 batches/s 
+2023-11-17 20:56:28,315 INFO Iter: [9900/50000] l1: 0.055858 ae: 0.163459 wgan_g: -71.965141 wgan_d: -33.320335 wgan_gp: 0.574189 g: 0.191215 d: -27.578442 speed: 0.21 batches/s 
+2023-11-17 21:03:56,867 INFO Iter: [10000/50000] l1: 0.055684 ae: 0.163973 wgan_g: -124.819931 wgan_d: -39.087677 wgan_gp: 0.752334 g: 0.138768 d: -31.564333 speed: 0.22 batches/s 
+2023-11-17 21:11:15,412 INFO Iter: [10100/50000] l1: 0.056296 ae: 0.151480 wgan_g: -95.400642 wgan_d: -31.987209 wgan_gp: 0.437943 g: 0.153931 d: -27.607784 speed: 0.23 batches/s 
+2023-11-17 21:18:23,234 INFO Iter: [10200/50000] l1: 0.057759 ae: 0.162585 wgan_g: -137.010971 wgan_d: -35.815887 wgan_gp: 0.559605 g: 0.127402 d: -30.219833 speed: 0.23 batches/s 
+2023-11-17 21:25:41,738 INFO Iter: [10300/50000] l1: 0.055301 ae: 0.153110 wgan_g: -101.211533 wgan_d: -33.407227 wgan_gp: 0.560059 g: 0.148881 d: -27.806641 speed: 0.23 batches/s 
+2023-11-17 21:33:08,699 INFO Iter: [10400/50000] l1: 0.054629 ae: 0.143787 wgan_g: -65.167915 wgan_d: -35.215881 wgan_gp: 0.489977 g: 0.172931 d: -30.316116 speed: 0.22 batches/s 
+2023-11-17 21:40:19,144 INFO Iter: [10500/50000] l1: 0.059129 ae: 0.146301 wgan_g: -119.695038 wgan_d: -37.033009 wgan_gp: 0.690353 g: 0.126822 d: -30.129475 speed: 0.23 batches/s 
+2023-11-17 21:47:35,865 INFO Iter: [10600/50000] l1: 0.054544 ae: 0.168018 wgan_g: -100.461189 wgan_d: -30.020229 wgan_gp: 0.496962 g: 0.166613 d: -25.050613 speed: 0.23 batches/s 
+2023-11-17 21:54:40,713 INFO Iter: [10700/50000] l1: 0.052355 ae: 0.155610 wgan_g: -82.753433 wgan_d: -24.082922 wgan_gp: 0.472909 g: 0.166805 d: -19.353828 speed: 0.24 batches/s 
+2023-11-17 22:01:58,343 INFO Iter: [10800/50000] l1: 0.052687 ae: 0.142377 wgan_g: -104.836357 wgan_d: -26.185015 wgan_gp: 0.595027 g: 0.129241 d: -20.234749 speed: 0.23 batches/s 
+2023-11-17 22:09:02,393 INFO Iter: [10900/50000] l1: 0.060517 ae: 0.162863 wgan_g: -106.796562 wgan_d: -41.032539 wgan_gp: 0.583426 g: 0.161260 d: -35.198280 speed: 0.24 batches/s 
+2023-11-17 22:15:23,873 INFO Iter: [11000/50000] l1: 0.056312 ae: 0.155174 wgan_g: -95.671165 wgan_d: -43.521057 wgan_gp: 0.698039 g: 0.158113 d: -36.540668 speed: 0.26 batches/s 
+2023-11-17 22:20:04,928 INFO Iter: [11100/50000] l1: 0.056475 ae: 0.154951 wgan_g: -118.297363 wgan_d: -32.285412 wgan_gp: 0.749033 g: 0.135414 d: -24.795078 speed: 0.36 batches/s 
+2023-11-17 22:24:57,639 INFO Iter: [11200/50000] l1: 0.055834 ae: 0.145238 wgan_g: -109.331184 wgan_d: -41.489594 wgan_gp: 0.787560 g: 0.131955 d: -33.613991 speed: 0.34 batches/s 
+2023-11-17 22:29:59,068 INFO Iter: [11300/50000] l1: 0.054700 ae: 0.149642 wgan_g: -102.848373 wgan_d: -37.978409 wgan_gp: 0.555575 g: 0.142362 d: -32.422661 speed: 0.33 batches/s 
+2023-11-17 22:35:05,323 INFO Iter: [11400/50000] l1: 0.051291 ae: 0.141112 wgan_g: -53.750755 wgan_d: -30.769722 wgan_gp: 0.500486 g: 0.177134 d: -25.764864 speed: 0.33 batches/s 
+2023-11-17 22:40:23,690 INFO Iter: [11500/50000] l1: 0.056989 ae: 0.156151 wgan_g: -63.296429 wgan_d: -30.771057 wgan_gp: 0.639876 g: 0.192471 d: -24.372299 speed: 0.31 batches/s 
+2023-11-17 22:47:27,764 INFO Iter: [11600/50000] l1: 0.049767 ae: 0.146931 wgan_g: -107.450180 wgan_d: -35.734161 wgan_gp: 0.589971 g: 0.128588 d: -29.834452 speed: 0.24 batches/s 
+2023-11-17 22:55:21,127 INFO Iter: [11700/50000] l1: 0.060644 ae: 0.131876 wgan_g: -134.434113 wgan_d: -31.417599 wgan_gp: 0.794887 g: 0.096590 d: -23.468729 speed: 0.21 batches/s 
+2023-11-17 23:03:08,273 INFO Iter: [11800/50000] l1: 0.055624 ae: 0.150126 wgan_g: -109.665222 wgan_d: -32.851830 wgan_gp: 0.708555 g: 0.137235 d: -25.766279 speed: 0.21 batches/s 
+2023-11-17 23:10:48,292 INFO Iter: [11900/50000] l1: 0.047082 ae: 0.137186 wgan_g: -116.714394 wgan_d: -36.279251 wgan_gp: 0.692547 g: 0.104407 d: -29.353777 speed: 0.22 batches/s 
+2023-11-17 23:18:56,957 INFO Iter: [12000/50000] l1: 0.060939 ae: 0.137437 wgan_g: -56.049122 wgan_d: -42.962639 wgan_gp: 0.675039 g: 0.182002 d: -36.212250 speed: 0.20 batches/s 
+2023-11-17 23:26:50,851 INFO Iter: [12100/50000] l1: 0.047912 ae: 0.145663 wgan_g: -59.592854 wgan_d: -21.775789 wgan_gp: 0.427984 g: 0.172698 d: -17.495953 speed: 0.21 batches/s 
+2023-11-17 23:34:54,392 INFO Iter: [12200/50000] l1: 0.059978 ae: 0.137862 wgan_g: -88.572342 wgan_d: -38.605995 wgan_gp: 0.681929 g: 0.148835 d: -31.786709 speed: 0.21 batches/s 
+2023-11-17 23:43:12,454 INFO Iter: [12300/50000] l1: 0.053113 ae: 0.139461 wgan_g: -124.324951 wgan_d: -35.278709 wgan_gp: 0.830126 g: 0.106764 d: -26.977448 speed: 0.20 batches/s 
+2023-11-17 23:51:32,026 INFO Iter: [12400/50000] l1: 0.052802 ae: 0.145836 wgan_g: -116.447548 wgan_d: -36.727699 wgan_gp: 0.639984 g: 0.121918 d: -30.327858 speed: 0.20 batches/s 
+2023-11-17 23:59:50,897 INFO Iter: [12500/50000] l1: 0.057903 ae: 0.140031 wgan_g: -82.684921 wgan_d: -33.783730 wgan_gp: 0.498302 g: 0.154836 d: -28.800705 speed: 0.20 batches/s 
+2023-11-18 00:08:11,540 INFO Iter: [12600/50000] l1: 0.057093 ae: 0.149400 wgan_g: -88.236977 wgan_d: -38.919231 wgan_gp: 0.595264 g: 0.159554 d: -32.966595 speed: 0.20 batches/s 
+2023-11-18 00:16:32,145 INFO Iter: [12700/50000] l1: 0.059915 ae: 0.147923 wgan_g: -34.218239 wgan_d: -46.143013 wgan_gp: 0.716510 g: 0.215187 d: -38.977913 speed: 0.20 batches/s 
+2023-11-18 00:24:49,601 INFO Iter: [12800/50000] l1: 0.050904 ae: 0.152281 wgan_g: -82.867798 wgan_d: -29.453215 wgan_gp: 0.419891 g: 0.160954 d: -25.254307 speed: 0.20 batches/s 
+2023-11-18 00:33:06,314 INFO Iter: [12900/50000] l1: 0.058770 ae: 0.151264 wgan_g: -73.702034 wgan_d: -35.859039 wgan_gp: 0.795210 g: 0.178338 d: -27.906940 speed: 0.20 batches/s 
+2023-11-18 00:41:17,089 INFO Iter: [13000/50000] l1: 0.059001 ae: 0.144279 wgan_g: -116.343048 wgan_d: -47.712227 wgan_gp: 0.838173 g: 0.127593 d: -39.330502 speed: 0.20 batches/s 
+2023-11-18 00:49:31,237 INFO Iter: [13100/50000] l1: 0.055966 ae: 0.135628 wgan_g: -111.603828 wgan_d: -29.957914 wgan_gp: 0.575960 g: 0.118310 d: -24.198315 speed: 0.20 batches/s 
+2023-11-18 00:57:49,392 INFO Iter: [13200/50000] l1: 0.058236 ae: 0.160917 wgan_g: -116.162827 wgan_d: -33.091698 wgan_gp: 0.616789 g: 0.146821 d: -26.923809 speed: 0.20 batches/s 
+2023-11-18 01:05:56,915 INFO Iter: [13300/50000] l1: 0.052299 ae: 0.126213 wgan_g: -137.821579 wgan_d: -31.856306 wgan_gp: 0.689940 g: 0.076393 d: -24.956909 speed: 0.21 batches/s 
+2023-11-18 01:14:11,849 INFO Iter: [13400/50000] l1: 0.061091 ae: 0.136800 wgan_g: -68.813408 wgan_d: -30.172400 wgan_gp: 0.426041 g: 0.168656 d: -25.911987 speed: 0.20 batches/s 
+2023-11-18 01:22:31,349 INFO Iter: [13500/50000] l1: 0.056357 ae: 0.133323 wgan_g: -117.863480 wgan_d: -30.426153 wgan_gp: 0.732703 g: 0.109752 d: -23.099121 speed: 0.20 batches/s 
+2023-11-18 01:30:30,805 INFO Iter: [13600/50000] l1: 0.045289 ae: 0.144530 wgan_g: -83.786682 wgan_d: -27.666824 wgan_gp: 0.449589 g: 0.143996 d: -23.170933 speed: 0.21 batches/s 
+2023-11-18 01:38:32,278 INFO Iter: [13700/50000] l1: 0.061299 ae: 0.143766 wgan_g: -84.271530 wgan_d: -44.343887 wgan_gp: 0.756731 g: 0.161807 d: -36.776581 speed: 0.21 batches/s 
+2023-11-18 01:45:28,784 INFO Iter: [13800/50000] l1: 0.054945 ae: 0.145283 wgan_g: -83.567711 wgan_d: -31.290239 wgan_gp: 0.513219 g: 0.156706 d: -26.158051 speed: 0.24 batches/s 
+2023-11-18 01:51:39,449 INFO Iter: [13900/50000] l1: 0.054555 ae: 0.147581 wgan_g: -104.295639 wgan_d: -29.475475 wgan_gp: 0.750610 g: 0.138268 d: -21.969372 speed: 0.27 batches/s 
+2023-11-18 01:57:56,112 INFO Iter: [14000/50000] l1: 0.053280 ae: 0.146386 wgan_g: -79.271774 wgan_d: -21.629990 wgan_gp: 0.474601 g: 0.160327 d: -16.883984 speed: 0.27 batches/s 
+2023-11-18 02:04:05,946 INFO Iter: [14100/50000] l1: 0.052127 ae: 0.164395 wgan_g: -114.275024 wgan_d: -22.042089 wgan_gp: 0.594126 g: 0.145552 d: -16.100828 speed: 0.27 batches/s 
+2023-11-18 02:10:21,642 INFO Iter: [14200/50000] l1: 0.050765 ae: 0.135240 wgan_g: -75.638496 wgan_d: -33.157658 wgan_gp: 0.777429 g: 0.147567 d: -25.383366 speed: 0.27 batches/s 
+2023-11-18 02:16:37,169 INFO Iter: [14300/50000] l1: 0.054057 ae: 0.149152 wgan_g: -120.967194 wgan_d: -37.270996 wgan_gp: 0.818489 g: 0.122883 d: -29.086109 speed: 0.27 batches/s 
+2023-11-18 02:23:47,292 INFO Iter: [14400/50000] l1: 0.047091 ae: 0.133864 wgan_g: -111.010071 wgan_d: -27.975449 wgan_gp: 0.676772 g: 0.106136 d: -21.207733 speed: 0.23 batches/s 
+2023-11-18 02:31:44,947 INFO Iter: [14500/50000] l1: 0.048614 ae: 0.130166 wgan_g: -63.920517 wgan_d: -23.658422 wgan_gp: 0.618269 g: 0.150615 d: -17.475735 speed: 0.21 batches/s 
+2023-11-18 02:39:47,377 INFO Iter: [14600/50000] l1: 0.054590 ae: 0.122681 wgan_g: -104.978806 wgan_d: -32.195084 wgan_gp: 0.509693 g: 0.107746 d: -27.098158 speed: 0.21 batches/s 
+2023-11-18 02:47:46,874 INFO Iter: [14700/50000] l1: 0.059483 ae: 0.136350 wgan_g: -56.810532 wgan_d: -26.353708 wgan_gp: 0.461720 g: 0.178190 d: -21.736507 speed: 0.21 batches/s 
+2023-11-18 02:55:46,287 INFO Iter: [14800/50000] l1: 0.058176 ae: 0.139195 wgan_g: -71.461288 wgan_d: -39.593204 wgan_gp: 0.825985 g: 0.165384 d: -31.333359 speed: 0.21 batches/s 
+2023-11-18 03:03:48,409 INFO Iter: [14900/50000] l1: 0.051030 ae: 0.133493 wgan_g: -103.872749 wgan_d: -34.339401 wgan_gp: 0.732781 g: 0.117555 d: -27.011589 speed: 0.21 batches/s 
+2023-11-18 03:11:53,073 INFO Iter: [15000/50000] l1: 0.052102 ae: 0.125001 wgan_g: -89.593201 wgan_d: -30.609676 wgan_gp: 0.524458 g: 0.122931 d: -25.365101 speed: 0.21 batches/s 
+2023-11-18 03:19:52,675 INFO Iter: [15100/50000] l1: 0.059277 ae: 0.131159 wgan_g: -72.859703 wgan_d: -34.434608 wgan_gp: 0.587165 g: 0.155664 d: -28.562962 speed: 0.21 batches/s 
+2023-11-18 03:27:43,692 INFO Iter: [15200/50000] l1: 0.058022 ae: 0.127673 wgan_g: -30.357891 wgan_d: -28.664036 wgan_gp: 0.351745 g: 0.192476 d: -25.146587 speed: 0.21 batches/s 
+2023-11-18 03:35:34,704 INFO Iter: [15300/50000] l1: 0.058365 ae: 0.127237 wgan_g: -75.028969 wgan_d: -32.227150 wgan_gp: 0.530663 g: 0.147692 d: -26.920515 speed: 0.21 batches/s 
+2023-11-18 03:43:27,133 INFO Iter: [15400/50000] l1: 0.054308 ae: 0.135772 wgan_g: -47.005791 wgan_d: -30.733711 wgan_gp: 0.422597 g: 0.181090 d: -26.507740 speed: 0.21 batches/s 
+2023-11-18 03:51:20,115 INFO Iter: [15500/50000] l1: 0.053424 ae: 0.137440 wgan_g: -107.592117 wgan_d: -41.801254 wgan_gp: 0.844229 g: 0.121445 d: -33.358967 speed: 0.21 batches/s 
+2023-11-18 03:59:04,704 INFO Iter: [15600/50000] l1: 0.047283 ae: 0.126279 wgan_g: -73.647293 wgan_d: -38.134171 wgan_gp: 0.604711 g: 0.134627 d: -32.087059 speed: 0.22 batches/s 
+2023-11-18 04:06:42,489 INFO Iter: [15700/50000] l1: 0.053054 ae: 0.128123 wgan_g: -61.966972 wgan_d: -25.848106 wgan_gp: 0.471814 g: 0.155446 d: -21.129967 speed: 0.22 batches/s 
+2023-11-18 04:14:16,117 INFO Iter: [15800/50000] l1: 0.051924 ae: 0.138613 wgan_g: -72.036179 wgan_d: -28.906597 wgan_gp: 0.526370 g: 0.156608 d: -23.642893 speed: 0.22 batches/s 
+2023-11-18 04:22:09,934 INFO Iter: [15900/50000] l1: 0.059809 ae: 0.127082 wgan_g: -43.493622 wgan_d: -40.166424 wgan_gp: 0.591473 g: 0.180776 d: -34.251698 speed: 0.21 batches/s 
+2023-11-18 04:30:02,550 INFO Iter: [16000/50000] l1: 0.053711 ae: 0.123889 wgan_g: -88.895874 wgan_d: -23.099831 wgan_gp: 0.550756 g: 0.124224 d: -17.592270 speed: 0.21 batches/s 
+2023-11-18 04:37:55,832 INFO Iter: [16100/50000] l1: 0.046274 ae: 0.129741 wgan_g: -81.028961 wgan_d: -33.577309 wgan_gp: 0.682816 g: 0.130189 d: -26.749147 speed: 0.21 batches/s 
+2023-11-18 04:45:53,829 INFO Iter: [16200/50000] l1: 0.061788 ae: 0.128095 wgan_g: -51.128357 wgan_d: -37.727364 wgan_gp: 0.591547 g: 0.176732 d: -31.811897 speed: 0.21 batches/s 
+2023-11-18 04:53:47,271 INFO Iter: [16300/50000] l1: 0.050326 ae: 0.132482 wgan_g: -66.524651 wgan_d: -27.989277 wgan_gp: 0.395268 g: 0.152845 d: -24.036592 speed: 0.21 batches/s 
+2023-11-18 05:01:43,496 INFO Iter: [16400/50000] l1: 0.055678 ae: 0.127697 wgan_g: -101.697891 wgan_d: -40.496399 wgan_gp: 0.700243 g: 0.118351 d: -33.493965 speed: 0.21 batches/s 
+2023-11-18 05:09:35,038 INFO Iter: [16500/50000] l1: 0.050395 ae: 0.115719 wgan_g: -96.195862 wgan_d: -32.127586 wgan_gp: 0.513254 g: 0.103141 d: -26.995050 speed: 0.21 batches/s 
+2023-11-18 05:17:29,559 INFO Iter: [16600/50000] l1: 0.049695 ae: 0.138124 wgan_g: -40.879234 wgan_d: -26.171101 wgan_gp: 0.313791 g: 0.184503 d: -23.033190 speed: 0.21 batches/s 
+2023-11-18 05:24:17,832 INFO Iter: [16700/50000] l1: 0.061338 ae: 0.125581 wgan_g: -78.780701 wgan_d: -36.695152 wgan_gp: 0.626171 g: 0.145522 d: -30.433441 speed: 0.24 batches/s 
+2023-11-18 05:30:14,012 INFO Iter: [16800/50000] l1: 0.053186 ae: 0.127605 wgan_g: -81.343628 wgan_d: -31.560863 wgan_gp: 0.642786 g: 0.135605 d: -25.133003 speed: 0.28 batches/s 
+2023-11-18 05:36:12,359 INFO Iter: [16900/50000] l1: 0.045488 ae: 0.124833 wgan_g: -70.292870 wgan_d: -30.014589 wgan_gp: 0.784247 g: 0.134093 d: -22.172117 speed: 0.28 batches/s 
+2023-11-18 05:42:10,363 INFO Iter: [17000/50000] l1: 0.057414 ae: 0.125864 wgan_g: -59.041077 wgan_d: -34.451595 wgan_gp: 0.474126 g: 0.160892 d: -29.710339 speed: 0.28 batches/s 
+2023-11-18 05:48:05,552 INFO Iter: [17100/50000] l1: 0.058003 ae: 0.119320 wgan_g: -85.143845 wgan_d: -41.354610 wgan_gp: 0.639828 g: 0.127643 d: -34.956333 speed: 0.28 batches/s 
+2023-11-18 05:54:15,558 INFO Iter: [17200/50000] l1: 0.053316 ae: 0.115056 wgan_g: -110.880470 wgan_d: -38.647167 wgan_gp: 0.597186 g: 0.091166 d: -32.675312 speed: 0.27 batches/s 
+2023-11-18 06:02:04,201 INFO Iter: [17300/50000] l1: 0.049767 ae: 0.115695 wgan_g: -116.481483 wgan_d: -32.855976 wgan_gp: 0.645933 g: 0.082073 d: -26.396641 speed: 0.21 batches/s 
+2023-11-18 06:09:53,744 INFO Iter: [17400/50000] l1: 0.054682 ae: 0.126535 wgan_g: -82.496376 wgan_d: -32.172737 wgan_gp: 0.509595 g: 0.134964 d: -27.076790 speed: 0.21 batches/s 
+2023-11-18 06:17:41,414 INFO Iter: [17500/50000] l1: 0.052957 ae: 0.121510 wgan_g: -86.203842 wgan_d: -35.722424 wgan_gp: 0.685641 g: 0.123157 d: -28.866011 speed: 0.21 batches/s 
+2023-11-18 06:25:17,807 INFO Iter: [17600/50000] l1: 0.055687 ae: 0.129513 wgan_g: -50.503326 wgan_d: -40.964298 wgan_gp: 0.702915 g: 0.171737 d: -33.935146 speed: 0.22 batches/s 
+2023-11-18 06:32:58,059 INFO Iter: [17700/50000] l1: 0.058611 ae: 0.118491 wgan_g: -37.988304 wgan_d: -27.628651 wgan_gp: 0.325448 g: 0.174535 d: -24.374174 speed: 0.22 batches/s 
+2023-11-18 06:40:41,587 INFO Iter: [17800/50000] l1: 0.049859 ae: 0.115876 wgan_g: -70.044067 wgan_d: -28.386208 wgan_gp: 0.621636 g: 0.128838 d: -22.169844 speed: 0.22 batches/s 
+2023-11-18 06:48:22,065 INFO Iter: [17900/50000] l1: 0.050965 ae: 0.112565 wgan_g: -34.741859 wgan_d: -39.592213 wgan_gp: 0.857088 g: 0.161494 d: -31.021330 speed: 0.22 batches/s 
+2023-11-18 06:56:05,134 INFO Iter: [18000/50000] l1: 0.053722 ae: 0.133749 wgan_g: -85.072266 wgan_d: -32.422844 wgan_gp: 0.741560 g: 0.139893 d: -25.007240 speed: 0.22 batches/s 
+2023-11-18 07:03:53,280 INFO Iter: [18100/50000] l1: 0.053935 ae: 0.123043 wgan_g: -78.378181 wgan_d: -30.319721 wgan_gp: 0.376238 g: 0.133996 d: -26.557346 speed: 0.21 batches/s 
+2023-11-18 07:11:34,216 INFO Iter: [18200/50000] l1: 0.052784 ae: 0.119370 wgan_g: -64.775757 wgan_d: -35.733097 wgan_gp: 0.754930 g: 0.141809 d: -28.183796 speed: 0.22 batches/s 
+2023-11-18 07:19:21,072 INFO Iter: [18300/50000] l1: 0.049666 ae: 0.125874 wgan_g: -73.707336 wgan_d: -28.557453 wgan_gp: 0.543937 g: 0.136940 d: -23.118084 speed: 0.21 batches/s 
+2023-11-18 07:27:03,696 INFO Iter: [18400/50000] l1: 0.054622 ae: 0.121278 wgan_g: -35.144726 wgan_d: -34.500519 wgan_gp: 0.426645 g: 0.175935 d: -30.234074 speed: 0.22 batches/s 
+2023-11-18 07:34:50,633 INFO Iter: [18500/50000] l1: 0.059054 ae: 0.113920 wgan_g: -75.615425 wgan_d: -31.346617 wgan_gp: 0.512447 g: 0.131953 d: -26.222153 speed: 0.21 batches/s 
+2023-11-18 07:42:34,071 INFO Iter: [18600/50000] l1: 0.050936 ae: 0.123917 wgan_g: -94.271393 wgan_d: -28.959139 wgan_gp: 0.517607 g: 0.115552 d: -23.783072 speed: 0.22 batches/s 
+2023-11-18 07:50:16,064 INFO Iter: [18700/50000] l1: 0.054123 ae: 0.119594 wgan_g: -83.797516 wgan_d: -29.062820 wgan_gp: 0.680387 g: 0.124663 d: -22.258953 speed: 0.22 batches/s 
+2023-11-18 07:58:01,409 INFO Iter: [18800/50000] l1: 0.058212 ae: 0.122446 wgan_g: -38.287491 wgan_d: -24.865948 wgan_gp: 0.299603 g: 0.178501 d: -21.869917 speed: 0.21 batches/s 
+2023-11-18 08:05:28,863 INFO Iter: [18900/50000] l1: 0.053840 ae: 0.113286 wgan_g: -48.812042 wgan_d: -26.986435 wgan_gp: 0.343155 g: 0.151740 d: -23.554882 speed: 0.22 batches/s 
+2023-11-18 08:11:10,997 INFO Iter: [19000/50000] l1: 0.055375 ae: 0.119685 wgan_g: -82.628708 wgan_d: -30.612045 wgan_gp: 0.615219 g: 0.127443 d: -24.459858 speed: 0.29 batches/s 
+2023-11-18 08:15:58,558 INFO Iter: [19100/50000] l1: 0.056456 ae: 0.121651 wgan_g: -77.866249 wgan_d: -36.275154 wgan_gp: 0.473073 g: 0.135862 d: -31.544422 speed: 0.35 batches/s 
+2023-11-18 08:20:45,406 INFO Iter: [19200/50000] l1: 0.052141 ae: 0.111344 wgan_g: -82.270676 wgan_d: -38.017189 wgan_gp: 0.901467 g: 0.113911 d: -29.002522 speed: 0.35 batches/s 
+2023-11-18 08:25:29,801 INFO Iter: [19300/50000] l1: 0.049197 ae: 0.117164 wgan_g: -86.149933 wgan_d: -27.977648 wgan_gp: 0.573841 g: 0.113484 d: -22.239241 speed: 0.35 batches/s 
+2023-11-18 08:30:05,707 INFO Iter: [19400/50000] l1: 0.050533 ae: 0.125285 wgan_g: -61.533981 wgan_d: -29.077406 wgan_gp: 0.631377 g: 0.149447 d: -22.763636 speed: 0.36 batches/s 
+2023-11-18 08:34:36,913 INFO Iter: [19500/50000] l1: 0.042290 ae: 0.126940 wgan_g: -97.908684 wgan_d: -16.935215 wgan_gp: 0.371844 g: 0.105167 d: -13.216778 speed: 0.37 batches/s 
+2023-11-18 08:39:12,197 INFO Iter: [19600/50000] l1: 0.048323 ae: 0.112595 wgan_g: -64.848457 wgan_d: -30.490864 wgan_gp: 0.485840 g: 0.128253 d: -25.632462 speed: 0.36 batches/s 
+2023-11-18 08:43:44,851 INFO Iter: [19700/50000] l1: 0.063473 ae: 0.125035 wgan_g: -60.009422 wgan_d: -28.155415 wgan_gp: 0.441341 g: 0.166201 d: -23.742008 speed: 0.37 batches/s 
+2023-11-18 08:48:23,483 INFO Iter: [19800/50000] l1: 0.053622 ae: 0.113144 wgan_g: -31.960274 wgan_d: -30.928614 wgan_gp: 0.520560 g: 0.168158 d: -25.723015 speed: 0.36 batches/s 
+2023-11-18 08:53:08,454 INFO Iter: [19900/50000] l1: 0.051826 ae: 0.106508 wgan_g: -27.393429 wgan_d: -29.492214 wgan_gp: 0.503336 g: 0.162607 d: -24.458857 speed: 0.35 batches/s 
+2023-11-18 08:57:54,929 INFO Iter: [20000/50000] l1: 0.060244 ae: 0.107114 wgan_g: -43.345955 wgan_d: -37.008400 wgan_gp: 0.577462 g: 0.157484 d: -31.233784 speed: 0.35 batches/s 
+2023-11-18 09:02:43,486 INFO Iter: [20100/50000] l1: 0.054280 ae: 0.120442 wgan_g: -55.422653 wgan_d: -26.423456 wgan_gp: 0.460032 g: 0.154243 d: -21.823139 speed: 0.35 batches/s 
+2023-11-18 09:07:29,861 INFO Iter: [20200/50000] l1: 0.057982 ae: 0.115562 wgan_g: -60.015686 wgan_d: -39.304420 wgan_gp: 0.600300 g: 0.148237 d: -33.301422 speed: 0.35 batches/s 
+2023-11-18 09:12:18,861 INFO Iter: [20300/50000] l1: 0.043583 ae: 0.107499 wgan_g: -77.400063 wgan_d: -28.076019 wgan_gp: 0.524538 g: 0.103898 d: -22.830637 speed: 0.35 batches/s 
+2023-11-18 09:17:04,974 INFO Iter: [20400/50000] l1: 0.058660 ae: 0.130000 wgan_g: -73.265518 wgan_d: -29.697659 wgan_gp: 0.611782 g: 0.153126 d: -23.579842 speed: 0.35 batches/s 
+2023-11-18 09:21:49,649 INFO Iter: [20500/50000] l1: 0.046571 ae: 0.120145 wgan_g: -97.020073 wgan_d: -29.555550 wgan_gp: 0.565514 g: 0.103039 d: -23.900406 speed: 0.35 batches/s 
+2023-11-18 09:26:41,545 INFO Iter: [20600/50000] l1: 0.057132 ae: 0.126501 wgan_g: -109.548714 wgan_d: -48.439819 wgan_gp: 0.767799 g: 0.110811 d: -40.761829 speed: 0.34 batches/s 
+2023-11-18 09:31:25,916 INFO Iter: [20700/50000] l1: 0.055209 ae: 0.117546 wgan_g: -60.896416 wgan_d: -35.186806 wgan_gp: 0.559085 g: 0.146410 d: -29.595951 speed: 0.35 batches/s 
+2023-11-18 09:36:12,474 INFO Iter: [20800/50000] l1: 0.059016 ae: 0.108845 wgan_g: -51.006474 wgan_d: -28.946480 wgan_gp: 0.347739 g: 0.150426 d: -25.469090 speed: 0.35 batches/s 
+2023-11-18 09:40:58,910 INFO Iter: [20900/50000] l1: 0.053752 ae: 0.119106 wgan_g: -52.902122 wgan_d: -21.924965 wgan_gp: 0.403315 g: 0.154527 d: -17.891813 speed: 0.35 batches/s 
+2023-11-18 09:45:49,144 INFO Iter: [21000/50000] l1: 0.049053 ae: 0.116993 wgan_g: -32.186714 wgan_d: -25.560265 wgan_gp: 0.541566 g: 0.167069 d: -20.144600 speed: 0.34 batches/s 
+2023-11-18 09:50:35,904 INFO Iter: [21100/50000] l1: 0.055065 ae: 0.117771 wgan_g: -57.012032 wgan_d: -26.686634 wgan_gp: 0.469941 g: 0.150392 d: -21.987228 speed: 0.35 batches/s 
+2023-11-18 09:55:20,446 INFO Iter: [21200/50000] l1: 0.054040 ae: 0.121738 wgan_g: -108.331398 wgan_d: -44.949749 wgan_gp: 0.868160 g: 0.102601 d: -36.268150 speed: 0.35 batches/s 
+2023-11-18 10:00:05,359 INFO Iter: [21300/50000] l1: 0.053400 ae: 0.102698 wgan_g: -35.974537 wgan_d: -25.458660 wgan_gp: 0.463250 g: 0.151343 d: -20.826159 speed: 0.35 batches/s 
+2023-11-18 10:04:48,136 INFO Iter: [21400/50000] l1: 0.045473 ae: 0.119481 wgan_g: -35.310341 wgan_d: -25.428303 wgan_gp: 0.404298 g: 0.162635 d: -21.385324 speed: 0.35 batches/s 
+2023-11-18 10:09:21,587 INFO Iter: [21500/50000] l1: 0.051924 ae: 0.122707 wgan_g: -68.173264 wgan_d: -30.474751 wgan_gp: 0.657065 g: 0.141385 d: -23.904106 speed: 0.37 batches/s 
+2023-11-18 10:13:54,801 INFO Iter: [21600/50000] l1: 0.053146 ae: 0.099398 wgan_g: -28.890104 wgan_d: -28.566189 wgan_gp: 0.596684 g: 0.154162 d: -22.599354 speed: 0.37 batches/s 
+2023-11-18 10:22:35,534 INFO Iter: [21700/50000] l1: 0.048378 ae: 0.117701 wgan_g: -49.753391 wgan_d: -29.963097 wgan_gp: 0.478770 g: 0.149542 d: -25.175398 speed: 0.19 batches/s 
+2023-11-18 10:30:49,929 INFO Iter: [21800/50000] l1: 0.049181 ae: 0.115957 wgan_g: -60.856323 wgan_d: -31.052540 wgan_gp: 0.724777 g: 0.137310 d: -23.804768 speed: 0.20 batches/s 
+2023-11-18 10:39:18,404 INFO Iter: [21900/50000] l1: 0.051025 ae: 0.099584 wgan_g: -23.382347 wgan_d: -26.754742 wgan_gp: 0.417462 g: 0.157349 d: -22.580120 speed: 0.20 batches/s 
+2023-11-18 10:48:24,525 INFO Iter: [22000/50000] l1: 0.048086 ae: 0.119693 wgan_g: -77.284760 wgan_d: -27.231121 wgan_gp: 0.656130 g: 0.124050 d: -20.669823 speed: 0.18 batches/s 
+2023-11-18 10:58:00,266 INFO Iter: [22100/50000] l1: 0.056472 ae: 0.105993 wgan_g: -53.804024 wgan_d: -30.255581 wgan_gp: 0.528675 g: 0.141154 d: -24.968828 speed: 0.17 batches/s 
+2023-11-18 11:07:30,723 INFO Iter: [22200/50000] l1: 0.053502 ae: 0.117763 wgan_g: -22.051218 wgan_d: -28.901699 wgan_gp: 0.528325 g: 0.183467 d: -23.618454 speed: 0.18 batches/s 
+2023-11-18 11:16:19,575 INFO Iter: [22300/50000] l1: 0.053767 ae: 0.112165 wgan_g: -55.897030 wgan_d: -37.470390 wgan_gp: 0.580909 g: 0.143222 d: -31.661304 speed: 0.19 batches/s 
+2023-11-18 11:21:17,356 INFO Iter: [22400/50000] l1: 0.047092 ae: 0.115250 wgan_g: -48.994919 wgan_d: -20.220608 wgan_gp: 0.439044 g: 0.145815 d: -15.830170 speed: 0.34 batches/s 
+2023-11-18 11:25:45,258 INFO Iter: [22500/50000] l1: 0.048292 ae: 0.108927 wgan_g: -113.028145 wgan_d: -25.044748 wgan_gp: 0.605811 g: 0.075635 d: -18.986641 speed: 0.37 batches/s 
+2023-11-18 11:30:11,226 INFO Iter: [22600/50000] l1: 0.051238 ae: 0.103059 wgan_g: -49.564438 wgan_d: -29.039825 wgan_gp: 0.595176 g: 0.135591 d: -23.088060 speed: 0.38 batches/s 
+2023-11-18 11:34:40,051 INFO Iter: [22700/50000] l1: 0.050000 ae: 0.120126 wgan_g: -15.431086 wgan_d: -33.605843 wgan_gp: 0.510204 g: 0.188720 d: -28.503799 speed: 0.37 batches/s 
+2023-11-18 11:43:16,768 INFO Iter: [22800/50000] l1: 0.047290 ae: 0.108116 wgan_g: -54.370049 wgan_d: -31.446812 wgan_gp: 0.699668 g: 0.132117 d: -24.450134 speed: 0.19 batches/s 
+2023-11-18 12:00:38,628 INFO Iter: [22900/50000] l1: 0.050099 ae: 0.119527 wgan_g: -80.414665 wgan_d: -34.527611 wgan_gp: 0.667661 g: 0.123136 d: -27.851002 speed: 0.10 batches/s 
+2023-11-18 12:17:45,732 INFO Iter: [23000/50000] l1: 0.048708 ae: 0.120128 wgan_g: -65.388245 wgan_d: -24.673409 wgan_gp: 0.369303 g: 0.137214 d: -20.980373 speed: 0.10 batches/s 
+2023-11-18 12:35:00,954 INFO Iter: [23100/50000] l1: 0.060495 ae: 0.116401 wgan_g: -8.559631 wgan_d: -32.899330 wgan_gp: 0.506990 g: 0.203716 d: -27.829428 speed: 0.10 batches/s 
+2023-11-18 12:45:32,724 INFO Iter: [23200/50000] l1: 0.050175 ae: 0.108065 wgan_g: -44.954544 wgan_d: -29.434998 wgan_gp: 0.516368 g: 0.144934 d: -24.271313 speed: 0.16 batches/s 
+2023-11-18 12:50:18,349 INFO Iter: [23300/50000] l1: 0.054000 ae: 0.116633 wgan_g: -52.020348 wgan_d: -25.987654 wgan_gp: 0.525304 g: 0.152740 d: -20.734615 speed: 0.35 batches/s 
+2023-11-18 12:54:44,480 INFO Iter: [23400/50000] l1: 0.065636 ae: 0.112933 wgan_g: -9.581352 wgan_d: -34.134911 wgan_gp: 0.591332 g: 0.204701 d: -28.221596 speed: 0.38 batches/s 
+2023-11-18 12:59:14,260 INFO Iter: [23500/50000] l1: 0.052618 ae: 0.105155 wgan_g: -100.746048 wgan_d: -35.132393 wgan_gp: 0.706659 g: 0.088581 d: -28.065802 speed: 0.37 batches/s 
+2023-11-18 13:03:40,210 INFO Iter: [23600/50000] l1: 0.051839 ae: 0.116875 wgan_g: -62.714989 wgan_d: -30.870575 wgan_gp: 0.444248 g: 0.139742 d: -26.428093 speed: 0.38 batches/s 
+2023-11-18 13:08:06,489 INFO Iter: [23700/50000] l1: 0.057112 ae: 0.116006 wgan_g: -82.363823 wgan_d: -35.841835 wgan_gp: 0.642923 g: 0.125377 d: -29.412609 speed: 0.38 batches/s 
+2023-11-18 13:12:37,796 INFO Iter: [23800/50000] l1: 0.053484 ae: 0.126082 wgan_g: -31.193085 wgan_d: -18.766312 wgan_gp: 0.290887 g: 0.184286 d: -15.857440 speed: 0.37 batches/s 
+2023-11-18 13:19:40,376 INFO Iter: [23900/50000] l1: 0.047811 ae: 0.115231 wgan_g: -79.570465 wgan_d: -33.052586 wgan_gp: 0.585608 g: 0.116080 d: -27.196503 speed: 0.24 batches/s 
+2023-11-18 13:40:42,568 INFO Iter: [24000/50000] l1: 0.052036 ae: 0.105289 wgan_g: -44.847412 wgan_d: -31.684917 wgan_gp: 0.414787 g: 0.143943 d: -27.537045 speed: 0.08 batches/s 
+2023-11-18 14:01:46,799 INFO Iter: [24100/50000] l1: 0.046794 ae: 0.117733 wgan_g: -54.499794 wgan_d: -26.504061 wgan_gp: 0.377751 g: 0.142932 d: -22.726551 speed: 0.08 batches/s 
+2023-11-18 14:22:26,075 INFO Iter: [24200/50000] l1: 0.055588 ae: 0.106088 wgan_g: -5.418418 wgan_d: -29.681309 wgan_gp: 0.459893 g: 0.188592 d: -25.082376 speed: 0.08 batches/s 
+2023-11-18 14:40:57,177 INFO Iter: [24300/50000] l1: 0.057372 ae: 0.119697 wgan_g: -50.208366 wgan_d: -26.804682 wgan_gp: 0.390693 g: 0.162275 d: -22.897751 speed: 0.09 batches/s 
+2023-11-18 14:57:10,403 INFO Iter: [24400/50000] l1: 0.052019 ae: 0.107866 wgan_g: -45.782486 wgan_d: -26.970762 wgan_gp: 0.432732 g: 0.146080 d: -22.643444 speed: 0.10 batches/s 
+2023-11-18 15:01:57,222 INFO Iter: [24500/50000] l1: 0.060116 ae: 0.121135 wgan_g: -66.829536 wgan_d: -31.320471 wgan_gp: 0.419870 g: 0.150671 d: -27.121769 speed: 0.35 batches/s 
+2023-11-18 15:04:50,736 INFO Iter: [24600/50000] l1: 0.048203 ae: 0.109319 wgan_g: -50.646797 wgan_d: -29.338833 wgan_gp: 0.369040 g: 0.138380 d: -25.648430 speed: 0.58 batches/s 
+2023-11-18 15:07:43,172 INFO Iter: [24700/50000] l1: 0.057399 ae: 0.116886 wgan_g: -87.560425 wgan_d: -24.230537 wgan_gp: 0.309994 g: 0.121582 d: -21.130598 speed: 0.58 batches/s 
+2023-11-18 15:10:39,410 INFO Iter: [24800/50000] l1: 0.051347 ae: 0.119970 wgan_g: -108.919350 wgan_d: -34.986134 wgan_gp: 0.586886 g: 0.096661 d: -29.117275 speed: 0.57 batches/s 
+2023-11-18 15:14:05,803 INFO Iter: [24900/50000] l1: 0.056401 ae: 0.115321 wgan_g: -52.519329 wgan_d: -26.603317 wgan_gp: 0.428144 g: 0.153548 d: -22.321873 speed: 0.48 batches/s 
+2023-11-18 15:18:26,018 INFO Iter: [25000/50000] l1: 0.050088 ae: 0.104968 wgan_g: -70.526047 wgan_d: -34.294067 wgan_gp: 0.398296 g: 0.115541 d: -30.311106 speed: 0.38 batches/s 
+2023-11-18 15:22:54,270 INFO Iter: [25100/50000] l1: 0.049125 ae: 0.106844 wgan_g: -56.834282 wgan_d: -23.867947 wgan_gp: 0.470403 g: 0.130328 d: -19.163914 speed: 0.37 batches/s 
+2023-11-18 15:27:27,988 INFO Iter: [25200/50000] l1: 0.051190 ae: 0.113601 wgan_g: -83.487747 wgan_d: -29.142101 wgan_gp: 0.451458 g: 0.114261 d: -24.627522 speed: 0.37 batches/s 
+2023-11-18 15:31:57,035 INFO Iter: [25300/50000] l1: 0.049573 ae: 0.101306 wgan_g: -90.410927 wgan_d: -24.322241 wgan_gp: 0.417154 g: 0.090644 d: -20.150700 speed: 0.37 batches/s 
+2023-11-18 15:36:23,437 INFO Iter: [25400/50000] l1: 0.043798 ae: 0.104613 wgan_g: -55.458214 wgan_d: -24.095116 wgan_gp: 0.284225 g: 0.122634 d: -21.252863 speed: 0.38 batches/s 
+2023-11-18 15:40:50,579 INFO Iter: [25500/50000] l1: 0.055595 ae: 0.114029 wgan_g: -56.368690 wgan_d: -29.488249 wgan_gp: 0.443752 g: 0.147180 d: -25.050732 speed: 0.37 batches/s 
+2023-11-18 15:45:20,772 INFO Iter: [25600/50000] l1: 0.051625 ae: 0.094154 wgan_g: -47.717014 wgan_d: -27.784462 wgan_gp: 0.296544 g: 0.127218 d: -24.819023 speed: 0.37 batches/s 
+2023-11-18 15:49:49,248 INFO Iter: [25700/50000] l1: 0.054071 ae: 0.097863 wgan_g: -92.315720 wgan_d: -32.557888 wgan_gp: 0.550727 g: 0.090005 d: -27.050621 speed: 0.37 batches/s 
+2023-11-18 15:54:15,597 INFO Iter: [25800/50000] l1: 0.057629 ae: 0.112034 wgan_g: -63.524872 wgan_d: -26.837830 wgan_gp: 0.423437 g: 0.140070 d: -22.603456 speed: 0.38 batches/s 
+2023-11-18 15:58:49,780 INFO Iter: [25900/50000] l1: 0.048139 ae: 0.105435 wgan_g: -45.696617 wgan_d: -21.106594 wgan_gp: 0.426559 g: 0.138593 d: -16.841007 speed: 0.36 batches/s 
+2023-11-18 16:03:21,365 INFO Iter: [26000/50000] l1: 0.052421 ae: 0.106020 wgan_g: -88.286369 wgan_d: -22.401724 wgan_gp: 0.365525 g: 0.101843 d: -18.746475 speed: 0.37 batches/s 
+2023-11-18 16:07:51,676 INFO Iter: [26100/50000] l1: 0.053116 ae: 0.116359 wgan_g: -57.916683 wgan_d: -33.620964 wgan_gp: 0.355359 g: 0.145452 d: -30.067371 speed: 0.37 batches/s 
+2023-11-18 16:12:19,864 INFO Iter: [26200/50000] l1: 0.054947 ae: 0.104734 wgan_g: -77.487717 wgan_d: -32.384026 wgan_gp: 0.616010 g: 0.114129 d: -26.223925 speed: 0.37 batches/s 
+2023-11-18 16:16:51,952 INFO Iter: [26300/50000] l1: 0.056241 ae: 0.091945 wgan_g: -94.772537 wgan_d: -29.370970 wgan_gp: 0.378092 g: 0.083051 d: -25.590048 speed: 0.37 batches/s 
+2023-11-18 16:21:29,793 INFO Iter: [26400/50000] l1: 0.050666 ae: 0.105653 wgan_g: -101.972626 wgan_d: -24.079342 wgan_gp: 0.408564 g: 0.085611 d: -19.993706 speed: 0.36 batches/s 
+2023-11-18 16:25:55,465 INFO Iter: [26500/50000] l1: 0.063618 ae: 0.103997 wgan_g: -154.585846 wgan_d: -23.571686 wgan_gp: 0.385373 g: 0.046553 d: -19.717953 speed: 0.38 batches/s 
+2023-11-18 16:28:59,556 INFO Iter: [26600/50000] l1: 0.048219 ae: 0.101776 wgan_g: -33.090332 wgan_d: -27.055239 wgan_gp: 0.380129 g: 0.146903 d: -23.253952 speed: 0.54 batches/s 
+2023-11-18 16:32:00,904 INFO Iter: [26700/50000] l1: 0.055442 ae: 0.108262 wgan_g: -62.703388 wgan_d: -27.131943 wgan_gp: 0.391600 g: 0.133742 d: -23.215940 speed: 0.55 batches/s 
+2023-11-18 16:35:03,540 INFO Iter: [26800/50000] l1: 0.048936 ae: 0.112422 wgan_g: -68.970047 wgan_d: -28.984493 wgan_gp: 0.388402 g: 0.124660 d: -25.100477 speed: 0.55 batches/s 
+2023-11-18 16:38:05,945 INFO Iter: [26900/50000] l1: 0.047358 ae: 0.104812 wgan_g: -64.391022 wgan_d: -25.654909 wgan_gp: 0.323521 g: 0.118212 d: -22.419697 speed: 0.55 batches/s 
+2023-11-18 16:41:10,001 INFO Iter: [27000/50000] l1: 0.056599 ae: 0.097662 wgan_g: -45.843346 wgan_d: -24.857113 wgan_gp: 0.406904 g: 0.139270 d: -20.788078 speed: 0.54 batches/s 
+2023-11-18 16:44:12,030 INFO Iter: [27100/50000] l1: 0.051799 ae: 0.107545 wgan_g: -56.724655 wgan_d: -30.355343 wgan_gp: 0.453450 g: 0.134487 d: -25.820839 speed: 0.55 batches/s 
+2023-11-18 16:47:12,910 INFO Iter: [27200/50000] l1: 0.051064 ae: 0.096146 wgan_g: -27.375904 wgan_d: -29.041718 wgan_gp: 0.365935 g: 0.149276 d: -25.382364 speed: 0.55 batches/s 
+2023-11-18 16:50:13,183 INFO Iter: [27300/50000] l1: 0.051836 ae: 0.100476 wgan_g: -68.688759 wgan_d: -24.879454 wgan_gp: 0.386309 g: 0.114086 d: -21.016367 speed: 0.55 batches/s 
+2023-11-18 16:53:18,337 INFO Iter: [27400/50000] l1: 0.050457 ae: 0.101554 wgan_g: -80.604752 wgan_d: -29.117188 wgan_gp: 0.419986 g: 0.101808 d: -24.917328 speed: 0.54 batches/s 
+2023-11-18 16:56:19,801 INFO Iter: [27500/50000] l1: 0.050518 ae: 0.107753 wgan_g: -112.150269 wgan_d: -27.869030 wgan_gp: 0.417592 g: 0.077776 d: -23.693108 speed: 0.55 batches/s 
+2023-11-18 16:59:20,950 INFO Iter: [27600/50000] l1: 0.057861 ae: 0.098280 wgan_g: -81.895447 wgan_d: -23.481844 wgan_gp: 0.330203 g: 0.105473 d: -20.179817 speed: 0.55 batches/s 
+2023-11-18 17:04:01,316 INFO Iter: [27700/50000] l1: 0.056769 ae: 0.120074 wgan_g: -58.318077 wgan_d: -27.610977 wgan_gp: 0.390863 g: 0.153894 d: -23.702347 speed: 0.36 batches/s 
+2023-11-18 17:08:40,075 INFO Iter: [27800/50000] l1: 0.050670 ae: 0.108278 wgan_g: -101.941879 wgan_d: -25.997879 wgan_gp: 0.500752 g: 0.088795 d: -20.990362 speed: 0.36 batches/s 
+2023-11-18 17:13:18,539 INFO Iter: [27900/50000] l1: 0.058034 ae: 0.107747 wgan_g: -92.289200 wgan_d: -27.628956 wgan_gp: 0.323440 g: 0.106647 d: -24.394550 speed: 0.36 batches/s 
+2023-11-18 17:17:55,778 INFO Iter: [28000/50000] l1: 0.053034 ae: 0.102954 wgan_g: -16.536633 wgan_d: -24.518085 wgan_gp: 0.271127 g: 0.170649 d: -21.806818 speed: 0.36 batches/s 
+2023-11-18 17:22:37,924 INFO Iter: [28100/50000] l1: 0.048116 ae: 0.100851 wgan_g: -79.053436 wgan_d: -25.118679 wgan_gp: 0.413209 g: 0.099708 d: -20.986586 speed: 0.35 batches/s 
+2023-11-18 17:36:16,553 INFO Iter: [28200/50000] l1: 0.046894 ae: 0.115153 wgan_g: -56.829037 wgan_d: -18.426691 wgan_gp: 0.384526 g: 0.137628 d: -14.581436 speed: 0.12 batches/s 
+2023-11-18 17:57:18,797 INFO Iter: [28300/50000] l1: 0.050403 ae: 0.100622 wgan_g: -95.186234 wgan_d: -18.902279 wgan_gp: 0.329608 g: 0.086045 d: -15.606195 speed: 0.08 batches/s 
+2023-11-18 18:18:23,469 INFO Iter: [28400/50000] l1: 0.052756 ae: 0.097134 wgan_g: -95.567535 wgan_d: -34.254627 wgan_gp: 0.349260 g: 0.084301 d: -30.762026 speed: 0.08 batches/s 
+2023-11-18 18:37:26,996 INFO Iter: [28500/50000] l1: 0.046949 ae: 0.099171 wgan_g: -60.003918 wgan_d: -18.155252 wgan_gp: 0.276742 g: 0.115340 d: -15.387831 speed: 0.09 batches/s 
+2023-11-18 18:53:34,240 INFO Iter: [28600/50000] l1: 0.055700 ae: 0.099372 wgan_g: -31.510962 wgan_d: -23.381859 wgan_gp: 0.336122 g: 0.154575 d: -20.020639 speed: 0.10 batches/s 
+2023-11-18 19:04:42,576 INFO Iter: [28700/50000] l1: 0.053322 ae: 0.110341 wgan_g: -84.507042 wgan_d: -25.718916 wgan_gp: 0.376388 g: 0.111889 d: -21.955040 speed: 0.15 batches/s 
+2023-11-18 19:09:41,432 INFO Iter: [28800/50000] l1: 0.045875 ae: 0.098136 wgan_g: -71.610229 wgan_d: -23.841915 wgan_gp: 0.608453 g: 0.101202 d: -17.757381 speed: 0.33 batches/s 
+2023-11-18 19:14:35,813 INFO Iter: [28900/50000] l1: 0.048604 ae: 0.105180 wgan_g: -47.231846 wgan_d: -22.804867 wgan_gp: 0.319759 g: 0.137309 d: -19.607273 speed: 0.34 batches/s 
+2023-11-18 19:19:32,033 INFO Iter: [29000/50000] l1: 0.052167 ae: 0.101619 wgan_g: -32.291119 wgan_d: -12.052950 wgan_gp: 0.218843 g: 0.152251 d: -9.864525 speed: 0.34 batches/s 
+2023-11-18 19:24:29,011 INFO Iter: [29100/50000] l1: 0.051800 ae: 0.092504 wgan_g: -48.177021 wgan_d: -19.443893 wgan_gp: 0.324686 g: 0.124989 d: -16.197035 speed: 0.34 batches/s 
+2023-11-18 19:29:22,561 INFO Iter: [29200/50000] l1: 0.050013 ae: 0.102982 wgan_g: -75.066811 wgan_d: -24.854990 wgan_gp: 0.233668 g: 0.108528 d: -22.518305 speed: 0.34 batches/s 
+2023-11-18 19:34:16,795 INFO Iter: [29300/50000] l1: 0.063192 ae: 0.092970 wgan_g: -60.850960 wgan_d: -15.254867 wgan_gp: 0.237954 g: 0.126543 d: -12.875330 speed: 0.34 batches/s 
+2023-11-18 19:39:11,247 INFO Iter: [29400/50000] l1: 0.048773 ae: 0.095067 wgan_g: -65.425064 wgan_d: -23.078747 wgan_gp: 0.276322 g: 0.107183 d: -20.315531 speed: 0.34 batches/s 
+2023-11-18 19:44:07,193 INFO Iter: [29500/50000] l1: 0.047918 ae: 0.106033 wgan_g: -88.988976 wgan_d: -26.060581 wgan_gp: 0.412683 g: 0.095752 d: -21.933754 speed: 0.34 batches/s 
+2023-11-18 19:49:00,535 INFO Iter: [29600/50000] l1: 0.051321 ae: 0.107284 wgan_g: -16.076708 wgan_d: -18.224022 wgan_gp: 0.316665 g: 0.174249 d: -15.057368 speed: 0.34 batches/s 
+2023-11-18 19:53:51,397 INFO Iter: [29700/50000] l1: 0.051515 ae: 0.094549 wgan_g: -65.862335 wgan_d: -24.906273 wgan_gp: 0.476258 g: 0.109415 d: -20.143696 speed: 0.34 batches/s 
+2023-11-18 19:58:44,763 INFO Iter: [29800/50000] l1: 0.050442 ae: 0.108520 wgan_g: -22.802036 wgan_d: -25.624683 wgan_gp: 0.367827 g: 0.167952 d: -21.946417 speed: 0.34 batches/s 
+2023-11-18 20:03:32,724 INFO Iter: [29900/50000] l1: 0.052912 ae: 0.094219 wgan_g: -36.581520 wgan_d: -26.872103 wgan_gp: 0.268792 g: 0.139976 d: -24.184179 speed: 0.35 batches/s 
+2023-11-18 20:07:47,451 INFO Iter: [30000/50000] l1: 0.050424 ae: 0.117587 wgan_g: -62.157104 wgan_d: -22.080956 wgan_gp: 0.327455 g: 0.139457 d: -18.806410 speed: 0.39 batches/s 
+2023-11-18 20:10:59,286 INFO Iter: [30100/50000] l1: 0.049303 ae: 0.094362 wgan_g: -71.437248 wgan_d: -25.606825 wgan_gp: 0.300353 g: 0.100960 d: -22.603292 speed: 0.52 batches/s 
+2023-11-18 20:15:56,601 INFO Iter: [30200/50000] l1: 0.051990 ae: 0.107499 wgan_g: -86.432045 wgan_d: -13.968894 wgan_gp: 0.328621 g: 0.104955 d: -10.682682 speed: 0.34 batches/s 
+2023-11-18 20:20:52,210 INFO Iter: [30300/50000] l1: 0.049965 ae: 0.093101 wgan_g: -71.111076 wgan_d: -24.427662 wgan_gp: 0.289896 g: 0.100569 d: -21.528698 speed: 0.34 batches/s 
+2023-11-18 20:25:47,668 INFO Iter: [30400/50000] l1: 0.047706 ae: 0.110295 wgan_g: -25.394270 wgan_d: -18.701792 wgan_gp: 0.326961 g: 0.164207 d: -15.432185 speed: 0.34 batches/s 
+2023-11-18 20:30:43,381 INFO Iter: [30500/50000] l1: 0.050478 ae: 0.106597 wgan_g: -6.048346 wgan_d: -26.372789 wgan_gp: 0.440383 g: 0.182443 d: -21.968956 speed: 0.34 batches/s 
+2023-11-18 20:35:38,298 INFO Iter: [30600/50000] l1: 0.051675 ae: 0.101291 wgan_g: -37.579651 wgan_d: -26.973846 wgan_gp: 0.462177 g: 0.145980 d: -22.352077 speed: 0.34 batches/s 
+2023-11-18 20:40:34,220 INFO Iter: [30700/50000] l1: 0.049108 ae: 0.110757 wgan_g: -135.697632 wgan_d: -25.723267 wgan_gp: 0.614790 g: 0.056140 d: -19.575365 speed: 0.34 batches/s 
+2023-11-18 20:45:30,499 INFO Iter: [30800/50000] l1: 0.052610 ae: 0.108238 wgan_g: -82.860275 wgan_d: -19.948135 wgan_gp: 0.346800 g: 0.110157 d: -16.480139 speed: 0.34 batches/s 
+2023-11-18 20:50:26,888 INFO Iter: [30900/50000] l1: 0.050394 ae: 0.102046 wgan_g: -61.843365 wgan_d: -30.489676 wgan_gp: 0.473045 g: 0.121085 d: -25.759228 speed: 0.34 batches/s 
+2023-11-18 20:55:22,628 INFO Iter: [31000/50000] l1: 0.054145 ae: 0.100642 wgan_g: -66.958191 wgan_d: -14.243601 wgan_gp: 0.282625 g: 0.118787 d: -11.417351 speed: 0.34 batches/s 
+2023-11-18 21:00:20,872 INFO Iter: [31100/50000] l1: 0.054356 ae: 0.100922 wgan_g: -46.347553 wgan_d: -22.790627 wgan_gp: 0.425967 g: 0.139986 d: -18.530956 speed: 0.34 batches/s 
+2023-11-18 21:05:15,638 INFO Iter: [31200/50000] l1: 0.059906 ae: 0.095100 wgan_g: -73.582153 wgan_d: -22.426432 wgan_gp: 0.312789 g: 0.112424 d: -19.298540 speed: 0.34 batches/s 
+2023-11-18 21:10:05,217 INFO Iter: [31300/50000] l1: 0.056853 ae: 0.093107 wgan_g: -49.309471 wgan_d: -26.673277 wgan_gp: 0.265364 g: 0.130642 d: -24.019634 speed: 0.35 batches/s 
+2023-11-18 21:13:13,653 INFO Iter: [31400/50000] l1: 0.043225 ae: 0.105388 wgan_g: -61.574501 wgan_d: -22.314598 wgan_gp: 0.361716 g: 0.116760 d: -18.697437 speed: 0.53 batches/s 
+2023-11-18 21:16:23,110 INFO Iter: [31500/50000] l1: 0.050538 ae: 0.104912 wgan_g: -78.115952 wgan_d: -22.700710 wgan_gp: 0.333033 g: 0.108424 d: -19.370380 speed: 0.53 batches/s 
+2023-11-18 21:19:36,302 INFO Iter: [31600/50000] l1: 0.055783 ae: 0.099202 wgan_g: -62.758438 wgan_d: -21.187035 wgan_gp: 0.295627 g: 0.123224 d: -18.230768 speed: 0.52 batches/s 
+2023-11-18 21:22:45,647 INFO Iter: [31700/50000] l1: 0.051827 ae: 0.113211 wgan_g: -54.338932 wgan_d: -22.956558 wgan_gp: 0.330718 g: 0.143706 d: -19.649380 speed: 0.53 batches/s 
+2023-11-18 21:25:55,238 INFO Iter: [31800/50000] l1: 0.051334 ae: 0.095669 wgan_g: -91.300018 wgan_d: -33.117310 wgan_gp: 0.543347 g: 0.085103 d: -27.683842 speed: 0.53 batches/s 
+2023-11-18 21:29:21,061 INFO Iter: [31900/50000] l1: 0.056383 ae: 0.099301 wgan_g: -35.575348 wgan_d: -29.249950 wgan_gp: 0.580907 g: 0.151245 d: -23.440882 speed: 0.49 batches/s 
+2023-11-18 21:34:10,776 INFO Iter: [32000/50000] l1: 0.053610 ae: 0.097588 wgan_g: -54.275284 wgan_d: -25.300463 wgan_gp: 0.245863 g: 0.127162 d: -22.841835 speed: 0.35 batches/s 
+2023-11-18 21:38:59,534 INFO Iter: [32100/50000] l1: 0.051619 ae: 0.098519 wgan_g: -81.311523 wgan_d: -24.500818 wgan_gp: 0.299823 g: 0.098854 d: -21.502586 speed: 0.35 batches/s 
+2023-11-18 21:43:47,190 INFO Iter: [32200/50000] l1: 0.055272 ae: 0.093101 wgan_g: -66.408218 wgan_d: -23.477612 wgan_gp: 0.303638 g: 0.111639 d: -20.441235 speed: 0.35 batches/s 
+2023-11-18 21:52:16,026 INFO Iter: [32300/50000] l1: 0.051366 ae: 0.097895 wgan_g: -72.270035 wgan_d: -24.416397 wgan_gp: 0.297653 g: 0.106843 d: -21.439863 speed: 0.20 batches/s 
+2023-11-18 22:01:53,788 INFO Iter: [32400/50000] l1: 0.048714 ae: 0.111888 wgan_g: 0.568304 wgan_d: -20.306488 wgan_gp: 0.317344 g: 0.193291 d: -17.133045 speed: 0.17 batches/s 
+2023-11-18 22:12:12,865 INFO Iter: [32500/50000] l1: 0.053548 ae: 0.106363 wgan_g: -64.491928 wgan_d: -17.730904 wgan_gp: 0.370291 g: 0.127401 d: -14.027996 speed: 0.16 batches/s 
+2023-11-18 22:21:32,543 INFO Iter: [32600/50000] l1: 0.044215 ae: 0.092703 wgan_g: -82.407455 wgan_d: -25.218159 wgan_gp: 0.402464 g: 0.081894 d: -21.193520 speed: 0.18 batches/s 
+2023-11-18 22:31:27,915 INFO Iter: [32700/50000] l1: 0.050284 ae: 0.092333 wgan_g: -92.097153 wgan_d: -24.845001 wgan_gp: 0.381734 g: 0.079043 d: -21.027660 speed: 0.17 batches/s 
+2023-11-18 22:40:36,338 INFO Iter: [32800/50000] l1: 0.054198 ae: 0.106326 wgan_g: -47.651253 wgan_d: -12.063236 wgan_gp: 0.179182 g: 0.144978 d: -10.271414 speed: 0.18 batches/s 
+2023-11-18 22:49:36,050 INFO Iter: [32900/50000] l1: 0.056364 ae: 0.099207 wgan_g: -137.346725 wgan_d: -33.220741 wgan_gp: 0.684301 g: 0.049337 d: -26.377731 speed: 0.19 batches/s 
+2023-11-18 22:58:49,790 INFO Iter: [33000/50000] l1: 0.049575 ae: 0.093038 wgan_g: -80.853439 wgan_d: -21.163919 wgan_gp: 0.278826 g: 0.090283 d: -18.375658 speed: 0.18 batches/s 
+2023-11-18 23:08:21,983 INFO Iter: [33100/50000] l1: 0.049769 ae: 0.097914 wgan_g: -60.186901 wgan_d: -23.356693 wgan_gp: 0.429978 g: 0.117033 d: -19.056915 speed: 0.17 batches/s 
+2023-11-18 23:18:11,110 INFO Iter: [33200/50000] l1: 0.053539 ae: 0.093207 wgan_g: -89.404633 wgan_d: -20.011547 wgan_gp: 0.362783 g: 0.086690 d: -16.383713 speed: 0.17 batches/s 
+2023-11-18 23:28:03,642 INFO Iter: [33300/50000] l1: 0.051571 ae: 0.114739 wgan_g: -22.077959 wgan_d: -17.877110 wgan_gp: 0.282754 g: 0.177494 d: -15.049574 speed: 0.17 batches/s 
+2023-11-18 23:37:49,735 INFO Iter: [33400/50000] l1: 0.046638 ae: 0.102847 wgan_g: -51.529171 wgan_d: -26.010754 wgan_gp: 0.417825 g: 0.127853 d: -21.832499 speed: 0.17 batches/s 
+2023-11-18 23:46:45,322 INFO Iter: [33500/50000] l1: 0.046829 ae: 0.112192 wgan_g: -30.638165 wgan_d: -16.407984 wgan_gp: 0.265259 g: 0.160187 d: -13.755395 speed: 0.19 batches/s 
+2023-11-18 23:56:29,255 INFO Iter: [33600/50000] l1: 0.047856 ae: 0.093408 wgan_g: -41.556465 wgan_d: -19.864899 wgan_gp: 0.227253 g: 0.127961 d: -17.592365 speed: 0.17 batches/s 
+2023-11-19 00:06:27,753 INFO Iter: [33700/50000] l1: 0.054105 ae: 0.107256 wgan_g: -35.656387 wgan_d: -24.402813 wgan_gp: 0.414924 g: 0.157977 d: -20.253576 speed: 0.17 batches/s 
+2023-11-19 00:16:47,252 INFO Iter: [33800/50000] l1: 0.054664 ae: 0.096777 wgan_g: -48.678177 wgan_d: -23.779968 wgan_gp: 0.384027 g: 0.133052 d: -19.939697 speed: 0.16 batches/s 
+2023-11-19 00:25:32,951 INFO Iter: [33900/50000] l1: 0.046555 ae: 0.092049 wgan_g: -105.744041 wgan_d: -23.546146 wgan_gp: 0.261135 g: 0.060580 d: -20.934795 speed: 0.19 batches/s 
+2023-11-19 00:30:07,055 INFO Iter: [34000/50000] l1: 0.049802 ae: 0.104545 wgan_g: -83.072479 wgan_d: -20.008701 wgan_gp: 0.344274 g: 0.102143 d: -16.565960 speed: 0.36 batches/s 
+2023-11-19 00:34:09,597 INFO Iter: [34100/50000] l1: 0.054051 ae: 0.099486 wgan_g: -98.485947 wgan_d: -26.686008 wgan_gp: 0.439863 g: 0.085758 d: -22.287376 speed: 0.41 batches/s 
+2023-11-19 00:37:24,357 INFO Iter: [34200/50000] l1: 0.053982 ae: 0.092461 wgan_g: -59.815540 wgan_d: -23.678043 wgan_gp: 0.288255 g: 0.115916 d: -20.795488 speed: 0.51 batches/s 
+2023-11-19 00:40:27,331 INFO Iter: [34300/50000] l1: 0.048849 ae: 0.102558 wgan_g: -89.417618 wgan_d: -18.902819 wgan_gp: 0.272731 g: 0.092271 d: -16.175512 speed: 0.55 batches/s 
+2023-11-19 00:43:32,818 INFO Iter: [34400/50000] l1: 0.050769 ae: 0.100919 wgan_g: -50.035618 wgan_d: -20.531759 wgan_gp: 0.276882 g: 0.131991 d: -17.762939 speed: 0.54 batches/s 
+2023-11-19 00:46:35,699 INFO Iter: [34500/50000] l1: 0.047969 ae: 0.099710 wgan_g: -87.383102 wgan_d: -22.046160 wgan_gp: 0.427056 g: 0.089832 d: -17.775604 speed: 0.55 batches/s 
+2023-11-19 00:49:38,396 INFO Iter: [34600/50000] l1: 0.049197 ae: 0.097885 wgan_g: -112.050400 wgan_d: -21.034271 wgan_gp: 0.318348 g: 0.064448 d: -17.850788 speed: 0.55 batches/s 
+2023-11-19 00:52:40,115 INFO Iter: [34700/50000] l1: 0.059423 ae: 0.100226 wgan_g: -83.071289 wgan_d: -12.942320 wgan_gp: 0.322778 g: 0.108507 d: -9.714542 speed: 0.55 batches/s 
+2023-11-19 00:56:16,533 INFO Iter: [34800/50000] l1: 0.050093 ae: 0.098935 wgan_g: -59.218712 wgan_d: -19.985126 wgan_gp: 0.262368 g: 0.119615 d: -17.361448 speed: 0.46 batches/s 
+2023-11-19 00:59:47,618 INFO Iter: [34900/50000] l1: 0.054394 ae: 0.101976 wgan_g: -40.105614 wgan_d: -17.191532 wgan_gp: 0.333068 g: 0.147538 d: -13.860851 speed: 0.47 batches/s 
+2023-11-19 01:02:51,502 INFO Iter: [35000/50000] l1: 0.055970 ae: 0.095036 wgan_g: -110.538292 wgan_d: -25.175158 wgan_gp: 0.346364 g: 0.070669 d: -21.711519 speed: 0.54 batches/s 
+2023-11-19 01:05:54,162 INFO Iter: [35100/50000] l1: 0.051366 ae: 0.104487 wgan_g: -93.014755 wgan_d: -22.520224 wgan_gp: 0.405212 g: 0.094009 d: -18.468102 speed: 0.55 batches/s 
+2023-11-19 01:09:01,103 INFO Iter: [35200/50000] l1: 0.049031 ae: 0.110295 wgan_g: -85.304581 wgan_d: -17.033394 wgan_gp: 0.246439 g: 0.105886 d: -14.569001 speed: 0.53 batches/s 
+2023-11-19 01:12:04,601 INFO Iter: [35300/50000] l1: 0.048449 ae: 0.095262 wgan_g: -104.961487 wgan_d: -23.171406 wgan_gp: 0.268237 g: 0.067492 d: -20.489035 speed: 0.54 batches/s 
+2023-11-19 01:15:06,628 INFO Iter: [35400/50000] l1: 0.047821 ae: 0.100257 wgan_g: -27.268406 wgan_d: -23.940022 wgan_gp: 0.362054 g: 0.150425 d: -20.319477 speed: 0.55 batches/s 
+2023-11-19 01:18:13,760 INFO Iter: [35500/50000] l1: 0.053865 ae: 0.095994 wgan_g: -103.630486 wgan_d: -27.331463 wgan_gp: 0.444531 g: 0.076200 d: -22.886154 speed: 0.53 batches/s 
+2023-11-19 01:21:17,598 INFO Iter: [35600/50000] l1: 0.051354 ae: 0.103336 wgan_g: -82.894417 wgan_d: -20.555708 wgan_gp: 0.289854 g: 0.102734 d: -17.657164 speed: 0.54 batches/s 
+2023-11-19 01:24:22,519 INFO Iter: [35700/50000] l1: 0.048775 ae: 0.099063 wgan_g: -68.313202 wgan_d: -19.863945 wgan_gp: 0.343427 g: 0.109092 d: -16.429676 speed: 0.54 batches/s 
+2023-11-19 01:27:27,656 INFO Iter: [35800/50000] l1: 0.058585 ae: 0.092546 wgan_g: -53.913399 wgan_d: -21.941687 wgan_gp: 0.288109 g: 0.127444 d: -19.060600 speed: 0.54 batches/s 
+2023-11-19 01:30:33,014 INFO Iter: [35900/50000] l1: 0.057298 ae: 0.100440 wgan_g: -65.978012 wgan_d: -17.244915 wgan_gp: 0.302478 g: 0.123307 d: -14.220133 speed: 0.54 batches/s 
+2023-11-19 01:33:35,336 INFO Iter: [36000/50000] l1: 0.048540 ae: 0.087428 wgan_g: -107.784027 wgan_d: -21.842632 wgan_gp: 0.366535 g: 0.055378 d: -18.177279 speed: 0.55 batches/s 
+2023-11-19 01:36:40,602 INFO Iter: [36100/50000] l1: 0.049753 ae: 0.100606 wgan_g: -93.232468 wgan_d: -19.220654 wgan_gp: 0.280749 g: 0.087197 d: -16.413166 speed: 0.54 batches/s 
+2023-11-19 01:39:49,659 INFO Iter: [36200/50000] l1: 0.051526 ae: 0.091703 wgan_g: -114.027695 wgan_d: -23.373671 wgan_gp: 0.406644 g: 0.057848 d: -19.307232 speed: 0.53 batches/s 
+2023-11-19 01:42:53,459 INFO Iter: [36300/50000] l1: 0.049370 ae: 0.096777 wgan_g: -91.320770 wgan_d: -17.225880 wgan_gp: 0.236319 g: 0.084055 d: -14.862692 speed: 0.54 batches/s 
+2023-11-19 01:45:55,177 INFO Iter: [36400/50000] l1: 0.054556 ae: 0.087672 wgan_g: -118.815735 wgan_d: -16.832626 wgan_gp: 0.242087 g: 0.051857 d: -14.411757 speed: 0.55 batches/s 
+2023-11-19 01:48:58,672 INFO Iter: [36500/50000] l1: 0.045448 ae: 0.097374 wgan_g: -82.287910 wgan_d: -15.781542 wgan_gp: 0.274334 g: 0.089098 d: -13.038201 speed: 0.54 batches/s 
+2023-11-19 01:52:05,416 INFO Iter: [36600/50000] l1: 0.064087 ae: 0.093482 wgan_g: -143.172211 wgan_d: -56.973618 wgan_gp: 0.586358 g: 0.045911 d: -51.110039 speed: 0.54 batches/s 
+2023-11-19 01:55:10,423 INFO Iter: [36700/50000] l1: 0.051680 ae: 0.100570 wgan_g: -114.178253 wgan_d: -27.883024 wgan_gp: 0.281264 g: 0.068522 d: -25.070389 speed: 0.54 batches/s 
+2023-11-19 01:59:41,193 INFO Iter: [36800/50000] l1: 0.049237 ae: 0.087126 wgan_g: -112.459000 wgan_d: -20.492630 wgan_gp: 0.334386 g: 0.051176 d: -17.148775 speed: 0.37 batches/s 
+2023-11-19 02:04:16,984 INFO Iter: [36900/50000] l1: 0.054802 ae: 0.097085 wgan_g: -53.270954 wgan_d: -19.894016 wgan_gp: 0.237448 g: 0.128994 d: -17.519539 speed: 0.36 batches/s 
+2023-11-19 02:08:50,475 INFO Iter: [37000/50000] l1: 0.041321 ae: 0.091043 wgan_g: -82.532166 wgan_d: -17.423185 wgan_gp: 0.243303 g: 0.076305 d: -14.990159 speed: 0.37 batches/s 
+2023-11-19 02:13:21,100 INFO Iter: [37100/50000] l1: 0.053391 ae: 0.095326 wgan_g: -112.534836 wgan_d: -18.303299 wgan_gp: 0.380712 g: 0.065926 d: -14.496178 speed: 0.37 batches/s 
+2023-11-19 02:17:40,220 INFO Iter: [37200/50000] l1: 0.054367 ae: 0.096812 wgan_g: -103.723778 wgan_d: -30.049164 wgan_gp: 0.369962 g: 0.077691 d: -26.349539 speed: 0.39 batches/s 
+2023-11-19 02:22:02,567 INFO Iter: [37300/50000] l1: 0.047561 ae: 0.095528 wgan_g: -66.596588 wgan_d: -23.932869 wgan_gp: 0.329757 g: 0.105110 d: -20.635298 speed: 0.38 batches/s 
+2023-11-19 02:26:21,725 INFO Iter: [37400/50000] l1: 0.056639 ae: 0.090196 wgan_g: -95.902420 wgan_d: -12.916708 wgan_gp: 0.277698 g: 0.080300 d: -10.139728 speed: 0.39 batches/s 
+2023-11-19 02:30:40,073 INFO Iter: [37500/50000] l1: 0.052208 ae: 0.095097 wgan_g: -99.574020 wgan_d: -20.788330 wgan_gp: 0.298073 g: 0.077192 d: -17.807602 speed: 0.39 batches/s 
+2023-11-19 02:35:01,384 INFO Iter: [37600/50000] l1: 0.051383 ae: 0.103384 wgan_g: -86.069077 wgan_d: -16.368076 wgan_gp: 0.254170 g: 0.099652 d: -13.826380 speed: 0.38 batches/s 
+2023-11-19 02:38:11,873 INFO Iter: [37700/50000] l1: 0.050683 ae: 0.082072 wgan_g: -119.072739 wgan_d: -37.976578 wgan_gp: 0.461481 g: 0.040233 d: -33.361763 speed: 0.52 batches/s 
+2023-11-19 02:41:14,479 INFO Iter: [37800/50000] l1: 0.052217 ae: 0.096152 wgan_g: -138.128021 wgan_d: -22.775236 wgan_gp: 0.223649 g: 0.039914 d: -20.538748 speed: 0.55 batches/s 
+2023-11-19 02:44:16,762 INFO Iter: [37900/50000] l1: 0.051886 ae: 0.092623 wgan_g: -110.844360 wgan_d: -21.301563 wgan_gp: 0.289525 g: 0.062567 d: -18.406315 speed: 0.55 batches/s 
+2023-11-19 02:47:25,420 INFO Iter: [38000/50000] l1: 0.061285 ae: 0.098496 wgan_g: -62.437222 wgan_d: -20.857004 wgan_gp: 0.243823 g: 0.129300 d: -18.418777 speed: 0.53 batches/s 
+2023-11-19 02:50:29,215 INFO Iter: [38100/50000] l1: 0.045143 ae: 0.088887 wgan_g: -91.696533 wgan_d: -18.352959 wgan_gp: 0.222405 g: 0.069140 d: -16.128906 speed: 0.54 batches/s 
+2023-11-19 02:53:31,713 INFO Iter: [38200/50000] l1: 0.048554 ae: 0.096569 wgan_g: -1.620509 wgan_d: -26.946487 wgan_gp: 0.296059 g: 0.172528 d: -23.985901 speed: 0.55 batches/s 
+2023-11-19 02:56:37,030 INFO Iter: [38300/50000] l1: 0.054383 ae: 0.110592 wgan_g: -139.062439 wgan_d: -13.380919 wgan_gp: 0.234247 g: 0.058907 d: -11.038453 speed: 0.54 batches/s 
+2023-11-19 02:59:38,912 INFO Iter: [38400/50000] l1: 0.059632 ae: 0.096919 wgan_g: 42.119667 wgan_d: -38.082977 wgan_gp: 0.405445 g: 0.229981 d: -34.028526 speed: 0.55 batches/s 
+2023-11-19 03:02:41,766 INFO Iter: [38500/50000] l1: 0.045481 ae: 0.101666 wgan_g: -57.562679 wgan_d: -21.290810 wgan_gp: 0.279595 g: 0.119015 d: -18.494856 speed: 0.55 batches/s 
+2023-11-19 03:05:44,155 INFO Iter: [38600/50000] l1: 0.058458 ae: 0.092443 wgan_g: -60.953758 wgan_d: -22.461967 wgan_gp: 0.214472 g: 0.120128 d: -20.317249 speed: 0.55 batches/s 
+2023-11-19 03:08:49,548 INFO Iter: [38700/50000] l1: 0.046705 ae: 0.085580 wgan_g: -108.548332 wgan_d: -11.578249 wgan_gp: 0.176295 g: 0.050193 d: -9.815304 speed: 0.54 batches/s 
+2023-11-19 03:11:52,684 INFO Iter: [38800/50000] l1: 0.047669 ae: 0.104736 wgan_g: -99.930664 wgan_d: -20.563749 wgan_gp: 0.297039 g: 0.082955 d: -17.593361 speed: 0.55 batches/s 
+2023-11-19 03:14:55,809 INFO Iter: [38900/50000] l1: 0.055170 ae: 0.092574 wgan_g: -72.442215 wgan_d: -21.630085 wgan_gp: 0.354520 g: 0.104851 d: -18.084887 speed: 0.55 batches/s 
+2023-11-19 03:17:58,341 INFO Iter: [39000/50000] l1: 0.050610 ae: 0.106078 wgan_g: -109.190918 wgan_d: -23.570623 wgan_gp: 0.325136 g: 0.078834 d: -20.319267 speed: 0.55 batches/s 
+2023-11-19 03:21:04,867 INFO Iter: [39100/50000] l1: 0.058088 ae: 0.096277 wgan_g: -93.530960 wgan_d: -18.198048 wgan_gp: 0.316032 g: 0.091708 d: -15.037729 speed: 0.54 batches/s 
+2023-11-19 03:24:06,961 INFO Iter: [39200/50000] l1: 0.046108 ae: 0.102205 wgan_g: -101.707901 wgan_d: -29.831760 wgan_gp: 0.428591 g: 0.076268 d: -25.545845 speed: 0.55 batches/s 
+2023-11-19 03:27:10,158 INFO Iter: [39300/50000] l1: 0.043961 ae: 0.087434 wgan_g: -31.850468 wgan_d: -18.730076 wgan_gp: 0.270840 g: 0.125824 d: -16.021675 speed: 0.55 batches/s 
+2023-11-19 03:30:15,767 INFO Iter: [39400/50000] l1: 0.057663 ae: 0.091967 wgan_g: -155.707520 wgan_d: -36.583630 wgan_gp: 0.449740 g: 0.023848 d: -32.086231 speed: 0.54 batches/s 
+2023-11-19 03:33:19,450 INFO Iter: [39500/50000] l1: 0.046124 ae: 0.102078 wgan_g: -157.697708 wgan_d: -16.398739 wgan_gp: 0.300033 g: 0.020144 d: -13.398412 speed: 0.54 batches/s 
+2023-11-19 03:36:21,695 INFO Iter: [39600/50000] l1: 0.051697 ae: 0.095727 wgan_g: -90.004425 wgan_d: -21.361858 wgan_gp: 0.358697 g: 0.086905 d: -17.774885 speed: 0.55 batches/s 
+2023-11-19 03:39:25,115 INFO Iter: [39700/50000] l1: 0.048639 ae: 0.090888 wgan_g: -49.115887 wgan_d: -24.693634 wgan_gp: 0.273538 g: 0.118317 d: -21.958252 speed: 0.55 batches/s 
+2023-11-19 03:42:31,386 INFO Iter: [39800/50000] l1: 0.053103 ae: 0.094474 wgan_g: -51.933540 wgan_d: -19.436558 wgan_gp: 0.260013 g: 0.125160 d: -16.836430 speed: 0.54 batches/s 
+2023-11-19 03:45:33,559 INFO Iter: [39900/50000] l1: 0.050351 ae: 0.089995 wgan_g: -104.638115 wgan_d: -15.511236 wgan_gp: 0.203718 g: 0.063778 d: -13.474057 speed: 0.55 batches/s 
+2023-11-19 03:48:37,279 INFO Iter: [40000/50000] l1: 0.048199 ae: 0.093267 wgan_g: -173.963806 wgan_d: -34.438820 wgan_gp: 0.472141 g: -0.004205 d: -29.717407 speed: 0.54 batches/s 
+2023-11-19 03:51:43,514 INFO Iter: [40100/50000] l1: 0.050327 ae: 0.095594 wgan_g: -105.568222 wgan_d: -18.158894 wgan_gp: 0.292599 g: 0.069537 d: -15.232906 speed: 0.54 batches/s 
+2023-11-19 03:54:46,592 INFO Iter: [40200/50000] l1: 0.051696 ae: 0.086874 wgan_g: -135.133453 wgan_d: -21.668131 wgan_gp: 0.345680 g: 0.031150 d: -18.211330 speed: 0.55 batches/s 
+2023-11-19 03:57:50,324 INFO Iter: [40300/50000] l1: 0.058309 ae: 0.097533 wgan_g: -142.012573 wgan_d: -13.404191 wgan_gp: 0.246991 g: 0.044998 d: -10.934286 speed: 0.54 batches/s 
+2023-11-19 04:00:54,765 INFO Iter: [40400/50000] l1: 0.053858 ae: 0.098844 wgan_g: -95.476120 wgan_d: -15.678221 wgan_gp: 0.185750 g: 0.087766 d: -13.820724 speed: 0.54 batches/s 
+2023-11-19 04:05:14,474 INFO Iter: [40500/50000] l1: 0.054652 ae: 0.087405 wgan_g: -91.724197 wgan_d: -20.092321 wgan_gp: 0.257273 g: 0.078745 d: -17.519592 speed: 0.39 batches/s 
+2023-11-19 04:09:33,728 INFO Iter: [40600/50000] l1: 0.054181 ae: 0.096990 wgan_g: -162.763397 wgan_d: -20.984562 wgan_gp: 0.482377 g: 0.018642 d: -16.160789 speed: 0.39 batches/s 
+2023-11-19 04:13:53,531 INFO Iter: [40700/50000] l1: 0.053269 ae: 0.092295 wgan_g: -165.214035 wgan_d: -21.478245 wgan_gp: 0.364415 g: 0.009463 d: -17.834091 speed: 0.38 batches/s 
+2023-11-19 04:18:15,480 INFO Iter: [40800/50000] l1: 0.049274 ae: 0.093206 wgan_g: -45.384529 wgan_d: -13.747019 wgan_gp: 0.265823 g: 0.125591 d: -11.088787 speed: 0.38 batches/s 
+2023-11-19 04:22:34,434 INFO Iter: [40900/50000] l1: 0.049452 ae: 0.094530 wgan_g: -49.610279 wgan_d: -25.331955 wgan_gp: 0.316164 g: 0.123168 d: -22.170311 speed: 0.39 batches/s 
+2023-11-19 04:26:52,164 INFO Iter: [41000/50000] l1: 0.051643 ae: 0.092606 wgan_g: -70.481041 wgan_d: -20.816174 wgan_gp: 0.294029 g: 0.102617 d: -17.875883 speed: 0.39 batches/s 
+2023-11-19 04:31:10,445 INFO Iter: [41100/50000] l1: 0.055952 ae: 0.085375 wgan_g: -62.786942 wgan_d: -14.541019 wgan_gp: 0.236521 g: 0.106806 d: -12.175806 speed: 0.39 batches/s 
+2023-11-19 04:35:32,448 INFO Iter: [41200/50000] l1: 0.046166 ae: 0.087541 wgan_g: 44.637646 wgan_d: -22.460640 wgan_gp: 0.304138 g: 0.205086 d: -19.419256 speed: 0.38 batches/s 
+2023-11-19 04:39:50,830 INFO Iter: [41300/50000] l1: 0.053744 ae: 0.098136 wgan_g: -6.387177 wgan_d: -21.239990 wgan_gp: 0.328469 g: 0.175868 d: -17.955303 speed: 0.39 batches/s 
+2023-11-19 04:43:25,725 INFO Iter: [41400/50000] l1: 0.046882 ae: 0.108112 wgan_g: -58.676979 wgan_d: -16.940569 wgan_gp: 0.275578 g: 0.127317 d: -14.184790 speed: 0.47 batches/s 
+2023-11-19 04:46:31,762 INFO Iter: [41500/50000] l1: 0.053217 ae: 0.109325 wgan_g: -149.180038 wgan_d: -19.920603 wgan_gp: 0.264633 g: 0.045870 d: -17.274271 speed: 0.54 batches/s 
+2023-11-19 04:49:33,965 INFO Iter: [41600/50000] l1: 0.049522 ae: 0.095492 wgan_g: -98.307030 wgan_d: -21.484055 wgan_gp: 0.356191 g: 0.075709 d: -17.922150 speed: 0.55 batches/s 
+2023-11-19 04:52:36,957 INFO Iter: [41700/50000] l1: 0.054384 ae: 0.092553 wgan_g: -114.903473 wgan_d: -18.165060 wgan_gp: 0.222760 g: 0.061421 d: -15.937456 speed: 0.55 batches/s 
+2023-11-19 04:55:39,520 INFO Iter: [41800/50000] l1: 0.049146 ae: 0.094144 wgan_g: -82.752754 wgan_d: -16.059284 wgan_gp: 0.214808 g: 0.089195 d: -13.911209 speed: 0.55 batches/s 
+2023-11-19 04:58:44,182 INFO Iter: [41900/50000] l1: 0.047683 ae: 0.090800 wgan_g: -104.263878 wgan_d: -20.971090 wgan_gp: 0.422890 g: 0.061916 d: -16.742191 speed: 0.54 batches/s 
+2023-11-19 05:01:46,491 INFO Iter: [42000/50000] l1: 0.057580 ae: 0.097961 wgan_g: -108.396820 wgan_d: -31.250099 wgan_gp: 0.310482 g: 0.078253 d: -28.145283 speed: 0.55 batches/s 
+2023-11-19 05:04:49,598 INFO Iter: [42100/50000] l1: 0.055026 ae: 0.092611 wgan_g: -51.752857 wgan_d: -21.356766 wgan_gp: 0.250937 g: 0.125412 d: -18.847397 speed: 0.55 batches/s 
+2023-11-19 05:07:54,002 INFO Iter: [42200/50000] l1: 0.045887 ae: 0.094216 wgan_g: -77.696899 wgan_d: -23.435677 wgan_gp: 0.262249 g: 0.090426 d: -20.813183 speed: 0.54 batches/s 
+2023-11-19 05:10:56,351 INFO Iter: [42300/50000] l1: 0.048226 ae: 0.089600 wgan_g: -42.896404 wgan_d: -16.083641 wgan_gp: 0.207351 g: 0.122495 d: -14.010132 speed: 0.55 batches/s 
+2023-11-19 05:13:58,487 INFO Iter: [42400/50000] l1: 0.050982 ae: 0.086507 wgan_g: -76.464020 wgan_d: -16.709785 wgan_gp: 0.274623 g: 0.088523 d: -13.963559 speed: 0.55 batches/s 
+2023-11-19 05:17:03,175 INFO Iter: [42500/50000] l1: 0.054273 ae: 0.096697 wgan_g: -99.016739 wgan_d: -21.546721 wgan_gp: 0.251428 g: 0.082147 d: -19.032438 speed: 0.54 batches/s 
+2023-11-19 05:20:08,813 INFO Iter: [42600/50000] l1: 0.056203 ae: 0.090384 wgan_g: -42.668564 wgan_d: -17.183830 wgan_gp: 0.338347 g: 0.133235 d: -13.800356 speed: 0.54 batches/s 
+2023-11-19 05:23:11,079 INFO Iter: [42700/50000] l1: 0.050624 ae: 0.090308 wgan_g: -112.033592 wgan_d: -22.141655 wgan_gp: 0.363136 g: 0.057085 d: -18.510296 speed: 0.55 batches/s 
+2023-11-19 05:26:14,335 INFO Iter: [42800/50000] l1: 0.055754 ae: 0.099626 wgan_g: -143.900024 wgan_d: -28.359426 wgan_gp: 0.374788 g: 0.042556 d: -24.611549 speed: 0.55 batches/s 
+2023-11-19 05:29:16,524 INFO Iter: [42900/50000] l1: 0.051567 ae: 0.086511 wgan_g: -119.038506 wgan_d: -27.302084 wgan_gp: 0.359954 g: 0.046656 d: -23.702545 speed: 0.55 batches/s 
+2023-11-19 05:32:23,436 INFO Iter: [43000/50000] l1: 0.049329 ae: 0.084729 wgan_g: -166.549225 wgan_d: -27.288845 wgan_gp: 0.514228 g: -0.005680 d: -22.146568 speed: 0.54 batches/s 
+2023-11-19 05:35:26,239 INFO Iter: [43100/50000] l1: 0.044127 ae: 0.107582 wgan_g: -108.752396 wgan_d: -17.852322 wgan_gp: 0.231080 g: 0.073299 d: -15.541521 speed: 0.55 batches/s 
+2023-11-19 05:38:27,819 INFO Iter: [43200/50000] l1: 0.042301 ae: 0.091010 wgan_g: -64.537323 wgan_d: -14.062209 wgan_gp: 0.234534 g: 0.095436 d: -11.716865 speed: 0.55 batches/s 
+2023-11-19 05:42:20,358 INFO Iter: [43300/50000] l1: 0.050269 ae: 0.097925 wgan_g: -56.789398 wgan_d: -22.658894 wgan_gp: 0.362823 g: 0.121043 d: -19.030663 speed: 0.43 batches/s 
+2023-11-19 05:46:37,733 INFO Iter: [43400/50000] l1: 0.057451 ae: 0.090374 wgan_g: -132.634399 wgan_d: -39.277267 wgan_gp: 0.408064 g: 0.044755 d: -35.196629 speed: 0.39 batches/s 
+2023-11-19 05:50:56,386 INFO Iter: [43500/50000] l1: 0.061439 ae: 0.097903 wgan_g: -97.199371 wgan_d: -24.667133 wgan_gp: 0.319728 g: 0.094010 d: -21.469852 speed: 0.39 batches/s 
+2023-11-19 05:55:14,305 INFO Iter: [43600/50000] l1: 0.049860 ae: 0.094180 wgan_g: -130.310028 wgan_d: -21.973225 wgan_gp: 0.359446 g: 0.042538 d: -18.378761 speed: 0.39 batches/s 
+2023-11-19 05:59:35,356 INFO Iter: [43700/50000] l1: 0.044710 ae: 0.090269 wgan_g: -55.887272 wgan_d: -20.700682 wgan_gp: 0.264321 g: 0.106088 d: -18.057472 speed: 0.38 batches/s 
+2023-11-19 06:03:52,979 INFO Iter: [43800/50000] l1: 0.054273 ae: 0.097593 wgan_g: -46.119446 wgan_d: -20.941505 wgan_gp: 0.317601 g: 0.136120 d: -17.765499 speed: 0.39 batches/s 
+2023-11-19 06:08:10,471 INFO Iter: [43900/50000] l1: 0.048387 ae: 0.085823 wgan_g: -109.795776 wgan_d: -19.831028 wgan_gp: 0.380324 g: 0.051256 d: -16.027790 speed: 0.39 batches/s 
+2023-11-19 06:12:30,963 INFO Iter: [44000/50000] l1: 0.044222 ae: 0.102206 wgan_g: -116.683739 wgan_d: -16.611061 wgan_gp: 0.270925 g: 0.059030 d: -13.901814 speed: 0.38 batches/s 
+2023-11-19 06:16:48,934 INFO Iter: [44100/50000] l1: 0.044408 ae: 0.088061 wgan_g: -58.946136 wgan_d: -20.639532 wgan_gp: 0.271064 g: 0.100018 d: -17.928896 speed: 0.39 batches/s 
+2023-11-19 06:20:58,292 INFO Iter: [44200/50000] l1: 0.046676 ae: 0.094377 wgan_g: -40.775669 wgan_d: -1.999697 wgan_gp: 0.182656 g: 0.128488 d: -0.173134 speed: 0.40 batches/s 
+2023-11-19 06:24:00,770 INFO Iter: [44300/50000] l1: 0.045769 ae: 0.093205 wgan_g: -120.677406 wgan_d: -16.632124 wgan_gp: 0.242019 g: 0.046091 d: -14.211932 speed: 0.55 batches/s 
+2023-11-19 06:27:08,337 INFO Iter: [44400/50000] l1: 0.059740 ae: 0.084705 wgan_g: -100.282043 wgan_d: -17.858189 wgan_gp: 0.232293 g: 0.073052 d: -15.535258 speed: 0.53 batches/s 
+2023-11-19 06:30:11,274 INFO Iter: [44500/50000] l1: 0.053991 ae: 0.093831 wgan_g: -155.684814 wgan_d: -25.169966 wgan_gp: 0.379183 g: 0.021702 d: -21.378136 speed: 0.55 batches/s 
+2023-11-19 06:33:15,158 INFO Iter: [44600/50000] l1: 0.050240 ae: 0.089451 wgan_g: -63.668697 wgan_d: -26.070862 wgan_gp: 0.270914 g: 0.103961 d: -23.361725 speed: 0.54 batches/s 
+2023-11-19 06:36:21,370 INFO Iter: [44700/50000] l1: 0.048974 ae: 0.087651 wgan_g: -89.426483 wgan_d: -17.161636 wgan_gp: 0.279974 g: 0.074523 d: -14.361897 speed: 0.54 batches/s 
+2023-11-19 06:39:22,851 INFO Iter: [44800/50000] l1: 0.053266 ae: 0.088837 wgan_g: -108.347519 wgan_d: -30.895601 wgan_gp: 0.398994 g: 0.062176 d: -26.905664 speed: 0.55 batches/s 
+2023-11-19 06:42:23,923 INFO Iter: [44900/50000] l1: 0.050068 ae: 0.079185 wgan_g: -120.591614 wgan_d: -24.197468 wgan_gp: 0.322464 g: 0.034513 d: -20.972824 speed: 0.55 batches/s 
+2023-11-19 06:45:26,960 INFO Iter: [45000/50000] l1: 0.047703 ae: 0.085772 wgan_g: 1.997464 wgan_d: -37.916893 wgan_gp: 0.426536 g: 0.162167 d: -33.651527 speed: 0.55 batches/s 
+2023-11-19 06:48:32,909 INFO Iter: [45100/50000] l1: 0.044064 ae: 0.091135 wgan_g: -84.611084 wgan_d: -13.844522 wgan_gp: 0.256835 g: 0.077628 d: -11.276175 speed: 0.54 batches/s 
+2023-11-19 06:51:36,995 INFO Iter: [45200/50000] l1: 0.046532 ae: 0.083287 wgan_g: -138.634949 wgan_d: -22.714600 wgan_gp: 0.426676 g: 0.017148 d: -18.447842 speed: 0.54 batches/s 
+2023-11-19 06:54:38,339 INFO Iter: [45300/50000] l1: 0.048348 ae: 0.094084 wgan_g: -93.500763 wgan_d: -20.934359 wgan_gp: 0.268212 g: 0.077418 d: -18.252243 speed: 0.55 batches/s 
+2023-11-19 06:57:45,329 INFO Iter: [45400/50000] l1: 0.047676 ae: 0.082337 wgan_g: -42.380566 wgan_d: -13.909374 wgan_gp: 0.164340 g: 0.113635 d: -12.265972 speed: 0.53 batches/s 
+2023-11-19 07:00:48,950 INFO Iter: [45500/50000] l1: 0.048070 ae: 0.084095 wgan_g: -80.053482 wgan_d: -18.032976 wgan_gp: 0.213213 g: 0.078545 d: -15.900846 speed: 0.54 batches/s 
+2023-11-19 07:03:51,595 INFO Iter: [45600/50000] l1: 0.044667 ae: 0.084546 wgan_g: -127.081276 wgan_d: -11.949661 wgan_gp: 0.492592 g: 0.027975 d: -7.023737 speed: 0.55 batches/s 
+2023-11-19 07:06:53,852 INFO Iter: [45700/50000] l1: 0.049376 ae: 0.093677 wgan_g: -94.163521 wgan_d: -23.737291 wgan_gp: 0.281936 g: 0.077500 d: -20.917927 speed: 0.55 batches/s 
+2023-11-19 07:09:59,213 INFO Iter: [45800/50000] l1: 0.046877 ae: 0.084086 wgan_g: -119.874474 wgan_d: -19.511370 wgan_gp: 0.251855 g: 0.037281 d: -16.992815 speed: 0.54 batches/s 
+2023-11-19 07:13:01,499 INFO Iter: [45900/50000] l1: 0.050944 ae: 0.097588 wgan_g: 20.559021 wgan_d: -29.089760 wgan_gp: 0.318191 g: 0.198798 d: -25.907848 speed: 0.55 batches/s 
+2023-11-19 07:16:03,655 INFO Iter: [46000/50000] l1: 0.050046 ae: 0.094171 wgan_g: -121.483475 wgan_d: -30.753883 wgan_gp: 0.364092 g: 0.051576 d: -27.112959 speed: 0.55 batches/s 
+2023-11-19 07:19:09,216 INFO Iter: [46100/50000] l1: 0.048550 ae: 0.091122 wgan_g: -115.502693 wgan_d: -22.528225 wgan_gp: 0.376190 g: 0.052104 d: -18.766323 speed: 0.54 batches/s 
+2023-11-19 07:22:11,043 INFO Iter: [46200/50000] l1: 0.050548 ae: 0.081735 wgan_g: -58.729553 wgan_d: -18.832432 wgan_gp: 0.212409 g: 0.100010 d: -16.708340 speed: 0.55 batches/s 
+2023-11-19 07:25:13,154 INFO Iter: [46300/50000] l1: 0.051139 ae: 0.082882 wgan_g: -128.465683 wgan_d: -15.571576 wgan_gp: 0.351434 g: 0.032359 d: -12.057238 speed: 0.55 batches/s 
+2023-11-19 07:28:15,058 INFO Iter: [46400/50000] l1: 0.047849 ae: 0.084671 wgan_g: -116.434402 wgan_d: -19.155544 wgan_gp: 0.210150 g: 0.042590 d: -17.054043 speed: 0.55 batches/s 
+2023-11-19 07:31:20,607 INFO Iter: [46500/50000] l1: 0.050645 ae: 0.092687 wgan_g: -91.974365 wgan_d: -21.895752 wgan_gp: 0.291881 g: 0.080024 d: -18.976942 speed: 0.54 batches/s 
+2023-11-19 07:34:23,972 INFO Iter: [46600/50000] l1: 0.049254 ae: 0.100518 wgan_g: -86.025703 wgan_d: -21.400131 wgan_gp: 0.348728 g: 0.093701 d: -17.912849 speed: 0.55 batches/s 
+2023-11-19 07:37:26,430 INFO Iter: [46700/50000] l1: 0.060336 ae: 0.079257 wgan_g: -142.190918 wgan_d: -23.687187 wgan_gp: 0.343325 g: 0.025320 d: -20.253939 speed: 0.55 batches/s 
+2023-11-19 07:40:28,203 INFO Iter: [46800/50000] l1: 0.058007 ae: 0.091035 wgan_g: -96.334450 wgan_d: -22.008982 wgan_gp: 0.214771 g: 0.082517 d: -19.861273 speed: 0.55 batches/s 
+2023-11-19 07:43:35,680 INFO Iter: [46900/50000] l1: 0.049422 ae: 0.093770 wgan_g: -92.828934 wgan_d: -14.668539 wgan_gp: 0.246706 g: 0.079001 d: -12.201476 speed: 0.53 batches/s 
+2023-11-19 07:46:38,137 INFO Iter: [47000/50000] l1: 0.046007 ae: 0.096887 wgan_g: -144.855194 wgan_d: -18.053627 wgan_gp: 0.305342 g: 0.026617 d: -15.000204 speed: 0.55 batches/s 
+2023-11-19 07:49:41,202 INFO Iter: [47100/50000] l1: 0.044670 ae: 0.088713 wgan_g: -145.855774 wgan_d: -21.300846 wgan_gp: 0.271495 g: 0.014204 d: -18.585892 speed: 0.55 batches/s 
+2023-11-19 07:53:19,242 INFO Iter: [47200/50000] l1: 0.041192 ae: 0.094685 wgan_g: -127.683044 wgan_d: -17.517769 wgan_gp: 0.422987 g: 0.035369 d: -13.287899 speed: 0.46 batches/s 
+2023-11-19 07:57:36,062 INFO Iter: [47300/50000] l1: 0.051608 ae: 0.080665 wgan_g: -88.359695 wgan_d: -22.725819 wgan_gp: 0.283741 g: 0.070368 d: -19.888407 speed: 0.39 batches/s 
+2023-11-19 08:01:53,046 INFO Iter: [47400/50000] l1: 0.043402 ae: 0.098836 wgan_g: -107.074333 wgan_d: -13.463047 wgan_gp: 0.201463 g: 0.063612 d: -11.448416 speed: 0.39 batches/s 
+2023-11-19 08:06:09,194 INFO Iter: [47500/50000] l1: 0.049862 ae: 0.097554 wgan_g: -111.045860 wgan_d: -20.220856 wgan_gp: 0.304731 g: 0.065853 d: -17.173550 speed: 0.39 batches/s 
+2023-11-19 08:10:27,885 INFO Iter: [47600/50000] l1: 0.052727 ae: 0.090824 wgan_g: -88.628258 wgan_d: -22.106136 wgan_gp: 0.260990 g: 0.083633 d: -19.496231 speed: 0.39 batches/s 
+2023-11-19 08:14:46,486 INFO Iter: [47700/50000] l1: 0.042340 ae: 0.076155 wgan_g: -88.663422 wgan_d: -21.299591 wgan_gp: 0.328864 g: 0.053530 d: -18.010950 speed: 0.39 batches/s 
+2023-11-19 08:19:01,831 INFO Iter: [47800/50000] l1: 0.055340 ae: 0.079703 wgan_g: -135.029236 wgan_d: -25.021301 wgan_gp: 0.380436 g: 0.027023 d: -21.216944 speed: 0.39 batches/s 
+2023-11-19 08:23:23,239 INFO Iter: [47900/50000] l1: 0.050647 ae: 0.087230 wgan_g: -96.745865 wgan_d: -18.212578 wgan_gp: 0.324354 g: 0.068707 d: -14.969033 speed: 0.38 batches/s 
+2023-11-19 08:27:41,005 INFO Iter: [48000/50000] l1: 0.055072 ae: 0.096970 wgan_g: -95.117462 wgan_d: -21.404003 wgan_gp: 0.306137 g: 0.087334 d: -18.342632 speed: 0.39 batches/s 
+2023-11-19 08:31:57,625 INFO Iter: [48100/50000] l1: 0.053004 ae: 0.093213 wgan_g: -74.073769 wgan_d: -16.782093 wgan_gp: 0.320224 g: 0.101387 d: -13.579856 speed: 0.39 batches/s 
+2023-11-19 08:35:07,345 INFO Iter: [48200/50000] l1: 0.045226 ae: 0.101719 wgan_g: -114.259552 wgan_d: -15.398072 wgan_gp: 0.299571 g: 0.062075 d: -12.402363 speed: 0.53 batches/s 
+2023-11-19 08:38:12,821 INFO Iter: [48300/50000] l1: 0.053937 ae: 0.097631 wgan_g: -128.174225 wgan_d: -23.574074 wgan_gp: 0.273866 g: 0.053707 d: -20.835419 speed: 0.54 batches/s 
+2023-11-19 08:41:16,084 INFO Iter: [48400/50000] l1: 0.053594 ae: 0.093569 wgan_g: -63.900902 wgan_d: -25.968105 wgan_gp: 0.371689 g: 0.112695 d: -22.251211 speed: 0.55 batches/s 
+2023-11-19 08:44:20,113 INFO Iter: [48500/50000] l1: 0.047212 ae: 0.095966 wgan_g: -122.914650 wgan_d: -21.172928 wgan_gp: 0.428391 g: 0.048899 d: -16.889017 speed: 0.54 batches/s 
+2023-11-19 08:47:26,234 INFO Iter: [48600/50000] l1: 0.047639 ae: 0.098574 wgan_g: -110.279739 wgan_d: -18.346157 wgan_gp: 0.308184 g: 0.065176 d: -15.264320 speed: 0.54 batches/s 
+2023-11-19 08:50:29,248 INFO Iter: [48700/50000] l1: 0.055154 ae: 0.092647 wgan_g: -87.143883 wgan_d: -19.604477 wgan_gp: 0.319101 g: 0.090218 d: -16.413467 speed: 0.55 batches/s 
+2023-11-19 08:53:31,342 INFO Iter: [48800/50000] l1: 0.052642 ae: 0.091353 wgan_g: -72.001678 wgan_d: -24.471186 wgan_gp: 0.332500 g: 0.100791 d: -21.146189 speed: 0.55 batches/s 
+2023-11-19 08:56:32,914 INFO Iter: [48900/50000] l1: 0.050936 ae: 0.086571 wgan_g: -140.701447 wgan_d: -18.436466 wgan_gp: 0.263367 g: 0.024307 d: -15.802799 speed: 0.55 batches/s 
+2023-11-19 08:59:38,754 INFO Iter: [49000/50000] l1: 0.054399 ae: 0.086315 wgan_g: -129.989578 wgan_d: -20.559612 wgan_gp: 0.296643 g: 0.038867 d: -17.593180 speed: 0.54 batches/s 
+2023-11-19 09:02:42,991 INFO Iter: [49100/50000] l1: 0.048881 ae: 0.099826 wgan_g: -86.293587 wgan_d: -18.290543 wgan_gp: 0.209122 g: 0.092154 d: -16.199324 speed: 0.54 batches/s 
+2023-11-19 09:05:44,494 INFO Iter: [49200/50000] l1: 0.051943 ae: 0.090813 wgan_g: -88.955399 wgan_d: -14.323382 wgan_gp: 0.315611 g: 0.082352 d: -11.167274 speed: 0.55 batches/s 
+2023-11-19 09:08:50,716 INFO Iter: [49300/50000] l1: 0.057713 ae: 0.094468 wgan_g: -108.543030 wgan_d: -21.795864 wgan_gp: 0.256560 g: 0.074075 d: -19.230261 speed: 0.54 batches/s 
+2023-11-19 09:11:53,860 INFO Iter: [49400/50000] l1: 0.044253 ae: 0.090313 wgan_g: -120.867752 wgan_d: -15.886818 wgan_gp: 0.257626 g: 0.040611 d: -13.310556 speed: 0.55 batches/s 
+2023-11-19 09:14:56,136 INFO Iter: [49500/50000] l1: 0.042096 ae: 0.089520 wgan_g: -85.458412 wgan_d: -15.955065 wgan_gp: 0.240652 g: 0.072480 d: -13.548549 speed: 0.55 batches/s 
+2023-11-19 09:17:58,139 INFO Iter: [49600/50000] l1: 0.041775 ae: 0.098033 wgan_g: -132.513428 wgan_d: -16.760345 wgan_gp: 0.281937 g: 0.035256 d: -13.940971 speed: 0.55 batches/s 
+2023-11-19 09:21:03,023 INFO Iter: [49700/50000] l1: 0.048526 ae: 0.087563 wgan_g: -115.205544 wgan_d: -20.604805 wgan_gp: 0.313657 g: 0.048102 d: -17.468233 speed: 0.54 batches/s 
+2023-11-19 09:24:05,079 INFO Iter: [49800/50000] l1: 0.056538 ae: 0.089567 wgan_g: -8.815247 wgan_d: -20.915173 wgan_gp: 0.389442 g: 0.166511 d: -17.020748 speed: 0.55 batches/s 
+2023-11-19 09:27:07,971 INFO Iter: [49900/50000] l1: 0.043732 ae: 0.086661 wgan_g: -195.194214 wgan_d: -15.933300 wgan_gp: 0.295541 g: -0.038722 d: -12.977886 speed: 0.55 batches/s 
+2023-11-19 09:30:13,742 INFO Iter: [50000/50000] l1: 0.045359 ae: 0.087621 wgan_g: -52.177116 wgan_d: -14.221529 wgan_gp: 0.247837 g: 0.107399 d: -11.743155 speed: 0.54 batches/s 
+##########################################
+Total Time = 161255.35552287102
