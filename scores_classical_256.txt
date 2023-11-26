@@ -1,0 +1,12 @@
+Average MSE score for Telea's algorithm:  821.7276994581906
+Average MSE score for Navier-Stokes algorithm:  810.4734087356
+Average L1 score for Telea's algorithm:  9.657294976642826
+Average L1 score for Navier-Stokes algorithm:  9.68056970456062
+Average PSNR score for Telea's algorithm:  19.605808
+Average PSNR score for Navier-Stokes algorithm:  19.627659
+Average FID score for Telea's algorithm:  146.2994165328259
+Average FID score for Navier-Stokes algorithm:  136.91560643467
+Average LPIPS score for Telea's algorithm:  0.16811691224575043
+Average LPIPS score for Navier-Stokes algorithm:  0.1646336317062378
+Average TV score for Telea's algorithm:  7.9683685302734375
+Average TV score for Navier-Stokes algorithm:  8.145347595214844
