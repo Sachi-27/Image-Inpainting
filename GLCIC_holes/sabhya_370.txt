@@ -1,0 +1,297 @@
+2023-11-19 23:28:01,930 INFO Arguments: Namespace(config='configs/config.yaml', seed=None)
+2023-11-19 23:28:01,930 INFO Random seed: 7172
+2023-11-19 23:28:01,931 INFO Configuration: {'dataset_name': 'animals', 'data_with_subfolder': False, 'train_data_path': '../animals_train', 'val_data_path': '../animals_test', 'resume': 370, 'batch_size': 32, 'image_shape': [256, 256, 3], 'mask_shape': [128, 128], 'mask_batch_same': True, 'max_delta_shape': [32, 32], 'margin': [0, 0], 'discounted_mask': True, 'spatial_discounting_gamma': 0.9, 'random_crop': False, 'mask_type': 'hole', 'mosaic_unit_size': 12, 'expname': 'benchmark', 'cuda': True, 'gpu_ids': [0, 1, 2, 3], 'num_workers': 4, 'lr': 0.0001, 'beta1': 0.5, 'beta2': 0.9, 'n_critic': 1, 'niter': 500, 'print_iter': 1, 'viz_iter': 10, 'viz_max_out': 12, 'snapshot_save_iter': 10, 'coarse_l1_alpha': 1.2, 'l1_loss_alpha': 1.2, 'ae_loss_alpha': 1.2, 'global_wgan_loss_alpha': 1.0, 'gan_loss_alpha': 0.001, 'wgan_gp_lambda': 10, 'netG': {'input_dim': 3, 'ngf': 32}, 'netD': {'input_dim': 3, 'ndf': 64}}
+2023-11-19 23:28:01,931 INFO Training on dataset: animals
+###################################################
+###################################################
+2023-11-19 23:28:05,974 INFO 
+Generator_primitive(
+  (coarse_generator): CoarseGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (conv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (fine_generator): CoarseGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (conv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+)
+2023-11-19 23:28:05,974 INFO 
+LocalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=16384, out_features=1, bias=True)
+)
+2023-11-19 23:28:05,974 INFO 
+GlobalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=65536, out_features=1, bias=True)
+)
+Resume from checkpoints/animals/hole_benchmark at iteration 370
+2023-11-19 23:28:06,077 INFO Resume from checkpoints/animals/hole_benchmark at iteration 370
+###################################################
+2023-11-19 23:31:23,655 INFO Iter: [370/500] l1: 0.045437 ae: 0.060924 wgan_g: -71827624.000000 wgan_d: -25.454739 wgan_gp: 2976.936279 g: -71827.500000 d: 29743.906250 speed: 0.01 batches/s 
+2023-11-19 23:34:51,179 INFO Iter: [371/500] l1: 0.045375 ae: 0.061052 wgan_g: -72729920.000000 wgan_d: -33.675716 wgan_gp: 3008.762451 g: -72729.804688 d: 30053.949219 speed: 0.00 batches/s 
+2023-11-19 23:38:15,908 INFO Iter: [372/500] l1: 0.045783 ae: 0.060917 wgan_g: -73645368.000000 wgan_d: -33.173233 wgan_gp: 3038.281250 g: -73645.242188 d: 30349.634766 speed: 0.00 batches/s 
+2023-11-19 23:41:41,304 INFO Iter: [373/500] l1: 0.044773 ae: 0.060917 wgan_g: -74592056.000000 wgan_d: -24.953121 wgan_gp: 3200.088623 g: -74591.937500 d: 31975.931641 speed: 0.00 batches/s 
+2023-11-19 23:45:06,423 INFO Iter: [374/500] l1: 0.045053 ae: 0.060910 wgan_g: -75546248.000000 wgan_d: -22.559813 wgan_gp: 3133.164551 g: -75546.117188 d: 31309.087891 speed: 0.00 batches/s 
+2023-11-19 23:48:32,797 INFO Iter: [375/500] l1: 0.045258 ae: 0.060695 wgan_g: -76433856.000000 wgan_d: -36.839897 wgan_gp: 3142.153564 g: -76433.734375 d: 31384.697266 speed: 0.00 batches/s 
+2023-11-19 23:51:58,808 INFO Iter: [376/500] l1: 0.044916 ae: 0.060852 wgan_g: -76988320.000000 wgan_d: -32.436043 wgan_gp: 3177.854736 g: -76988.195312 d: 31746.109375 speed: 0.00 batches/s 
+2023-11-19 23:55:24,642 INFO Iter: [377/500] l1: 0.045457 ae: 0.061062 wgan_g: -77889008.000000 wgan_d: -22.160749 wgan_gp: 3222.673096 g: -77888.890625 d: 32204.568359 speed: 0.00 batches/s 
+2023-11-19 23:58:50,976 INFO Iter: [378/500] l1: 0.045808 ae: 0.060817 wgan_g: -78682376.000000 wgan_d: -33.848587 wgan_gp: 3217.025635 g: -78682.250000 d: 32136.412109 speed: 0.00 batches/s 
+2023-11-20 00:02:16,700 INFO Iter: [379/500] l1: 0.045402 ae: 0.060705 wgan_g: -80024576.000000 wgan_d: -36.628769 wgan_gp: 3347.423096 g: -80024.453125 d: 33437.601562 speed: 0.00 batches/s 
+2023-11-20 00:05:42,085 INFO Iter: [380/500] l1: 0.045009 ae: 0.060813 wgan_g: -80587384.000000 wgan_d: -27.088221 wgan_gp: 3402.014160 g: -80587.273438 d: 33993.050781 speed: 0.00 batches/s 
+2023-11-20 00:08:49,548 INFO Iter: [381/500] l1: 0.045451 ae: 0.060855 wgan_g: -79237744.000000 wgan_d: -30.037539 wgan_gp: 3435.896729 g: -79237.617188 d: 34328.929688 speed: 0.01 batches/s 
+2023-11-20 00:11:58,463 INFO Iter: [382/500] l1: 0.045109 ae: 0.061037 wgan_g: -82040424.000000 wgan_d: -35.873924 wgan_gp: 3447.550293 g: -82040.312500 d: 34439.632812 speed: 0.01 batches/s 
+2023-11-20 00:15:08,478 INFO Iter: [383/500] l1: 0.045682 ae: 0.061035 wgan_g: -83631400.000000 wgan_d: -39.375446 wgan_gp: 3466.531494 g: -83631.281250 d: 34625.937500 speed: 0.01 batches/s 
+2023-11-20 00:18:17,300 INFO Iter: [384/500] l1: 0.046305 ae: 0.060992 wgan_g: -84549704.000000 wgan_d: -35.247726 wgan_gp: 3551.291504 g: -84549.570312 d: 35477.664062 speed: 0.01 batches/s 
+2023-11-20 00:21:28,767 INFO Iter: [385/500] l1: 0.045330 ae: 0.061101 wgan_g: -85248136.000000 wgan_d: -37.767132 wgan_gp: 3513.789062 g: -85248.000000 d: 35100.128906 speed: 0.01 batches/s 
+2023-11-20 00:24:37,007 INFO Iter: [386/500] l1: 0.045832 ae: 0.060886 wgan_g: -85994592.000000 wgan_d: -30.281492 wgan_gp: 3685.663330 g: -85994.476562 d: 36826.347656 speed: 0.01 batches/s 
+2023-11-20 00:29:40,303 INFO Iter: [387/500] l1: 0.045448 ae: 0.060997 wgan_g: -87031360.000000 wgan_d: -27.727596 wgan_gp: 3551.647461 g: -87031.242188 d: 35488.750000 speed: 0.00 batches/s 
+2023-11-20 00:35:29,159 INFO Iter: [388/500] l1: 0.045467 ae: 0.060539 wgan_g: -87966368.000000 wgan_d: -39.534370 wgan_gp: 3683.614502 g: -87966.242188 d: 36796.605469 speed: 0.00 batches/s 
+2023-11-20 00:41:24,486 INFO Iter: [389/500] l1: 0.046060 ae: 0.060379 wgan_g: -87913592.000000 wgan_d: -30.151714 wgan_gp: 3711.587402 g: -87913.468750 d: 37085.730469 speed: 0.00 batches/s 
+2023-11-20 00:47:26,157 INFO Iter: [390/500] l1: 0.045123 ae: 0.060730 wgan_g: -88689432.000000 wgan_d: -28.131880 wgan_gp: 3639.596680 g: -88689.312500 d: 36367.839844 speed: 0.00 batches/s 
+2023-11-20 00:54:02,053 INFO Iter: [391/500] l1: 0.045871 ae: 0.060596 wgan_g: -86583288.000000 wgan_d: -32.019371 wgan_gp: 3839.397461 g: -86583.164062 d: 38361.953125 speed: 0.00 batches/s 
+2023-11-20 01:00:29,291 INFO Iter: [392/500] l1: 0.045895 ae: 0.060897 wgan_g: -87628176.000000 wgan_d: -25.732294 wgan_gp: 3687.328613 g: -87628.054688 d: 36847.550781 speed: 0.00 batches/s 
+2023-11-20 01:06:10,233 INFO Iter: [393/500] l1: 0.045780 ae: 0.060722 wgan_g: -91810720.000000 wgan_d: -39.700169 wgan_gp: 3936.895508 g: -91810.578125 d: 39329.257812 speed: 0.00 batches/s 
+2023-11-20 01:11:39,334 INFO Iter: [394/500] l1: 0.045020 ae: 0.061008 wgan_g: -90914976.000000 wgan_d: -29.321665 wgan_gp: 3614.094727 g: -90914.867188 d: 36111.625000 speed: 0.00 batches/s 
+2023-11-20 01:17:10,534 INFO Iter: [395/500] l1: 0.045899 ae: 0.060558 wgan_g: -94636128.000000 wgan_d: -32.006424 wgan_gp: 4052.755127 g: -94636.007812 d: 40495.542969 speed: 0.00 batches/s 
+2023-11-20 01:22:59,359 INFO Iter: [396/500] l1: 0.045710 ae: 0.060220 wgan_g: -96535192.000000 wgan_d: -34.877342 wgan_gp: 4033.555664 g: -96535.070312 d: 40300.683594 speed: 0.00 batches/s 
+2023-11-20 01:29:14,625 INFO Iter: [397/500] l1: 0.045690 ae: 0.060608 wgan_g: -96399456.000000 wgan_d: -29.000797 wgan_gp: 4135.208984 g: -96399.328125 d: 41323.089844 speed: 0.00 batches/s 
+2023-11-20 01:35:30,101 INFO Iter: [398/500] l1: 0.045624 ae: 0.060562 wgan_g: -92557624.000000 wgan_d: -39.409039 wgan_gp: 3897.329346 g: -92557.500000 d: 38933.878906 speed: 0.00 batches/s 
+2023-11-20 01:41:04,305 INFO Iter: [399/500] l1: 0.045233 ae: 0.060494 wgan_g: -95703568.000000 wgan_d: -32.803951 wgan_gp: 4126.174805 g: -95703.445312 d: 41228.941406 speed: 0.00 batches/s 
+2023-11-20 01:46:57,572 INFO Iter: [400/500] l1: 0.045648 ae: 0.060525 wgan_g: -100506824.000000 wgan_d: -38.914474 wgan_gp: 4216.221680 g: -100506.695312 d: 42123.304688 speed: 0.00 batches/s 
+2023-11-20 01:52:56,668 INFO Iter: [401/500] l1: 0.044674 ae: 0.060836 wgan_g: -101905800.000000 wgan_d: -39.931538 wgan_gp: 4395.962891 g: -101905.687500 d: 43919.699219 speed: 0.00 batches/s 
+2023-11-20 01:58:26,943 INFO Iter: [402/500] l1: 0.045779 ae: 0.060726 wgan_g: -103040928.000000 wgan_d: -39.241474 wgan_gp: 4349.069336 g: -103040.796875 d: 43451.453125 speed: 0.00 batches/s 
+2023-11-20 02:03:56,928 INFO Iter: [403/500] l1: 0.046112 ae: 0.060911 wgan_g: -103733984.000000 wgan_d: -24.441818 wgan_gp: 4417.499023 g: -103733.867188 d: 44150.554688 speed: 0.00 batches/s 
+2023-11-20 02:09:43,478 INFO Iter: [404/500] l1: 0.045754 ae: 0.060871 wgan_g: -104984520.000000 wgan_d: -35.745888 wgan_gp: 4429.395996 g: -104984.398438 d: 44258.214844 speed: 0.00 batches/s 
+2023-11-20 02:15:17,780 INFO Iter: [405/500] l1: 0.044767 ae: 0.060750 wgan_g: -105416304.000000 wgan_d: -42.209579 wgan_gp: 4407.356934 g: -105416.203125 d: 44031.359375 speed: 0.00 batches/s 
+2023-11-20 02:21:01,877 INFO Iter: [406/500] l1: 0.045248 ae: 0.061077 wgan_g: -107256880.000000 wgan_d: -35.852303 wgan_gp: 4617.453125 g: -107256.750000 d: 46138.679688 speed: 0.00 batches/s 
+2023-11-20 02:27:01,304 INFO Iter: [407/500] l1: 0.046938 ae: 0.060380 wgan_g: -98862968.000000 wgan_d: -28.442204 wgan_gp: 4812.702637 g: -98862.835938 d: 48098.578125 speed: 0.00 batches/s 
+2023-11-20 02:32:38,269 INFO Iter: [408/500] l1: 0.045606 ae: 0.060239 wgan_g: -90602024.000000 wgan_d: -34.336433 wgan_gp: 3911.932373 g: -90601.898438 d: 39084.988281 speed: 0.00 batches/s 
+2023-11-20 02:38:01,947 INFO Iter: [409/500] l1: 0.045584 ae: 0.059853 wgan_g: -94999528.000000 wgan_d: -35.093983 wgan_gp: 4257.047363 g: -94999.406250 d: 42535.386719 speed: 0.00 batches/s 
+2023-11-20 02:43:31,941 INFO Iter: [410/500] l1: 0.045543 ae: 0.060498 wgan_g: -106100808.000000 wgan_d: -39.626293 wgan_gp: 4464.028320 g: -106100.703125 d: 44600.652344 speed: 0.00 batches/s 
+2023-11-20 02:49:08,334 INFO Iter: [411/500] l1: 0.045139 ae: 0.060307 wgan_g: -106025264.000000 wgan_d: -32.194344 wgan_gp: 4356.266113 g: -106025.132812 d: 43530.472656 speed: 0.00 batches/s 
+2023-11-20 02:54:52,889 INFO Iter: [412/500] l1: 0.045334 ae: 0.060162 wgan_g: -107492808.000000 wgan_d: -38.031876 wgan_gp: 4502.376465 g: -107492.671875 d: 44985.734375 speed: 0.00 batches/s 
+2023-11-20 03:00:43,180 INFO Iter: [413/500] l1: 0.045965 ae: 0.060273 wgan_g: -112330424.000000 wgan_d: -34.997833 wgan_gp: 4739.455078 g: -112330.312500 d: 47359.546875 speed: 0.00 batches/s 
+2023-11-20 03:06:50,343 INFO Iter: [414/500] l1: 0.045778 ae: 0.060163 wgan_g: -110765440.000000 wgan_d: -32.500145 wgan_gp: 4596.299805 g: -110765.312500 d: 45930.496094 speed: 0.00 batches/s 
+2023-11-20 03:12:46,986 INFO Iter: [415/500] l1: 0.046078 ae: 0.060189 wgan_g: -112487432.000000 wgan_d: -35.340298 wgan_gp: 4636.110840 g: -112487.304688 d: 46325.765625 speed: 0.00 batches/s 
+2023-11-20 03:18:32,069 INFO Iter: [416/500] l1: 0.045127 ae: 0.060150 wgan_g: -113945832.000000 wgan_d: -43.396694 wgan_gp: 4923.058105 g: -113945.718750 d: 49187.183594 speed: 0.00 batches/s 
+2023-11-20 03:24:38,392 INFO Iter: [417/500] l1: 0.045414 ae: 0.060585 wgan_g: -108386888.000000 wgan_d: -35.555836 wgan_gp: 4494.280273 g: -108386.773438 d: 44907.250000 speed: 0.00 batches/s 
+2023-11-20 03:30:50,047 INFO Iter: [418/500] l1: 0.045314 ae: 0.060357 wgan_g: -114113104.000000 wgan_d: -34.650524 wgan_gp: 4668.741211 g: -114112.968750 d: 46652.761719 speed: 0.00 batches/s 
+2023-11-20 03:36:46,813 INFO Iter: [419/500] l1: 0.045618 ae: 0.059870 wgan_g: -117052888.000000 wgan_d: -32.769604 wgan_gp: 5019.084961 g: -117052.750000 d: 50158.082031 speed: 0.00 batches/s 
+2023-11-20 03:42:44,886 INFO Iter: [420/500] l1: 0.045427 ae: 0.060323 wgan_g: -119534912.000000 wgan_d: -37.261051 wgan_gp: 5099.043457 g: -119534.789062 d: 50953.175781 speed: 0.00 batches/s 
+2023-11-20 03:48:38,966 INFO Iter: [421/500] l1: 0.045733 ae: 0.060327 wgan_g: -121026680.000000 wgan_d: -42.566013 wgan_gp: 5093.292480 g: -121026.554688 d: 50890.359375 speed: 0.00 batches/s 
+2023-11-20 03:54:29,397 INFO Iter: [422/500] l1: 0.046108 ae: 0.061378 wgan_g: -121360912.000000 wgan_d: -42.501671 wgan_gp: 5135.643066 g: -121360.773438 d: 51313.925781 speed: 0.00 batches/s 
+2023-11-20 04:00:18,069 INFO Iter: [423/500] l1: 0.045835 ae: 0.060506 wgan_g: -111617504.000000 wgan_d: -30.431383 wgan_gp: 5339.907227 g: -111617.390625 d: 53368.640625 speed: 0.00 batches/s 
+2023-11-20 04:06:00,817 INFO Iter: [424/500] l1: 0.045840 ae: 0.060277 wgan_g: -103589800.000000 wgan_d: -42.335270 wgan_gp: 4408.864746 g: -103589.679688 d: 44046.316406 speed: 0.00 batches/s 
+2023-11-20 04:11:22,380 INFO Iter: [425/500] l1: 0.046369 ae: 0.060232 wgan_g: -106972176.000000 wgan_d: -37.065777 wgan_gp: 5015.906250 g: -106972.054688 d: 50121.996094 speed: 0.00 batches/s 
+2023-11-20 04:17:24,273 INFO Iter: [426/500] l1: 0.045744 ae: 0.060560 wgan_g: -105430328.000000 wgan_d: -30.196981 wgan_gp: 4970.496094 g: -105430.203125 d: 49674.765625 speed: 0.00 batches/s 
+2023-11-20 04:22:58,769 INFO Iter: [427/500] l1: 0.044907 ae: 0.060607 wgan_g: -133782704.000000 wgan_d: -45.497337 wgan_gp: 6333.804199 g: -133782.578125 d: 63292.542969 speed: 0.00 batches/s 
+2023-11-20 04:28:40,353 INFO Iter: [428/500] l1: 0.045739 ae: 0.060354 wgan_g: -135473952.000000 wgan_d: -42.483524 wgan_gp: 6016.808105 g: -135473.828125 d: 60125.593750 speed: 0.00 batches/s 
+2023-11-20 04:34:14,733 INFO Iter: [429/500] l1: 0.044910 ae: 0.060340 wgan_g: -130752008.000000 wgan_d: -43.172585 wgan_gp: 5461.271973 g: -130751.867188 d: 54569.546875 speed: 0.00 batches/s 
+2023-11-20 04:37:42,348 ERROR CUDA out of memory. Tried to allocate 288.00 MiB (GPU 2; 47.54 GiB total capacity; 5.93 GiB already allocated; 290.75 MiB free; 6.27 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF

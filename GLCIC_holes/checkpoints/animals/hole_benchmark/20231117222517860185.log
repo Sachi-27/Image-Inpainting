@@ -1,0 +1,288 @@
+2023-11-17 22:25:17,860 INFO Arguments: Namespace(config='configs/config.yaml', seed=None)
+2023-11-17 22:25:17,860 INFO Random seed: 5872
+2023-11-17 22:25:17,861 INFO Configuration: {'dataset_name': 'animals', 'data_with_subfolder': False, 'train_data_path': '../animals_train', 'val_data_path': '../animals_test', 'resume': 10, 'batch_size': 32, 'image_shape': [256, 256, 3], 'mask_shape': [128, 128], 'mask_batch_same': True, 'max_delta_shape': [32, 32], 'margin': [0, 0], 'discounted_mask': True, 'spatial_discounting_gamma': 0.9, 'random_crop': False, 'mask_type': 'hole', 'mosaic_unit_size': 12, 'expname': 'benchmark', 'cuda': True, 'gpu_ids': [0, 1, 2, 3], 'num_workers': 4, 'lr': 0.0001, 'beta1': 0.5, 'beta2': 0.9, 'n_critic': 1, 'niter': 300, 'print_iter': 1, 'viz_iter': 10, 'viz_max_out': 12, 'snapshot_save_iter': 10, 'coarse_l1_alpha': 1.2, 'l1_loss_alpha': 1.2, 'ae_loss_alpha': 1.2, 'global_wgan_loss_alpha': 1.0, 'gan_loss_alpha': 0.001, 'wgan_gp_lambda': 10, 'netG': {'input_dim': 3, 'ngf': 32}, 'netD': {'input_dim': 3, 'ndf': 64}}
+2023-11-17 22:25:17,862 INFO Training on dataset: animals
+2023-11-17 22:25:22,289 INFO 
+Generator_primitive(
+  (coarse_generator): CoarseGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (conv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+  (fine_generator): CoarseGenerator(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(5, 32, kernel_size=(5, 5), stride=(1, 1), padding=(2, 2))
+    )
+    (conv2_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 64, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv4_downsample): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), padding=(1, 1))
+    )
+    (conv5): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv6): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv7_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(2, 2), dilation=(2, 2))
+    )
+    (conv8_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(4, 4), dilation=(4, 4))
+    )
+    (conv9_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(8, 8), dilation=(8, 8))
+    )
+    (conv10_atrous): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(16, 16), dilation=(16, 16))
+    )
+    (conv11): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv12): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv13): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(128, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv14): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv15): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(64, 32, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv16): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): ELU(alpha=1.0, inplace=True)
+      (conv): Conv2d(32, 16, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+    (conv17): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (conv): Conv2d(16, 3, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1))
+    )
+  )
+)
+2023-11-17 22:25:22,290 INFO 
+LocalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=16384, out_features=1, bias=True)
+)
+2023-11-17 22:25:22,290 INFO 
+GlobalDis(
+  (dis_conv_module): DisConvModule(
+    (conv1): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(3, 64, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv2): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(64, 128, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv3): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(128, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+    (conv4): Conv2dBlock(
+      (pad): ZeroPad2d(padding=(0, 0, 0, 0), value=0.0)
+      (activation): LeakyReLU(negative_slope=0.2, inplace=True)
+      (conv): Conv2d(256, 256, kernel_size=(5, 5), stride=(2, 2), padding=(2, 2))
+    )
+  )
+  (linear): Linear(in_features=65536, out_features=1, bias=True)
+)
+2023-11-17 22:25:22,424 INFO Resume from checkpoints/animals/hole_benchmark at iteration 10
+2023-11-17 22:33:00,039 INFO Iter: [10/300] l1: 0.064391 ae: 0.197153 wgan_g: -86.065147 wgan_d: -12.043463 wgan_gp: 0.260181 g: 0.227788 d: -9.441648 speed: 0.00 batches/s 
+2023-11-17 22:41:25,273 INFO Iter: [11/300] l1: 0.062131 ae: 0.190628 wgan_g: -66.019363 wgan_d: -11.000315 wgan_gp: 0.167872 g: 0.237291 d: -9.321594 speed: 0.00 batches/s 
+2023-11-17 22:54:12,195 INFO Iter: [12/300] l1: 0.063631 ae: 0.187212 wgan_g: -74.387543 wgan_d: -10.360716 wgan_gp: 0.186258 g: 0.226623 d: -8.498132 speed: 0.00 batches/s 
+2023-11-17 23:07:43,024 INFO Iter: [13/300] l1: 0.062222 ae: 0.182974 wgan_g: -66.365784 wgan_d: -11.578469 wgan_gp: 0.171255 g: 0.227869 d: -9.865917 speed: 0.00 batches/s 
+2023-11-17 23:21:16,118 INFO Iter: [14/300] l1: 0.061059 ae: 0.179594 wgan_g: -61.042465 wgan_d: -10.873594 wgan_gp: 0.170330 g: 0.227742 d: -9.170296 speed: 0.00 batches/s 
+2023-11-17 23:34:53,198 INFO Iter: [15/300] l1: 0.060659 ae: 0.176817 wgan_g: -57.868484 wgan_d: -10.168650 wgan_gp: 0.152450 g: 0.227102 d: -8.644154 speed: 0.00 batches/s 
+2023-11-17 23:49:02,455 INFO Iter: [16/300] l1: 0.060671 ae: 0.173186 wgan_g: -66.892212 wgan_d: -9.989924 wgan_gp: 0.147151 g: 0.213737 d: -8.518416 speed: 0.00 batches/s 
+2023-11-18 00:03:15,708 INFO Iter: [17/300] l1: 0.059272 ae: 0.170039 wgan_g: -76.050163 wgan_d: -9.433854 wgan_gp: 0.135276 g: 0.199122 d: -8.081091 speed: 0.00 batches/s 
+2023-11-18 00:17:22,777 INFO Iter: [18/300] l1: 0.058262 ae: 0.167827 wgan_g: -84.761040 wgan_d: -7.818955 wgan_gp: 0.113751 g: 0.186545 d: -6.681443 speed: 0.00 batches/s 
+2023-11-18 00:31:38,679 INFO Iter: [19/300] l1: 0.058217 ae: 0.162799 wgan_g: -100.967728 wgan_d: -6.999879 wgan_gp: 0.110955 g: 0.164252 d: -5.890330 speed: 0.00 batches/s 
+2023-11-18 00:45:45,993 INFO Iter: [20/300] l1: 0.057977 ae: 0.154892 wgan_g: -104.586319 wgan_d: -6.793540 wgan_gp: 0.116854 g: 0.150856 d: -5.625000 speed: 0.00 batches/s 
+2023-11-18 00:59:43,068 INFO Iter: [21/300] l1: 0.057305 ae: 0.151108 wgan_g: -89.543610 wgan_d: -7.517828 wgan_gp: 0.109516 g: 0.160553 d: -6.422672 speed: 0.00 batches/s 
+2023-11-18 01:13:36,038 INFO Iter: [22/300] l1: 0.058006 ae: 0.147598 wgan_g: -98.470291 wgan_d: -7.108760 wgan_gp: 0.105930 g: 0.148255 d: -6.049461 speed: 0.00 batches/s 
+2023-11-18 01:27:18,638 INFO Iter: [23/300] l1: 0.057292 ae: 0.145283 wgan_g: -111.381966 wgan_d: -6.372305 wgan_gp: 0.100194 g: 0.131709 d: -5.370362 speed: 0.00 batches/s 
+2023-11-18 01:40:46,716 INFO Iter: [24/300] l1: 0.056774 ae: 0.143638 wgan_g: -117.785210 wgan_d: -5.811644 wgan_gp: 0.101990 g: 0.122709 d: -4.791742 speed: 0.00 batches/s 
+2023-11-18 01:50:37,570 INFO Iter: [25/300] l1: 0.055793 ae: 0.141956 wgan_g: -114.953568 wgan_d: -6.310166 wgan_gp: 0.094590 g: 0.122346 d: -5.364262 speed: 0.00 batches/s 
+2023-11-18 02:00:13,398 INFO Iter: [26/300] l1: 0.055936 ae: 0.139774 wgan_g: -116.986267 wgan_d: -6.626652 wgan_gp: 0.099870 g: 0.117865 d: -5.627948 speed: 0.00 batches/s 
+2023-11-18 02:09:51,628 INFO Iter: [27/300] l1: 0.056617 ae: 0.137520 wgan_g: -111.190376 wgan_d: -5.953282 wgan_gp: 0.099216 g: 0.121774 d: -4.961121 speed: 0.00 batches/s 
+2023-11-18 02:19:38,768 INFO Iter: [28/300] l1: 0.055283 ae: 0.135121 wgan_g: -107.217979 wgan_d: -6.029353 wgan_gp: 0.085483 g: 0.121266 d: -5.174520 speed: 0.00 batches/s 
+2023-11-18 02:33:06,775 INFO Iter: [29/300] l1: 0.055261 ae: 0.130817 wgan_g: -109.506401 wgan_d: -5.144267 wgan_gp: 0.070822 g: 0.113788 d: -4.436050 speed: 0.00 batches/s 
+2023-11-18 02:46:35,597 INFO Iter: [30/300] l1: 0.054917 ae: 0.127095 wgan_g: -108.039116 wgan_d: -4.811045 wgan_gp: 0.063162 g: 0.110376 d: -4.179426 speed: 0.00 batches/s 
+2023-11-18 03:00:23,534 INFO Iter: [31/300] l1: 0.055162 ae: 0.123721 wgan_g: -111.328941 wgan_d: -5.201013 wgan_gp: 0.073571 g: 0.103330 d: -4.465307 speed: 0.00 batches/s 
+2023-11-18 03:14:10,636 INFO Iter: [32/300] l1: 0.054621 ae: 0.121706 wgan_g: -110.562775 wgan_d: -4.760120 wgan_gp: 0.062193 g: 0.101031 d: -4.138194 speed: 0.00 batches/s 
+2023-11-18 03:27:42,004 INFO Iter: [33/300] l1: 0.055118 ae: 0.119875 wgan_g: -121.976402 wgan_d: -4.569238 wgan_gp: 0.061148 g: 0.088016 d: -3.957754 speed: 0.00 batches/s 
+2023-11-18 03:41:12,066 INFO Iter: [34/300] l1: 0.053782 ae: 0.118127 wgan_g: -121.590439 wgan_d: -4.975504 wgan_gp: 0.070285 g: 0.084700 d: -4.272650 speed: 0.00 batches/s 
+2023-11-18 03:54:42,531 INFO Iter: [35/300] l1: 0.054258 ae: 0.116347 wgan_g: -119.731224 wgan_d: -4.705871 wgan_gp: 0.071182 g: 0.084995 d: -3.994054 speed: 0.00 batches/s 
+2023-11-18 03:57:59,386 ERROR Caught RuntimeError in replica 1 on device 1.
+Original Traceback (most recent call last):
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/parallel/parallel_apply.py", line 61, in _worker
+    output = module(*input, **kwargs)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/users/ug21/nikbiradar/Image-Inpainting/sabhya/trainer.py", line 77, in forward
+    global_real_pred, global_fake_pred = self.dis_forward(
+  File "/users/ug21/nikbiradar/Image-Inpainting/sabhya/trainer.py", line 88, in dis_forward
+    batch_output = netD(batch_data)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/users/ug21/nikbiradar/Image-Inpainting/sabhya/model/networks.py", line 437, in forward
+    x = self.dis_conv_module(x)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/users/ug21/nikbiradar/Image-Inpainting/sabhya/model/networks.py", line 459, in forward
+    x = self.conv4(x)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/users/ug21/nikbiradar/Image-Inpainting/sabhya/model/networks.py", line 552, in forward
+    x = self.conv(self.pad(x))
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/module.py", line 1102, in _call_impl
+    return forward_call(*input, **kwargs)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/modules/padding.py", line 23, in forward
+    return F.pad(input, self.padding, 'constant', self.value)
+  File "/users/ug21/nikbiradar/.local/lib/python3.9/site-packages/torch/nn/functional.py", line 4174, in _pad
+    return _VF.constant_pad_nd(input, pad, value)
+RuntimeError: CUDA out of memory. Tried to allocate 16.00 MiB (GPU 1; 47.54 GiB total capacity; 6.38 GiB already allocated; 18.75 MiB free; 6.42 GiB reserved in total by PyTorch) If reserved memory is >> allocated memory try setting max_split_size_mb to avoid fragmentation.  See documentation for Memory Management and PYTORCH_CUDA_ALLOC_CONF
+
