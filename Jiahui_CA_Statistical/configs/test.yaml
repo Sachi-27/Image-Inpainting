@@ -18,7 +18,7 @@ mosaic_unit_size: 12
 
 # training parameters
 expname: benchmark
-cuda: True
+cuda: False
 gpu_ids: [4]    # set the GPU ids to use, e.g. [0] or [1, 2]
 num_workers: 4
 lr: 0.0001
@@ -48,8 +48,6 @@ netD:
   ndf: 64
 
 # test losses
-compute_loss: True
-test_losses: [mse]
 test_in_dir: ../animals_test
 test_img_save: False
-test_out_dir: animals_test_out
+test_out_dir: animals_test_imgnet_out

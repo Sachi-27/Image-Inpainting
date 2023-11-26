@@ -8,7 +8,7 @@ import torch.backends.cudnn as cudnn
 import torchvision.transforms as transforms
 import torchvision.utils as vutils
 
-from model.networks import Generator
+from model.networks import Generator_primitive as Generator
 from utils.tools import get_config, random_bbox, mask_image, is_image_file, default_loader, normalize, get_model_list
 
 from data.dataset import Dataset
@@ -79,14 +79,14 @@ def main():
                 netG = Generator(config['netG'], cuda, device_ids)
                 # Resume weight
                 last_model_name = get_model_list(checkpoint_path, "gen", iteration=args.iter)
-                netG.load_state_dict(torch.load(last_model_name, map_location=torch.device('cpu')))
+                netG.load_state_dict(torch.load(last_model_name,  map_location=torch.device('cpu')))
                 model_iteration = int(last_model_name[-11:-3])
                 print("Resume from {} at iteration {}".format(checkpoint_path, model_iteration))
 
                 iterable_test_loader = iter(test_loader)
                 batch_num = 0
 
-                
+
                 k = 0
                 while True:
                     try:
@@ -97,6 +97,7 @@ def main():
                     # Prepare the inputs
                     bboxes = random_bbox(config, batch_size=ground_truth.size(0))
                     x, mask = mask_image(ground_truth, bboxes, config)
+                    mask2 = torch.zeros_like(mask)
                     
                     # if cuda:
                     #     netG = nn.parallel.DataParallel(netG, device_ids=device_ids)
@@ -106,39 +107,40 @@ def main():
                     #     ground_truth = ground_truth.cuda()
 
                     # Inference
-                    x1, x2, offset_flow = netG(x, mask)
+                    x1, x2 = netG(x, mask, mask2)
                     inpainted_result = x2 * mask + x * (1. - mask)
 
                     for i in range(ground_truth.shape[0]):
                         # viz_max_out = config['viz_max_out']
-                        # if config['test_img_save']:
-                        #     viz_images = torch.stack([ground_truth[i:i+1], x[i:i+1], inpainted_result[i:i+1]], dim=1)
-                
-                        #     viz_images = viz_images.view(-1, *list(x.size())[1:])
-                        #     vutils.save_image(viz_images,
-                        #                 '%s/niter_%03d_%03d.png' % (config['test_out_dir'], batch_num,i),
-                        #                 nrow=3 * 4,
-                        #                 normalize=True)
-                        
-                        vutils.save_image(ground_truth[i],
-                                    f'{config["test_out_dir"]}/{k}_orig.png',
-                                    nrow=1 * 1,
-                                    normalize=True)
-                        vutils.save_image(x[i],
-                                    f'{config["test_out_dir"]}/{k}_mask.png',
-                                    nrow=1 * 1,
-                                    normalize=True)
-                        vutils.save_image(inpainted_result[i],
-                                    f'{config["test_out_dir"]}/{k}_recon.png',
-                                    nrow=1 * 1,
-                                    normalize=True)
+                        if config['test_img_save']:
+                            # save images
 
-                        k+=1
-                        
+
+                            # viz_images = torch.stack([ground_truth[i:i+1], x[i:i+1], inpainted_result[i:i+1]], dim=1)
+                            
+                            # viz_images = viz_images.view(-1, *list(x.size())[1:])
+                            # vutils.save_image(viz_images,
+                                        # '%s/niter_%03d_%03d.png' % (config['test_out_dir'], batch_num,i),
+                                        # nrow=3 * 4,
+                                        # normalize=True)
+                            
+                            vutils.save_image(ground_truth[i],
+                                        f'{config["test_out_dir"]}/{k}_orig.png',
+                                        nrow=1 * 1,
+                                        normalize=True)
+                            vutils.save_image(x[i],
+                                        f'{config["test_out_dir"]}/{k}_mask.png',
+                                        nrow=1 * 1,
+                                        normalize=True)
+                            vutils.save_image(inpainted_result[i],
+                                        f'{config["test_out_dir"]}/{k}_recon.png',
+                                        nrow=1 * 1,
+                                        normalize=True)
+
+                            k+=1
 
                     batch_num += 1
-            
-                
+
 
             else:
                 raise TypeError("{} is not an image file.".format)
