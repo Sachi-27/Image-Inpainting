@@ -98,8 +98,8 @@ if __name__ == "__main__":
     save_path = "./outputs"
 
     # get scores
-    scores_telea = get_scores(dataset_path, save_path, (128, 128), loss_fns=[mse, l1, psnr, fid, lpips, tv], method="telea")
-    scores_ns = get_scores(dataset_path, save_path, (128, 128), loss_fns=[mse, l1, psnr, fid, lpips, tv], method="ns")
+    scores_telea = get_scores(dataset_path, save_path, (256, 256), loss_fns=[mse, l1, psnr, fid, lpips, tv], method="telea")
+    scores_ns = get_scores(dataset_path, save_path, (256, 256), loss_fns=[mse, l1, psnr, fid, lpips, tv], method="ns")
 
     # get the average score
     print("Average MSE score for Telea's algorithm: ", scores_telea[0])
