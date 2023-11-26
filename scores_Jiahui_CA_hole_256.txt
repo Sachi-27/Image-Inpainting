@@ -1,0 +1,6 @@
+Average MSE score for GLCIC_hole's algorithm: 659.447642065684
+Average L1 score for GLCIC_hole's algorithm: 8.453262874219153
+Average PSNR score for GLCIC_hole's algorithm: 20.65717887878418
+Average FID score for GLCIC_hole's algorithm: -2.845706385096283e+81
+Average LPIPS score for GLCIC_hole's algorithm: 0.1089392751455307
+Average TV score for GLCIC_hole's algorithm: 0.79669189453125
